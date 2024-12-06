@@ -3,6 +3,18 @@ import React from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
+import logo from "../../../public/image/logo.png";
+import { FaUserCircle } from "react-icons/fa";
+import { FaCartShopping } from "react-icons/fa6";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion"
+import { IoMenu } from "react-icons/io5";
+
+
 
 const transition = {
   type: "spring",
@@ -28,7 +40,7 @@ export const MenuItem = ({
     <div onMouseEnter={() => setActive(item)} className="relative ">
       <motion.p
         transition={{ duration: 0.3 }}
-        className="cursor-pointer text-black hover:opacity-[0.9] dark:text-white"
+        className="cursor-pointer text-white hover:opacity-[0.9] dark:text-white"
       >
         {item}
       </motion.p>
@@ -69,14 +81,40 @@ export const Menu = ({
 }) => {
   return (
     <>
-    <div>
-        logo
-    </div>
+   
     <nav
       onMouseLeave={() => setActive(null)} // resets the state
-      className="relative dark:bg-black bg-white shadow-input flex justify-center space-x-6 px-8 py-6"
+      className="relative md:text-sm lg:text-lg bg-black text-white  shadow-input flex justify-between px-8 py-5"
     >
+      <div>
+    <Link href="/">
+    <Image
+        src={logo}
+        width={100}
+        height={10}
+        alt='logo'
+      />
+    </Link>
+      </div>
+      <div className="hidden md:flex text-white space-x-6 mt-1">
       {children}
+      </div>
+      <div className="flex gap-3 mt-1">
+
+ <div className="md:hidden">
+ <Accordion type="single" collapsible>
+  <AccordionItem value="item-1">
+    <AccordionTrigger> <IoMenu className=" w-6 h-6"/> </AccordionTrigger>
+    <AccordionContent>
+    {children}
+    </AccordionContent>
+  </AccordionItem>
+</Accordion>
+ </div>
+   
+      <Link href="/"><FaUserCircle className=" w-6 h-6"/></Link>
+      <Link href="/"><FaCartShopping className=" w-6 h-6"/></Link>
+      </div>
     </nav>
     </>
   );

@@ -1,9 +1,12 @@
 import React from 'react';
 
+
 export default function Home() {
     return (
-        <div>
-home page ho
+        <div className='mt-96'>
+
+
+
         </div>
     );
 }
