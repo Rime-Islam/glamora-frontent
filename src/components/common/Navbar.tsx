@@ -7,7 +7,7 @@ import Link from "next/link";
 export function NavbarDemo() {
   return (
     <div className="relative w-full  flex items-center justify-center">
-      {/* <Navbar className="top-0 " /> */}
+      <Navbar className="top-0 " />
     
     </div>
   );
@@ -22,7 +22,8 @@ function Navbar({ className }: { className?: string }) {
       <Menu setActive={setActive}>
         <Link href="/"><MenuItem setActive={setActive} active={null} item="Home">
         </MenuItem></Link>
-        <Link href="/shop"> <MenuItem setActive={setActive} active={active} item="Shop">
+        {/* <Link href="/shop">  */}
+        <MenuItem setActive={setActive} active={active} item="Shop">
           <div className="  text-sm grid grid-cols-2 gap-10 p-4">
             <ProductItem
               title="Algochurn"
@@ -49,15 +50,18 @@ function Navbar({ className }: { className?: string }) {
               description="Respond to government RFPs, RFIs and RFQs 10x faster using AI"
             />
           </div>
-        </MenuItem></Link>
-        <Link href="/about"> <MenuItem setActive={setActive} active={active} item="About">
+        </MenuItem>
+        {/* </Link> */}
+        {/* <Link href="/about">  */}
+        <MenuItem setActive={setActive} active={active} item="About">
           <div className="flex flex-col space-y-4 text-sm">
             <HoveredLink href="/hobby">Hobby</HoveredLink>
             <HoveredLink href="/individual">Individual</HoveredLink>
             <HoveredLink href="/team">Team</HoveredLink>
             <HoveredLink href="/enterprise">Enterprise</HoveredLink>
           </div>
-        </MenuItem></Link>
+        </MenuItem>
+        {/* </Link> */}
         <Link href="/contact"><MenuItem setActive={setActive} active={null} item="Contact">
         </MenuItem></Link>
         <Link href="/vendor"> <MenuItem setActive={setActive} active={null} item="Become Vendor">
