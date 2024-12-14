@@ -74,7 +74,7 @@ export const setNewPass = async (passData: {
 
 export const resetPass = async (userEmail: { email: string }) => {
   try {
-    const { data } = await axiosInstance.post("/auth/reset", userEmail);
+    const { data } = await axiosInstance.post("/auth/forget-password", userEmail);
     return data;
   } catch (error: any) {
     if (error?.response?.data.message) {
