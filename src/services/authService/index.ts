@@ -9,7 +9,7 @@ export const loginUser = async (userData: {
   password: string;
 }) => {
   try {
-    const { data } = await axiosInstance.post(`/auth/user-login`, userData);
+    const { data } = await axiosInstance.post(`/auth/signin`, userData);
 
     // Set the token in a cookie
     (await cookies()).set("accessToken", data?.data?.token, {
@@ -27,7 +27,7 @@ export const loginUser = async (userData: {
 export const createUser = async (userData: any) => {
   try {
     const { data } = await axiosInstance.post(
-      `${config.backendApi}/user/create-user`,
+      `${config.backendApi}/user/signup`,
       userData
     );
 

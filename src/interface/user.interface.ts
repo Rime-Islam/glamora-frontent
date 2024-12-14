@@ -7,6 +7,14 @@ export interface IUser {
     vendor: IVendor | null;
     customer: ICustomer | null;
   }
+export interface ICreateUser {
+    name: string;
+    email: string;
+    address: string;
+    password: string;
+    mobile: number;
+    accountType: "CUSTOMER" | "VENDOR" | "ADMIN";
+  }
   
   export interface IVendor {
     vendorId: string;
