@@ -1,5 +1,5 @@
 "use client"
-import React from "react";
+import React, { useContext } from "react";
 import { cn } from "@/lib/utils";
 import {
   IconBrandGoogle
@@ -7,21 +7,46 @@ import {
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import Link from "next/link";
+import { toast } from "sonner";
+import { AuthContext } from "@/providers/AuthProvider";
+import { useRouter } from "next/navigation";
+import { useUserlogin } from "@/hooks/auth.hook";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { ICreateUser } from "@/interface/user.interface";
+
 
 
 const Signin = () => {
+  const authData = useContext(AuthContext);
+  const { register, handleSubmit, formState: { errors } } = useForm<ICreateUser>();
+  const router = useRouter();
+  const { mutate, isPending } = useUserlogin();
+
+  const onSubmit: SubmitHandler<ICreateUser>  = async (data: ICreateUser) => {
+    mutate(data, {
+      onSuccess: async () => {
+        router.push(`/`);
+
+        authData?.setIsLoading(true);
+        toast.success("Welcome Back.");
+      },
+      onError: (error: Error) => {
+        toast.error(error.message || "Something Went Wrong!! Try again.");
+      },
+    });
+  };
     return (
         <div className="max-w-lg border w-full mx-auto mt-[20vh] rounded-none md:rounded-2xl p-4 md:p-8 shadow-input bg-white dark:bg-black">
-      
-   
-        <form className="my-8" >
+        <form onSubmit={handleSubmit(onSubmit)} className="my-8" >
           <LabelInputContainer className="mb-4">
             <Label htmlFor="email">Email Address</Label>
-            <Input id="email" placeholder="projectmayhem@fc.com" type="email" />
+            <Input id="email" placeholder="projectmayhem@fc.com" type="email" {...register("email", { required: "Email is required" })}
+          required/>
           </LabelInputContainer>
           <LabelInputContainer className="mb-4">
             <Label htmlFor="password">Password</Label>
-            <Input id="password" placeholder="••••••••" type="password" />
+            <Input id="password" placeholder="••••••••" type="password" {...register("password", { required: "Password is required" })}
+          required/>
           </LabelInputContainer>
           <div>
           <Link href="/auth/forget-password"

@@ -26,7 +26,6 @@ const Signup = () => {
   const auth = useContext(AuthContext);
  
   const onSubmit: SubmitHandler<ICreateUser> = async (data: any) => {
-   console.log(data)
    mutate(data, {
       onSuccess: async (data) => {
         const decode = (await jwtDecode(data?.data as string)) as IUserToken;
