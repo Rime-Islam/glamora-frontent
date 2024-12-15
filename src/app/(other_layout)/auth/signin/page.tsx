@@ -28,7 +28,7 @@ const Signin = () => {
         router.push(`/`);
 
         authData?.setIsLoading(true);
-        toast.success("Welcome Back.");
+        toast.success("Welcome To Glamora.");
       },
       onError: (error: Error) => {
         toast.error(error.message || "Something Went Wrong!! Try again.");

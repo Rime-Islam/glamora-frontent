@@ -1,24 +1,16 @@
 
 "use client"
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import { cn } from "@/lib/utils";
-import {
-  IconBrandGoogle
-} from "@tabler/icons-react";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
-import Link from "next/link";
 import { toast } from "sonner";
-import { AuthContext } from "@/providers/AuthProvider";
 import { useRouter } from "next/navigation";
-import { useResetPass, useUserlogin } from "@/hooks/auth.hook";
-import { SubmitHandler, useForm } from "react-hook-form";
-import { ICreateUser } from "@/interface/user.interface";
+import { useResetPass } from "@/hooks/auth.hook";
 
 
 
 const ForgetPassword = () => {
-  const { register, handleSubmit, formState: { errors } } = useForm<ICreateUser>();
   const router = useRouter();
   const { mutate: resetPassword, isPending } = useResetPass();
   const [email, setEmail] = useState("");

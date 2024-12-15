@@ -60,7 +60,7 @@ export const setNewPass = async (passData: {
   password: string;
 }) => {
   try {
-    const { data } = await axiosInstance.patch("/user/set-pass", passData);
+    const { data } = await axiosInstance.patch("/auth/set-password", passData);
 
     return data;
   } catch (error: any) {
