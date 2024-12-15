@@ -10,9 +10,10 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { FileUpload } from "@/components/ui/file-upload";
 import { useAddShop } from "@/hooks/shop.hook";
 import { uploadImagesToCloudinary } from "@/lib/utils/uploadImageArray";
+import { useAddProduct } from "@/hooks/product.hook";
 
 
-const AddShop = () => {
+const AddProduct = () => {
     const [files, setFiles] = useState<File[]>([]);
 
  const handleFileUpload = (fileList: FileList) => {
@@ -21,7 +22,7 @@ const AddShop = () => {
   console.log("Uploaded files:", fileArray);
 };
 
-  const { mutate, isPending } = useAddShop(); 
+const { mutate, isPending } = useAddProduct();
   const { register, handleSubmit, formState: { errors } } = useForm<any>();
   const router = useRouter();
 
@@ -103,4 +104,4 @@ const AddShop = () => {
     )
 };
 
-export default AddShop;
+export default AddProduct;
