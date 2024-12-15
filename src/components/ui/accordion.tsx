@@ -44,7 +44,7 @@ const AccordionContent = React.forwardRef<
     className="text-sm data-[state=closed]:animate-accordion-up data-[state=open]:animate-accordion-down"
     {...props}
   >
-    <div className="flex flex-col gap-1 mt-3">{children}</div>
+    <div className="flex flex-col gap-1 mt-3 ">{children}</div>
   </AccordionPrimitive.Content>
 ))
 AccordionContent.displayName = AccordionPrimitive.Content.displayName

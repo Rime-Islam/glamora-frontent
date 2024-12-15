@@ -11,7 +11,7 @@ export function Banner() {
    
   ];
   return (
-    <ImagesSlider className="h-[55rem]" images={images}>
+    <ImagesSlider className="h-[55rem] absolute" images={images}>
       <motion.div
         initial={{
           opacity: 0,

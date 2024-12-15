@@ -30,6 +30,7 @@ export const createUser = async (userData: any) => {
       `${config.backendApi}/user/signup`,
       userData
     );
+    console.log(userData);
 
     (await cookies()).set("accessToken", data?.data, {
       httpOnly: true,

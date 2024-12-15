@@ -1,8 +1,9 @@
 "use client";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { HoveredLink, Menu, MenuItem, ProductItem } from "../ui/navbar-menu";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
+import { AuthContext } from "@/providers/AuthProvider";
 
 export function NavbarDemo() {
   return (
@@ -15,9 +16,21 @@ export function NavbarDemo() {
 
 function Navbar({ className }: { className?: string }) {
   const [active, setActive] = useState<string | null>(null);
+  
+  const getDashboardLink = (role: string): string => {
+
+    if (role === "ADMIN") {
+      return "/admin/dashboard";
+    }
+  
+    return `/${role.toLowerCase()}/dashboard`;
+  };
+  const userData = useContext(AuthContext);
+
+  
   return (
     <div
-      className={cn("fixed inset-x-0", className)}
+      className={cn("responsive w-full", className)}
     >
       <Menu setActive={setActive}>
         <Link href="/"><MenuItem setActive={setActive} active={null} item="Home">
@@ -64,8 +77,12 @@ function Navbar({ className }: { className?: string }) {
         {/* </Link> */}
         <Link href="/contact"><MenuItem setActive={setActive} active={null} item="Contact">
         </MenuItem></Link>
-        <Link href="/vendor"> <MenuItem setActive={setActive} active={null} item="Become Vendor">
-        </MenuItem></Link>
+        {
+          userData?.user ? (<Link href={getDashboardLink(userData.user.role)}> <MenuItem setActive={setActive} active={null} item="Dashboard">
+        </MenuItem></Link>) :
+        (null)
+        }
+        
       </Menu>
     </div>
   );

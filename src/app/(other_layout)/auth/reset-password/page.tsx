@@ -38,7 +38,7 @@ const ResetPassword = () => {
     };  
   
     if (!token || !email) {
-      router.push("/");
+      router.push(`/`);
       return null; // Prevent rendering if token or email is not present
     }
 
