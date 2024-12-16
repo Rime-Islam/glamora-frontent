@@ -1,3 +1,4 @@
+
 import config from "@/config";
 import React, { Suspense } from "react";
 import AddCategory from "./AddCategory";
@@ -24,7 +25,7 @@ const Page = () => {
       <Suspense
         fallback={
           <div className="flex justify-center items-center h-40">
-            <div className="animate-spin rounded-full h-12 w-12 border-t-4 border-solid border-gray-900"></div>
+            <div className="animate-spin rounded-full h-12 w-12 border-y-4 border-solid border-gray-900"></div>
           </div>
         }
       >
