@@ -33,25 +33,25 @@ const items = [
     title: "Home",
     url: "/",
     icon: Home,
-    roles: ["ADMIN", "SUPERADMIN", "CUSTOMER", "VENDOR"],
+    roles: ["ADMIN", "CUSTOMER", "VENDOR"],
   },
   //admin link
   {
     title: "Dashboard",
     url: "/admin/dashboard",
     icon: Database,
-    roles: ["ADMIN", "SUPERADMIN"],
+    roles: ["ADMIN"],
   },
   {
     title: "User Management",
-    roles: ["ADMIN", "SUPERADMIN"],
+    roles: ["ADMIN"],
     child: [
       { url: "/admin/manage-user", title: "Manage User", icon: Settings },
     ],
   },
   {
     title: "Shop Management",
-    roles: ["ADMIN", "SUPERADMIN"],
+    roles: ["ADMIN"],
     child: [
       {
         url: "/admin/manage-shop",
@@ -62,7 +62,7 @@ const items = [
   },
   {
     title: "Product-Category Management",
-    roles: ["ADMIN", "SUPERADMIN"],
+    roles: ["ADMIN"],
     child: [
       {
         url: "/admin/manage-category",
@@ -73,7 +73,7 @@ const items = [
   },
   {
     title: "Order Management",
-    roles: ["ADMIN", "SUPERADMIN"],
+    roles: ["ADMIN"],
     child: [
       { url: "/admin/view-order", title: "All Order", icon: ListOrdered },
       {
@@ -95,8 +95,9 @@ const items = [
     title: "Shop Management",
     roles: ["VENDOR"],
     child: [
-      { url: "/vendor/manage-shop", title: "Manage Shop", icon: Settings },
+      { url: "/vendor/manage-shop", title: "Create Shop", icon: Settings },
       { url: "/vendor/shop", title: "Your Shop", icon: ShoppingBag },
+      { url: "/vendor/manage-product", title: "Create Product", icon: Settings },
     ],
   },
   {

@@ -3,9 +3,7 @@ import React, { useState } from "react";
 import { cn } from "@/lib/utils";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
-import Link from "next/link";
 import { toast } from "sonner";
-import { useRouter } from "next/navigation";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { FileUpload } from "@/components/ui/file-upload";
 import { useAddShop } from "@/hooks/shop.hook";
@@ -16,15 +14,12 @@ const AddShop = () => {
     const [files, setFiles] = useState<File[]>([]);
 
  const handleFileUpload = (fileList: FileList) => {
-  const fileArray = Array.from(fileList); // Convert FileList to File[]
+  const fileArray = Array.from(fileList); 
   setFiles(fileArray);
-  console.log("Uploaded files:", fileArray);
 };
 
   const { mutate, isPending } = useAddShop(); 
   const { register, handleSubmit, formState: { errors } } = useForm<any>();
-  const router = useRouter();
-
 
   const onSubmit: SubmitHandler<any>  = async (data: any) => {
     const { images: imageFiles, ...otherData } = data;
@@ -47,7 +42,8 @@ const AddShop = () => {
     }
   };
     return (
-        <div className="max-w-lg border w-full mx-auto mt-[20vh] rounded-none md:rounded-2xl p-4 md:p-8 shadow-input bg-white dark:bg-black">
+        <div className="flex">
+<div className=" bg-slate-200 border w-full mx-auto mt-[10vh] rounded-none md:rounded-2xl p-4 md:p-8 shadow-input hover:bg-white dark:bg-black">
         <form onSubmit={handleSubmit(onSubmit)} className="my-8" >
             <h1 className="mb-8 text-xl font-bold">Create A Shop</h1>
           <LabelInputContainer className="mb-4">
@@ -73,10 +69,9 @@ const AddShop = () => {
             Create Shop
             <BottomGradient />
           </button>
-            
-        </form>
-        
+          </form>
       </div>
+        </div>
     );
   }
    
