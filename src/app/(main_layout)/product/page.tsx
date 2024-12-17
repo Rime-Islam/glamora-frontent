@@ -34,7 +34,7 @@ const Page = () => {
         sortCriteria || "",
         page || 1
       );
-      console.log(data);
+    
       const dispatch = useAppDispatch();
       const { categoryId: storedCategoryId } = useAppSelector(
         (state) => state.cartSlice

@@ -1,34 +1,66 @@
 "use client";
 
 import Image from "next/image";
-import React from "react";
+import React, { useContext } from "react";
 import { CardBody, CardContainer, CardItem } from "../ui/3d-card";
 import Link from "next/link";
-import {ProductCardProps }from "@/interface/product.interface"
+import {IProduct, ProductCardProps }from "@/interface/product.interface"
+import { FcFlashOn } from "react-icons/fc";
+import { useAppDispatch, useAppSelector } from "@/redux/hook";
+import { addItemToCart, ICartItem } from "@/redux/features/cart/cartSlice";
+import { AuthContext } from "@/providers/AuthProvider";
+import { addProductToComparison } from "@/redux/features/compare/compareSlice";
+import AvarageRating from "../Rating/AvarageRating";
+import CartConflict from "../common/cartConfilct/CartConflict";
 
 
 
 const ProductCard: React.FC<ProductCardProps> = ({ data }) => {
+  const selectedProducts = useAppSelector(
+    (state) => state.compareSlice.selectedProducts
+  );
+  const dispatch = useAppDispatch();
+  const handleAddToCart = (data: ICartItem) => {
+    dispatch(addItemToCart(data));
+  };
+  const userData = useContext(AuthContext);
+  const handleCompare = (product: IProduct) => {
+    dispatch(addProductToComparison(product));
+  };
+
   return (
-   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+   <div>
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
     {
         data?.map((item) => (
             <CardContainer key={item?.productId} className="inter-var w-96 h-xl">
             <CardBody className=" relative group/card  dark:hover:shadow-2xl dark:hover:shadow-emerald-500/[0.1] dark:bg-black dark:border-white/[0.2] border-black/[0.1] w-[30rem] h-auto rounded-xl p-6 border  ">
+            <Link
+                  className="hover:underline underline-offset-2"
+                  href={`/product/${item.productId}`}
+                >
               <CardItem
                 translateZ="50"
                 className="text-xl  font-bold text-neutral-600 dark:text-white"
               >
-                {item.name.slice(0, 28)} ...
-              </CardItem>
+                 {item.name.length > 25 ? (
+                    <> {item?.name.slice(0, 28)}...</>
+                  ) : (
+                    item?.name
+                  )}
+              </CardItem></Link>
               <CardItem
                 as="p"
                 translateZ="60"
                 className="text-neutral-500 text-sm max-w-sm mt-2 dark:text-neutral-300"
               >
-                Hover over this card to unleash the power of CSS perspective
+                      {item?.description?.length > 60 ? (
+                  <>{item.description.slice(0, 61)}...</>
+                ) : (
+                  item.description
+                )}
               </CardItem>
-              <CardItem translateZ="100" className="w-full h-96 mt-4">
+              <CardItem translateZ="100" className="w-full h-72 mt-4">
                 <Image
                   src={item.images[0]}
                   height="50"
@@ -37,28 +69,95 @@ const ProductCard: React.FC<ProductCardProps> = ({ data }) => {
                   alt="thumbnail"
                 />
               </CardItem>
-              <div className="flex justify-between items-center mt-20">
-                <CardItem
-                  translateZ={20}
-                  as={Link}
-                  href="https://twitter.com/mannupaaji"
-                  target="__blank"
-                  className="px-4 py-2 rounded-xl text-xs font-normal dark:text-white"
+              <div>
+              <CardItem
+                as="p"
+                translateZ="60"
+                className="text-neutral-500 px-4 flex gap-3 text-sm max-w-sm mt-8 dark:text-neutral-300"
+              >
+                  <span className="mt-1">{item.price}TK </span>
+                  <span className="text-lg flex items-center text-orange-400">
+                    {
+                      item?.discounts}
+                    % <FcFlashOn className="w-5 h-5"/>
+                  </span>
+              </CardItem>
+              </div>
+              
+              
+              <div className="flex justify-between items-center mt-5">
+                <Link
+                  href={`/product/${item.productId}`}
+                  className="px-4 py-2 rounded-xl text-xs font-normal hover:underline dark:text-white"
                 >
                   view details →
-                </CardItem>
+                </Link>
                 <CardItem
                   translateZ={20}
                   as="button"
-                  className="px-4 py-2 rounded-xl bg-black dark:bg-white dark:text-black text-white text-xs font-bold"
+                  disabled={userData?.user?.role !== "CUSTOMER"}
+                  onClick={() =>
+                  handleAddToCart({
+                    category: item?.category.name,
+                    id: item?.productId,
+                    photo: item?.images[0],
+                    price: item?.price,
+                    quantity: 1,
+                    title: item.name,
+                    discount: !!item.flashSale?.length
+                      ? item.flashSale[0]?.discount + item.discounts
+                      : item.discounts,
+                    shopId: item.shopId,
+                  })
+                }
+                  className="px-4 py-2 rounded-xl bg-amber-600 dark:bg-white dark:text-black text-white text-xs font-bold"
                 >
                   Add to cart
                 </CardItem>
               </div>
+              <CardItem
+               as="div"
+               translateZ="60"
+               className="text-neutral-500 justify-center w-full px-4 flex gap-3 text-sm  mt-8 dark:text-neutral-300">
+                 <div
+                className={
+                  userData?.user
+                    ? "flex gap-36 justify-between"
+                    : "flex  justify-between"
+                }
+              >
+               <div>
+               {userData?.user && (
+                  <CardItem
+                  translateZ={20}
+                  as="button"
+                    onClick={() => handleCompare(item)}
+                    disabled={selectedProducts
+                      .map((o) => o.productId)
+                      .includes(item.productId)}
+                    size="sm"
+                     className="px-4 py-2 rounded-xl bg-black dark:bg-white dark:text-black text-white text-xs font-bold"
+                  >
+                    {selectedProducts
+                      .map((o) => o.productId)
+                      .includes(item.productId)
+                      ? "Selected"
+                      : "Compare"}
+                  </CardItem>
+                )}
+               </div>
+                <AvarageRating
+                  rating={item?.averageRating ? item?.averageRating : 0}
+                  width={85}
+                ></AvarageRating>
+              </div>
+               </CardItem>
             </CardBody>
           </CardContainer>
         ))
     }
+   </div>
+    <CartConflict />
    </div>
   );
 };
