@@ -13,7 +13,7 @@ export interface IProduct {
   name: string;
   price: number;
   categoryId: string;
-  images: string[];
+  images: string[] | string;
   description: string;
   stock: number;
   sizes: string[];

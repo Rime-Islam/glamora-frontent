@@ -23,18 +23,15 @@ const Page = () => {
         setCategoryId,
         debouncedSearchTerm,
       } = useFilterSortSearch();
-    
       const userData = useContext(AuthContext);
       const { data: { data: category } = {} } = useAllCategory2();
       const [page, setPage] = useState(1);
-      
       const { data, isLoading, isFetching } = useAllProduct2(
         debouncedSearchTerm || "",
         categoryId || "",
         sortCriteria || "",
         page || 1
       );
-    
       const dispatch = useAppDispatch();
       const { categoryId: storedCategoryId } = useAppSelector(
         (state) => state.cartSlice
@@ -56,7 +53,6 @@ const Page = () => {
         );
       }
    
-
     return (
         <div className="px-[5vw]">
              <SearchSortFilter
@@ -73,7 +69,7 @@ const Page = () => {
 <div className="flex gap-2 justify-between  mb-5 ">
           {userData?.user?.role === "CUSTOMER" &&
             selectedProducts.length > 0 && (
-              <div className="flex  justify-end me-4">
+              <div className="flex  justify-end my-4">
                 <Link
                   href="/compare-product"
                   className="text-sm flex items-center gap-1 hover:underline underline-offset-2"
@@ -84,7 +80,7 @@ const Page = () => {
               </div>
             )}
           {userData?.user?.role === "CUSTOMER" && (
-            <div className="flex  justify-end me-4">
+            <div className="flex  justify-end my-4">
               <Link
                 href="/recent-products"
                 className="text-sm flex items-center gap-1 hover:underline underline-offset-2"
@@ -95,13 +91,10 @@ const Page = () => {
             </div>
           )}
         </div>
-    
-
-
 <div>
         {data?.data?.length ? (
           <>
-            <div className="min-h-[75vh]">
+            <div>
            <ProductCard data={data.data} />
             </div>
    {data?.meta && (
