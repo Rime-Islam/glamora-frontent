@@ -37,9 +37,9 @@ function Navbar({ className }: { className?: string }) {
         </MenuItem></Link>
         <Link href="/product"><MenuItem setActive={setActive} active={null} item="Product">
         </MenuItem></Link>
-        {/* <Link href="/shop">  */}
-        <MenuItem setActive={setActive} active={active} item="Shop">
-          <div className="  text-sm grid grid-cols-2 gap-10 p-4">
+        <Link href="/shop"> 
+        <MenuItem setActive={setActive} active={null} item="Shop">
+          {/* <div className="  text-sm grid grid-cols-2 gap-10 p-4">
             <ProductItem
               title="Algochurn"
               href="/"
@@ -64,19 +64,19 @@ function Navbar({ className }: { className?: string }) {
               src="https://assets.aceternity.com/demos/Screenshot+2024-02-21+at+11.47.07%E2%80%AFPM.png"
               description="Respond to government RFPs, RFIs and RFQs 10x faster using AI"
             />
-          </div>
+          </div> */}
         </MenuItem>
-        {/* </Link> */}
-        {/* <Link href="/about">  */}
-        <MenuItem setActive={setActive} active={active} item="About">
-          <div className="flex flex-col space-y-4 text-sm">
+        </Link>
+        <Link href="/about"> 
+        <MenuItem setActive={setActive} active={null} item="About">
+          {/* <div className="flex flex-col space-y-4 text-sm">
             <HoveredLink href="/hobby">Hobby</HoveredLink>
             <HoveredLink href="/individual">Individual</HoveredLink>
             <HoveredLink href="/team">Team</HoveredLink>
             <HoveredLink href="/enterprise">Enterprise</HoveredLink>
-          </div>
+          </div> */}
         </MenuItem>
-        {/* </Link> */}
+        </Link>
         <Link href="/contact"><MenuItem setActive={setActive} active={null} item="Contact">
         </MenuItem></Link>
         {

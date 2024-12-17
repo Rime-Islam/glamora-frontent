@@ -7,7 +7,7 @@ const ShopDetails = ({ shop }: { shop: IShop }) => {
     return(
         <div >
              <h1 className="text-2xl  text-center mb-8 font-bold text-gray-800">{shop?.name} <span className="text-sm text-gray-700">( {shop?.location} )</span> </h1>
-             <div className="flex text-sm text-gray-600 justify-between px-8 mb-2">
+             <div className="flex text-sm text-gray-600 justify-evenly px-8 mb-2">
             <p className="">Shop ID: {shop?.shopId}</p>
             <p className="">
               Followers:{" "}
@@ -16,13 +16,13 @@ const ShopDetails = ({ shop }: { shop: IShop }) => {
                 : 0}
             </p>
           </div>
-              <div className="">
+              <div className="flex justify-center">
             <Image
               width={200}
               height={100}
               src={shop?.images[0] || "#"}
               alt={shop?.name}
-              className="w-full px-8 h-full object-cover rounded-md"
+              className="w-2/3 px-8 h-full object-cover rounded-md"
             />
           </div>
        
