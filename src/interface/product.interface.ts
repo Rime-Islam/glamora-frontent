@@ -7,6 +7,7 @@ interface IProductCategory {
   createdAt: Date;
   updatedAt: Date;
 }
+
 export interface IProduct {
   productId: string;
   name: string;
@@ -38,4 +39,8 @@ export interface IDiscount {
   createdAt: string;
   updatedAt: string;
   product: IProduct;
+}
+
+export interface ProductCardProps {
+  data: IProduct[];
 }

@@ -12,7 +12,7 @@ export const getAllCategory = async () => {
   }
 };
 
-export const addlCategory = async (name: string) => {
+export const addCategory = async (name: string) => {
   try {
     const { data } = await axiosInstance.post(`/category/create-category`, {
       name,

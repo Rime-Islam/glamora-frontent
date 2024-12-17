@@ -5,7 +5,7 @@ import { IDiscount, IProduct } from "@/interface/product.interface";
 import { queryClient } from "@/providers/Provider";
 import {
   addProduct,
-  allProduct,
+  allProducts,
   cloneProduct,
   deleteProduct,
   flashProduct,
@@ -80,7 +80,7 @@ export const useAllProduct = (
 ) => {
   return useQuery<IApiResponse<IProduct[]>>({
     queryKey: ["all-product", searchTerm, categoryId, sortCriteria, page],
-    queryFn: () => allProduct({ searchTerm, categoryId, sortCriteria, page }),
+    queryFn: () => allProducts({ searchTerm, categoryId, sortCriteria, page }),
     retry: true,
   });
 };
@@ -93,8 +93,8 @@ export const useAllProduct2 = (
   page: number
 ) => {
   return useQuery<IApiResponse<IProduct[]>>({
-    queryKey: ["all-products", searchTerm, categoryId, sortCriteria, page],
-    queryFn: () => allProduct({ searchTerm, categoryId, sortCriteria, page }),
+    queryKey: ["all-products]", searchTerm, categoryId, sortCriteria, page],
+    queryFn: () => allProducts({ searchTerm, categoryId, sortCriteria, page }),
   });
 };
 

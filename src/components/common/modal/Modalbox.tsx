@@ -45,7 +45,7 @@ export function Modalbox({
           {btnText}
         </Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[425px] md:max-w-3xl">
+      <DialogContent className="sm:max-w-[425px] md:max-w-2xl">
         <DialogHeader>
           <DialogTitle>{title}</DialogTitle>
           <DialogDescription>{descrip}</DialogDescription>

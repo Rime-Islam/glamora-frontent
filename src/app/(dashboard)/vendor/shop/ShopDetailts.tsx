@@ -27,7 +27,7 @@ const ShopDetails = ({ shop }: { shop: IShop }) => {
           </div>
        
        <div className="mt-8">
-       <h1 className="text-2xl text-center mb-8 font-bold text-gray-800">products <span className="text-sm text-gray-700">( {shop?.location} )</span> </h1>
+       <h1 className="text-2xl text-center mb-8 font-bold text-gray-800">products</h1>
        <div className="max-w-5xl mx-auto px-8">
       <HoverEffect items={shop?.products} />
     </div>

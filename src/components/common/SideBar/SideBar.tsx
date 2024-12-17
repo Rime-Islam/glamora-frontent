@@ -98,6 +98,7 @@ const items = [
       { url: "/vendor/manage-shop", title: "Create Shop", icon: Settings },
       { url: "/vendor/shop", title: "Your Shop", icon: ShoppingBag },
       { url: "/vendor/manage-product", title: "Create Product", icon: Settings },
+      { url: "/vendor/cupon", title: "Add Cupon", icon: ShoppingBag },
     ],
   },
   {

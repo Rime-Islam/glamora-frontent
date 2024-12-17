@@ -4,7 +4,7 @@ import { IApiResponse } from "@/interface/apiResponse.interface";
 import { ICategory } from "@/interface/category.interface";
 import { queryClient } from "@/providers/Provider";
 import {
-  addlCategory,
+  addCategory,
   deleteCategory,
   getAllCategory,
   updateCategory,
@@ -45,7 +45,7 @@ export const useAllCategoryDashboard = () => {
 // Mutation hook for adding a category
 export const useAddCategory = () => {
   return useMutation<any, Error, string, void>({
-    mutationFn: addlCategory,
+    mutationFn: addCategory,
     onSuccess: invalidateCategoryQueries,
   });
 };

@@ -28,7 +28,7 @@ export const cloneProduct = async (data: FieldValues) => {
 };
 
 // Fetch All Products
-export const allProduct = async ({
+export const allProducts = async ({
   searchTerm,
   categoryId,
   sortCriteria: sort,
@@ -43,6 +43,7 @@ export const allProduct = async ({
     const res = await axiosInstance.get(`/product`, {
       params: { searchTerm, categoryId, sort, page, limit: 12 },
     });
+    console.log(res.data)
     return res.data;
   } catch (error) {
     handleError(error);

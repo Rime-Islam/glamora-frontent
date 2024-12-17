@@ -1,3 +1,5 @@
+import CloneProduct from "@/app/(dashboard)/vendor/shop/CloneProduct";
+import DeleteProduct from "@/app/(dashboard)/vendor/shop/DeleteProduct";
 import EditProduct from "@/app/(dashboard)/vendor/shop/EditProduct";
 import { cn } from "@/lib/utils";
 import { AnimatePresence, motion } from "framer-motion";
@@ -56,18 +58,19 @@ export const HoverEffect = ({
         href={`/vendor/shop/product/${item?.productId}`}>
               <Image
                           width={200}
-                          height={100}
+                          height={50}
                           src={item?.images[0] || "#"}
                           alt={item?.name}
-                          className="w-full px-8 h-full object-cover rounded-md"
+                          className="w-full h-56 px-4 object-cover rounded-md"
                         /></Link>
-            <CardTitle>{item.name}</CardTitle>
+            <CardTitle>{item.name.slice(0, 25)} ...</CardTitle>
             <CardDescription>{item.description.slice(0, 50)} ... ...</CardDescription>
             <div className="mt-3 font-semibold">Price: {item?.price} TK</div>
-            <div className="flex justify-between">
+            <div className="flex justify-between ">
                 
                 <EditProduct product={item}/>
-               
+               <DeleteProduct id={item?.productId}/>
+               <CloneProduct data={item}/>
             </div>
           </Card>
         </div>
