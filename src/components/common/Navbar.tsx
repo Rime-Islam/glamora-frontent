@@ -52,7 +52,7 @@ function Navbar({ className }: { className?: string }) {
    <div className="hidden md:flex text-white space-x-6 mt-1">
    <Link href="/"><MenuItem setActive={setActive} active={null} item="Home">
         </MenuItem></Link>
-        <Link href="/product"><MenuItem setActive={setActive} active={null} item="Product">
+        <Link href="/product"><MenuItem setActive={setActive} active={null} item="Products">
         </MenuItem></Link>
         <Link href="/shop"> 
         <MenuItem setActive={setActive} active={null} item="Shop">
@@ -84,17 +84,19 @@ function Navbar({ className }: { className?: string }) {
           </div> */}
         </MenuItem>
         </Link>
-        <Link href="/about"> 
-        <MenuItem setActive={setActive} active={null} item="About">
+        {/* <Link href="/about"> 
+        <MenuItem setActive={setActive} active={null} item="About"> */}
           {/* <div className="flex flex-col space-y-4 text-sm">
             <HoveredLink href="/hobby">Hobby</HoveredLink>
             <HoveredLink href="/individual">Individual</HoveredLink>
             <HoveredLink href="/team">Team</HoveredLink>
             <HoveredLink href="/enterprise">Enterprise</HoveredLink>
           </div> */}
-        </MenuItem>
-        </Link>
+        {/* </MenuItem> */}
+        {/* </Link>
         <Link href="/contact"><MenuItem setActive={setActive} active={null} item="Contact">
+        </MenuItem></Link> */}
+        <Link href="/compair-product"><MenuItem setActive={setActive} active={null} item="Product Comparison">
         </MenuItem></Link>
         {
           userData?.user ? (<Link href={getDashboardLink(userData.user.role)}> <MenuItem setActive={setActive} active={null} item="Dashboard">

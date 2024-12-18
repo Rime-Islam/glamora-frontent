@@ -24,12 +24,12 @@ const RelatedProducts = ({ product }: { product: IProduct[] }) => {
               height={100}
               src={imageSrc}
               alt="Product Image"
-              className="max-w-full object-cover rounded-lg border"
+              className="max-w-full h-36 object-cover rounded-lg border"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/40" />
 <>
 <Link href={`/product/${data?.productId}`} className="z-10 mt-3 px-2 hover:underline font-bold text-white">
-              {data?.name.slice(0, 20)}...
+              {data?.name.slice(0, 15)}...
             </Link>
 </>
             <p className="text-white z-10 px-2">{data?.price}TK</p>

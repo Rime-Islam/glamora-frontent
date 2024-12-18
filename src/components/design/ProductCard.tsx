@@ -13,6 +13,7 @@ import { addProductToComparison } from "@/redux/features/compare/compareSlice";
 import AvarageRating from "../Rating/AvarageRating";
 import CartConflict from "../common/cartConfilct/CartConflict";
 import { toast } from "sonner";
+import { Button } from "../ui/button";
 
 
 
@@ -126,28 +127,26 @@ const ProductCard: React.FC<ProductCardProps> = ({ data }) => {
                  <div
                 className={
                   userData?.user
-                    ? "flex gap-36 justify-between"
+                    ? "flex gap-60 justify-between"
                     : "flex  justify-between"
                 }
               >
                <div>
                {userData?.user && (
-                  <CardItem
-                  translateZ={20}
-                  as="button"
-                    onClick={() => handleCompare(item)}
-                    disabled={selectedProducts
-                      .map((o) => o.productId)
-                      .includes(item.productId)}
-                    size="sm"
-                     className="px-4 py-2 rounded-xl bg-white text-black  text-xs font-bold"
-                  >
-                    {selectedProducts
-                      .map((o) => o.productId)
-                      .includes(item.productId)
-                      ? "Selected"
-                      : "Compare"}
-                  </CardItem>
+            <Button
+            onClick={() => handleCompare(item)}
+            disabled={selectedProducts
+              .map((o) => o.productId)
+              .includes(item.productId)}
+            size="sm"
+            className="mt-2 mb-1 bg-white text-black"
+          >
+            {selectedProducts
+              .map((o) => o.productId)
+              .includes(item.productId)
+              ? "Selected"
+              : "Compare"}
+          </Button>
                 )}
                </div>
                 <AvarageRating
