@@ -27,6 +27,7 @@ import {
 import Link from "next/link";
 import { useContext } from "react";
 import Logo from "../Logo";
+import ChangePassword from "../ChangePassword/ChangePassword";
 
 const items = [
   {
@@ -199,6 +200,7 @@ export default function AppSidebar() {
             </SidebarGroupContent>
           </SidebarGroup>
         </SidebarContent>
+        <div className="mb-[10vh]"><ChangePassword /></div>
       </Sidebar>
     </Dialog>
   );

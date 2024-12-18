@@ -42,7 +42,8 @@ export const deleteUser = async (id: string) => {
 
 export const updatePass = async (data: { password: string }) => {
   try {
-    const res = await axiosInstance.patch(`/user/update-pass`, data);
+    const res = await axiosInstance.patch(`/user/update-password`, data);
+    console.log(res)
     return res?.data;
   } catch (error: any) {
     throw new Error(error?.response?.data?.message || error?.message || error);

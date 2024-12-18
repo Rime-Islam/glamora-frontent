@@ -235,7 +235,7 @@ const ProductDetails = ({ id }: { id: string }) => {
                       >
                         <div>
                           <div className="flex items-center justify-between">
-                            <p className="font-medium">{review.customer?.name}</p>
+                            <p className="font-semibold">{review.customer?.name}</p>
                             <div className="flex">
                               <AvarageRating
                                 width={70}

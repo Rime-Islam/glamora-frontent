@@ -1,6 +1,7 @@
 "use client";
 
 ;
+import ChangePassword from "@/components/common/ChangePassword/ChangePassword";
 import { useGetVendorDashboard } from "@/hooks/dashboard";
 import React from "react";
 
@@ -8,7 +9,7 @@ import { FaShopify, FaBox, FaCheckCircle, FaDollarSign } from "react-icons/fa";
 
 const Dashboard = () => {
   const { data, isLoading, error } = useGetVendorDashboard();
-console.log(data)
+
   if (isLoading) {
     return (
       <div className="flex items-center justify-center h-screen">
@@ -81,6 +82,7 @@ console.log(data)
                   <p className="text-2xl font-bold">{totalEarnings} Tk</p>
                   </div>
                 </div>
+          
       </div>
     </div>
   );

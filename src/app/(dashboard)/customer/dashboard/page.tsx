@@ -1,6 +1,7 @@
 "use client";
 
 
+import ChangePassword from "@/components/common/ChangePassword/ChangePassword";
 import { useGetUserDashboard } from "@/hooks/dashboard"; 
 import React from "react";
 import {
@@ -15,7 +16,7 @@ import {
 
 const Dashboard = () => {
   const { data, isLoading, error } = useGetUserDashboard();
-console.log(data)
+
   if (isLoading) {
     return (
       <div className="flex items-center justify-center h-screen">
@@ -44,7 +45,7 @@ console.log(data)
         <h1 className="text-3xl font-bold text-center mb-8 text-gray-800">
           Customer Dashboard
         </h1>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6">
           {/* Total Orders */}
             <div className="flex items-center bg-white border rounded-sm overflow-hidden shadow">
                     <div className="p-10 bg-slate-300">
@@ -65,8 +66,8 @@ console.log(data)
                     </div>
                     <div className="px-4 text-gray-700">
                     <h2 className="text-xl font-semibold">Total Spent</h2>
-                    <p className="text-4xl font-bold mt-4">
-              ${dashboardData?.totalSpent?.toFixed(2) || "0.00"}
+                    <p className="text-3xl font-bold mt-4">
+              {dashboardData?.totalSpent?.toFixed(2) || "0.00"} TK
             </p>
                           </div>
                   </div>
@@ -78,8 +79,8 @@ console.log(data)
                     </div>
                     <div className="px-4 text-gray-700">
                     <h2 className="text-xl font-semibold">Total Discounts</h2>
-                    <p className="text-4xl font-bold mt-4">
-              ${dashboardData?.totalDiscounts?.toFixed(2) || "0.00"}
+                    <p className="text-3xl font-bold mt-4">
+              {dashboardData?.totalDiscounts?.toFixed(2) || "0.00"} TK
             </p>
                           </div>
                   </div>
@@ -156,11 +157,14 @@ console.log(data)
             </p>
                       </div>
                   </div>
-
+                  
         </div>
+       <div className="mt-[5vh]">
+      
+       </div>
       </div>
+    
       <div>
-        <ChangePass></ChangePass>
       </div>
     </div>
   );

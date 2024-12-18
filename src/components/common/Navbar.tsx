@@ -8,7 +8,10 @@ import { FaUserCircle } from "react-icons/fa";
 import { FaCartShopping } from "react-icons/fa6";
 import Image from "next/image";
 import logo from "../../../public/image/logo.png";
-import { useAppSelector } from "@/redux/hook";
+import { useAppDispatch, useAppSelector } from "@/redux/hook";
+import { resetCart } from "@/redux/features/cart/cartSlice";
+import { logout } from "@/services/authService";
+import { Button } from "../ui/button";
 
 export function NavbarDemo() {
   return (
@@ -31,7 +34,13 @@ function Navbar({ className }: { className?: string }) {
     return `/${role.toLowerCase()}/dashboard`;
   };
   const userData = useContext(AuthContext);
+  const dispatch = useAppDispatch();
 
+  const logoutUser = async () => {
+    dispatch(resetCart());
+    await logout();
+    userData?.setIsLoading(true);
+  };
   
   return (
     <div
@@ -93,10 +102,10 @@ function Navbar({ className }: { className?: string }) {
             <HoveredLink href="/enterprise">Enterprise</HoveredLink>
           </div> */}
         {/* </MenuItem> */}
-        {/* </Link>
-        <Link href="/contact"><MenuItem setActive={setActive} active={null} item="Contact">
-        </MenuItem></Link> */}
-        <Link href="/compair-product"><MenuItem setActive={setActive} active={null} item="Product Comparison">
+        {/* </Link> */}
+        <Link href="/about"><MenuItem setActive={setActive} active={null} item="About">
+        </MenuItem></Link>
+        <Link href="/compair-product"><MenuItem setActive={setActive} active={null} item="Comparison">
         </MenuItem></Link>
         {
           userData?.user ? (<Link href={getDashboardLink(userData.user.role)}> <MenuItem setActive={setActive} active={null} item="Dashboard">
@@ -105,6 +114,14 @@ function Navbar({ className }: { className?: string }) {
         }
    </div>
          <div className="flex gap-4">
+          {
+            userData?.user &&  <Button
+            className="bg-white  hover:bg-white text-black hover:scale-95"
+            onClick={() => logoutUser()}
+          >
+            Logout
+          </Button>
+          }
         {
           userData?.user ?  <Link href={`${userData?.user?.role.toLocaleLowerCase()}/dashboard`}><FaUserCircle className=" w-6 h-6"/></Link> :
 <Link href="/auth/signin"><FaUserCircle className=" w-6 h-6"/></Link> 
@@ -120,3 +137,5 @@ function Navbar({ className }: { className?: string }) {
     </div>
   );
 }
+
+

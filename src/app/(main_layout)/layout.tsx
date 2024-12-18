@@ -1,3 +1,4 @@
+import Footer from "@/components/common/Footer";
 import { NavbarDemo } from "@/components/common/Navbar";
 
 const layout = ({children}: { children: React.ReactNode }) => {
@@ -10,7 +11,7 @@ const layout = ({children}: { children: React.ReactNode }) => {
      {children} 
      </div>
        <div className="flex-shrink-0">
-        {/* <Footer /> */}
+        <Footer />
         </div>
      </div>
         </main>

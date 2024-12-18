@@ -1,5 +1,6 @@
 "use client";
 
+import ChangePassword from "@/components/common/ChangePassword/ChangePassword";
 import { useGetAdminDashboard } from "@/hooks/dashboard";
 import React from "react";
 import {

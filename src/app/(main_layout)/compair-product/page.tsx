@@ -34,7 +34,7 @@ const ComparisonPage: React.FC = () => {
 
   if (selectedProducts.length === 0) {
     return (
-      <p className="text-center mt-10">No products selected for comparison. Select <Link className="hover:underline font-semibold hover:text-blue-600" href="/product">Products</Link> to compair</p>
+      <p className="text-center mt-10">No products selected for comparison. <Link className="hover:underline font-semibold hover:text-blue-600" href="/product">Select products</Link> to get the best price.</p>
     );
   }
 

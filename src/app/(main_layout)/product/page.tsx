@@ -93,7 +93,7 @@ const Page = () => {
             </div>
           )}
         </div>
-<div>
+<div >
         {data?.data?.length ? (
           <>
             <div className="">
