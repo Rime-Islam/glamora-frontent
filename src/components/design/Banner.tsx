@@ -24,9 +24,9 @@ export function Banner() {
         transition={{
           duration: 2,
         }}
-        className="z-50 flex flex-col justify-center items-center"
+        className="z-50 ml-[5vw] flex flex-col justify-center items-center"
       >
-        <motion.div className=" text-center font-semibold bg-clip-text text-transparent bg-gradient-to-b from-neutral-50 to-neutral-400 ">
+        <motion.div className="text-center font-semibold bg-clip-text text-transparent bg-gradient-to-b from-neutral-50 to-neutral-400 ">
         <FlipWords words={words} />
         </motion.div>
         <motion.p className="font-bold text-xl md:text-6xl text-center bg-clip-text text-transparent bg-gradient-to-b from-neutral-50 to-neutral-200 py-4">

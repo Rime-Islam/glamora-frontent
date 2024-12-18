@@ -38,7 +38,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ data }) => {
     {
         data?.map((item) => (
             <CardContainer key={item?.productId} className=" ">
-            <CardBody className=" relative group/card  hover:shadow-2xl hover:shadow-emerald-500/[0.1] bg-black border-white/[0.2] w-[30rem] h-auto rounded-xl p-6 border  ">
+            <CardBody className=" relative group/card  hover:shadow-2xl hover:shadow-emerald-500/[0.1] bg-gray-700 border-white/[0.2] w-[30rem] h-auto rounded-xl p-6 border  ">
             <Link
                   className="hover:underline underline-offset-2"
                   href={`/product/${item.productId}`}

@@ -162,14 +162,14 @@ export default function AppSidebar() {
             <SidebarGroupLabel><div className="font-bold text-lg">
             GLAMORA</div></SidebarGroupLabel>
             <SidebarGroupContent>
-              <SidebarMenu className="ms-2 mt-5">
+              <SidebarMenu className="ms-2 mt-8">
                 {filteredItems.map((item) => (
                   <div key={item.title}>
                     {/* Parent Item */}
                     {item.url && (
                       <SidebarMenuItem>
                         <SidebarMenuButton asChild>
-                          <Link href={item.url}>
+                          <Link href={item.url} >
                             <item.icon />
                             <span>{item.title}</span>
                           </Link>

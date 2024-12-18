@@ -19,8 +19,8 @@ const ShopData = ({ Data }: { Data: IShop[] }) => {
     };
     
 return (
-    <div>
-<table className="min-w-full divide-y bg-slate-300 dark:bg-gray-200  divide-gray-200">
+    <div className=" bg-slate-200 dark:bg-gray-200 ">
+<table className="min-w-full divide-y divide-white">
   <thead>
     <tr>
       <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">

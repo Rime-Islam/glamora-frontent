@@ -15,7 +15,7 @@ const Page = () => {
       <div className="min-h-[84vh]">
         {isLoading ? (
           <>
-            {" "}
+           
             <div className="flex justify-center items-center h-40">
               <div className="animate-spin rounded-full h-12 w-12 border-t-4 border-solid border-gray-900"></div>
             </div>
@@ -23,7 +23,7 @@ const Page = () => {
         ) : (
           <> {data && <OrderTable orderData={data.data}></OrderTable>}</>
         )}
-      </div>{" "}
+      </div>
       <div className="flex justify-center mt-5">
         {data?.meta && data && (
           <DynamicPagination

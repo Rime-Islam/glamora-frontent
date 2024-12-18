@@ -26,7 +26,7 @@ const Signup = () => {
   const auth = useContext(AuthContext);
  
   const onSubmit: SubmitHandler<ICreateUser> = async (data: any) => {
-   mutate(data, {
+    mutate(data, {
       onSuccess: async (data) => {
         const decode = (await jwtDecode(data?.data as string)) as IUserToken;
         toast.success("User has been created");
@@ -34,7 +34,7 @@ const Signup = () => {
           auth?.setIsLoading(true);
           router.push(`/${(decode?.role as string).toLowerCase()}/manage-shop`);
         } else {
-          router.push("/auth/signin");
+          router.push("/login");
         }
       },
       onError: (error) => {

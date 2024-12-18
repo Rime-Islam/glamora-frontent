@@ -58,35 +58,35 @@ const OrderDetails = ({ id }: { id: string }) => {
             <strong className="text-gray-700">Order ID:</strong> {id}
           </p>
           <p>
-            <strong className="text-gray-700">Status:</strong>{" "}
-            <span className="text-blue-600">{status}</span>
+            <strong className="text-gray-700">Status:</strong>
+            <span className="text-blue-600"> {status.toLocaleLowerCase()}</span>
           </p>
           <p>
-            <strong className="text-gray-700">Payment Status:</strong>{" "}
-            <span className="text-green-600">{paymentStatus}</span>
+            <strong className="text-gray-700">Payment Status:</strong>
+            <span className="text-green-600"> {paymentStatus.toLocaleLowerCase()}</span>
           </p>
           <p>
-            <strong className="text-gray-700">Transaction ID:</strong>{" "}
+            <strong className="text-gray-700">Transaction ID:</strong>
             {transactionId}
           </p>
           <p>
-            <strong className="text-gray-700">Total:</strong>{" "}
-            <span className="text-xl font-semibold text-red-600">${total}</span>
+            <strong className="text-gray-700">Total:</strong>
+            <span className=" font-semibold text-red-600"> {total}TK</span>
           </p>
           <p>
-            <strong className="text-gray-700">Discounts:</strong>{" "}
-            <span className="text-lg text-red-500">${discounts}</span>
+            <strong className="text-gray-700">Discounts:</strong>
+            <span className=" text-red-500 font-semibold" > {discounts}TK</span>
           </p>
           <p>
-            <strong className="text-gray-700">Subtotal:</strong> ${subTotal}
+            <strong className="text-gray-700 ">Subtotal:</strong> <span className="font-semibold">{subTotal}TK</span>
           </p>
           <p>
-            <strong className="text-gray-700">Created At:</strong>{" "}
-            {new Date(createdAt).toLocaleString()}
+            <strong className="text-gray-700">Created At: </strong>
+             {new Date(createdAt).toLocaleString()}
           </p>
           <p>
-            <strong className="text-gray-700">Updated At:</strong>{" "}
-            {new Date(updatedAt).toLocaleString()}
+            <strong className="text-gray-700">Updated At: </strong>
+             {new Date(updatedAt).toLocaleString()}
           </p>
         </div>
       </div>
@@ -117,7 +117,7 @@ const OrderDetails = ({ id }: { id: string }) => {
                   )}
                   <p className="text-gray-500">Quantity: {item.quantity}</p>
                   <p className="text-gray-500">
-                    Price: <span className="text-green-600">${item.price}</span>
+                    Price: <span className="text-green-600">{subTotal}TK</span>
                   </p>
                   <p className="text-gray-500">
                     <span className="font-medium">Shop: {item.shop?.name}</span>

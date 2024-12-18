@@ -46,10 +46,10 @@ const AddProduct = () => {
     }
   };
     return (
-      <div className="flex">
-  <div className=" bg-slate-200 border w-full mx-auto mt-[10vh] rounded-none md:rounded-2xl p-4 md:p-8 shadow-input hover:bg-white dark:bg-black">
+      <div >
+            <h1 className="mb-8 text-3xl text-center font-bold">Create A Product</h1>
+  <div className=" bg-slate-200 border w-full mx-auto mt-[5vh] rounded-none md:rounded-2xl p-4 md:p-8 shadow-input hover:bg-white dark:bg-black">
         <form onSubmit={handleSubmit(onSubmit)} className="my-8" >
-            <h1 className="mb-8 text-xl font-bold">Create A Product</h1>
           <LabelInputContainer className="mb-4">
             <Label htmlFor="name">Name</Label>
             <Input id="name" placeholder="Your Shop Name" type="text" {...register("name", { required: "Name is required" })}

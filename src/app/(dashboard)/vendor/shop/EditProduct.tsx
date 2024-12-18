@@ -99,7 +99,7 @@ const EditProduct = ({ product }: { product: IProduct }) => {
                           required/>
                           </LabelInputContainer>
                           <LabelInputContainer className="mb-4">
-                            <Label htmlFor="discounts">Discount Price</Label>
+                            <Label htmlFor="discounts">Discount Percent</Label>
                             <Input id="discounts" defaultValue={product?.discounts} placeholder="Your product discounts" min={0} type="number" {...register("discounts")}
                          />
                           </LabelInputContainer>

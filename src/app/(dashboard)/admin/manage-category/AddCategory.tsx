@@ -57,11 +57,11 @@ const AddCategory = ({ categories }: { categories: ICategory[] }) => {
       {/* category cards  */}
      
 
-   <div className="grid grid-cols-1 mt-[5vh] md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 ">
+   <div className="grid grid-cols-1 sm:grid-cols-2 mt-[5vh] md:grid-cols-3 lg:grid-cols-5 xl:grid-cols-6">
    {
        categories?.length ? categories?.map((category) => (
-        <div key={category?.categoryId} className="p-8">
-       <div className=" w-full relative max-w-xs">
+        <div key={category?.categoryId} className="p-2">
+       <div className=" w-full relative max-w-xs h-88">
         <div className="absolute inset-0 h-full w-full bg-gradient-to-r from-blue-500 to-teal-500 transform scale-[0.80] bg-red-500 rounded-full blur-3xl" />
           <div className="relative shadow-xl bg-gray-900 border border-gray-800  px-4 py-8 h-full overflow-hidden rounded-2xl flex flex-col justify-end items-start">
           <div className="h-5 w-5 rounded-full border flex items-center justify-center mb-4 border-gray-500">

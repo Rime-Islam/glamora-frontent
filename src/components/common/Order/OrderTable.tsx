@@ -54,16 +54,14 @@ const OrderTable = ({
         <TableRow>
         <TableHead>Index</TableHead>
           <TableHead className="w-[150px]">Transaction ID</TableHead>
-          {userData?.user?.role == "ADMIN" && (
-              <TableHead className="">Email</TableHead>
-            )}
+    
    {userData?.user?.role == "ADMIN" && (
                 <TableHead className="text-center">
                  Customer Email
                 </TableHead>
               )}
           <TableHead>Payment Status</TableHead>
-          <TableHead className="min-w-[150px]">Items</TableHead>
+          <TableHead className="w-[180px]">Items</TableHead>
           <TableHead className="text-right">Subtotal</TableHead>
           <TableHead>Status</TableHead>
           {action && (
@@ -80,16 +78,16 @@ const OrderTable = ({
           <TableRow key={order.id}>
               <TableCell>{index + 1}</TableCell>
             <TableCell className="font-medium">
-              <Link href={`${path}/${order.id}`}>{order.transactionId}</Link>
+              <Link href={`${path}/${order.id}`} className="hover:underline hover:text-blue-600">{order.transactionId}</Link>
             </TableCell>
             {userData?.user?.role == "ADMIN" && (
-                <TableCell className="text-right">
+                <TableCell className="text-center">
                   {order.customer?.email}
                 </TableCell>
               )}
 
 <TableCell
-  className={`font-bold pl-5 ${
+  className={`font-bold  ${
     order.paymentStatus === "COMPLETED" ? "text-green-600" : "text-red-500"
   }`}
 >
@@ -115,7 +113,13 @@ const OrderTable = ({
               ${order.subTotal.toFixed(2)}
             </TableCell>
             
-            <TableCell>{order.status.toLocaleLowerCase()}</TableCell>
+            <TableCell   className={`font-bold ${
+    order.status === "PENDING"
+      ? "text-red-500"
+      : order.status === "ONGOING"
+      ? "text-orange-500"
+      : "text-green-500"
+  }`}>{order.status.toLocaleLowerCase()}</TableCell>
             {action && (
               <>
                 {userData?.user?.role == "ADMIN" && (

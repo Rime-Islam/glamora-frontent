@@ -29,7 +29,7 @@ const ShopDetails = ({ id }: { id: string }) => {
     }
 
     return (
-        <div className="container mx-auto p-4">
+        <div className="mx-[3vw] mb-[5vh]">
               {/* Shop Header */}
       <div className="bg-white shadow rounded-md p-6 mb-6 ">
         <div className="flex items-center sm:flex-row gap-12 sm:items-center ">

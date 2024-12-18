@@ -1,6 +1,7 @@
 import CloneProduct from "@/app/(dashboard)/vendor/shop/CloneProduct";
 import DeleteProduct from "@/app/(dashboard)/vendor/shop/DeleteProduct";
 import EditProduct from "@/app/(dashboard)/vendor/shop/EditProduct";
+import { IProduct } from "@/interface/product.interface";
 import { cn } from "@/lib/utils";
 import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image";
@@ -25,7 +26,7 @@ export const HoverEffect = ({
   return (
     <div
       className={cn(
-        "grid grid-cols-1 md:grid-cols-2  lg:grid-cols-3  py-10",
+        "grid grid-cols-1 md:grid-cols-2  lg:grid-cols-3 xl:grid-cols-4  py-10",
         className
       )}
     >
@@ -55,7 +56,7 @@ export const HoverEffect = ({
           </AnimatePresence>
           <Card>
             <Link
-        href={`/vendor/shop/product/${item?.productId}`}>
+        href={`/product/${item?.productId}`}>
               <Image
                           width={200}
                           height={50}
@@ -68,7 +69,7 @@ export const HoverEffect = ({
             <div className="mt-3 font-semibold">Price: {item?.price} TK</div>
             <div className="flex justify-between ">
                 
-                <EditProduct product={item}/>
+                <EditProduct product={item }/>
                <DeleteProduct id={item?.productId}/>
                <CloneProduct data={item}/>
             </div>

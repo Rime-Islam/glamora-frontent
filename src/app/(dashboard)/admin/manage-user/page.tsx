@@ -24,8 +24,8 @@ const ManageUser = () => {
     setCurrentPage(page);
   };
     return (
-        <div>
-            <h1 className="mb-8 text-xl text-center font-bold">User Management</h1>
+        <div className="container mx-auto">
+            <h1 className="mb-8 text-3xl text-center font-bold">User Management</h1>
              <div className="flex flex-wrap justify-between">
         <SearchInput
           placeholder="Search by Email"

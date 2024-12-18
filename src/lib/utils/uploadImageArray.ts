@@ -19,7 +19,7 @@ export const uploadImagesToCloudinary = async (files: File[] | FileList) => {
           body: formData,
         }
       );
-console.log(response)
+
       if (!response.ok) throw new Error("Image upload failed");
 
       const data = await response.json();
