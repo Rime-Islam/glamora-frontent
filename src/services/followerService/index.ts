@@ -1,12 +1,7 @@
-
 "use server";
 
 import axiosInstance from "@/lib/axios/axiosInstance";
 import { revalidateTag } from "next/cache";
-
-const handleError = (error: any) => {
-  throw new Error(error?.response?.data?.message || error?.message || error);
-};
 
 export const newFollow = async (id: string) => {
   try {
@@ -14,17 +9,16 @@ export const newFollow = async (id: string) => {
     revalidateTag("single-shop");
     return res?.data;
   } catch (error: any) {
-    handleError(error);
+    throw new Error(error?.response?.data?.message || error?.message || error);
   }
 };
 
 export const removeFollow = async (id: string) => {
   try {
-   
     const res = await axiosInstance.delete(`/shop/remove-follow/${id}`);
     revalidateTag("single-shop");
     return res?.data;
   } catch (error: any) {
-    handleError(error);
+    throw new Error(error?.response?.data?.message || error?.message || error);
   }
 };

@@ -1,5 +1,4 @@
 "use client";
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { IApiResponse } from "@/interface/apiResponse.interface";
 import { createCupon, getShopCupon } from "@/services/cuponService";
 import { useMutation, useQuery } from "@tanstack/react-query";

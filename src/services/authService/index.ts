@@ -1,15 +1,16 @@
 "use server";
 import { jwtDecode } from "jwt-decode";
 import axiosInstance from "@/lib/axios/axiosInstance";
-import { cookies } from "next/headers";
 import config from "@/config";
+
+import { cookies } from "next/headers";
 
 export const loginUser = async (userData: {
   email: string;
   password: string;
 }) => {
   try {
-    const { data } = await axiosInstance.post(`/auth/signin`, userData);
+    const { data } = await axiosInstance.post(`/auth/user-login`, userData);
 
     // Set the token in a cookie
     (await cookies()).set("accessToken", data?.data?.token, {
@@ -27,10 +28,9 @@ export const loginUser = async (userData: {
 export const createUser = async (userData: any) => {
   try {
     const { data } = await axiosInstance.post(
-      `${config.backendApi}/user/signup`,
+      `${config.backendApi}/user/create-user`,
       userData
     );
-    console.log(userData);
 
     (await cookies()).set("accessToken", data?.data, {
       httpOnly: true,
@@ -61,7 +61,7 @@ export const setNewPass = async (passData: {
   password: string;
 }) => {
   try {
-    const { data } = await axiosInstance.patch("/auth/set-password", passData);
+    const { data } = await axiosInstance.patch("/user/set-pass", passData);
 
     return data;
   } catch (error: any) {
@@ -75,7 +75,7 @@ export const setNewPass = async (passData: {
 
 export const resetPass = async (userEmail: { email: string }) => {
   try {
-    const { data } = await axiosInstance.post("/auth/forget-password", userEmail);
+    const { data } = await axiosInstance.post("/auth/reset", userEmail);
     return data;
   } catch (error: any) {
     if (error?.response?.data.message) {

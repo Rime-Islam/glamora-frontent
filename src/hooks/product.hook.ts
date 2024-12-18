@@ -15,63 +15,48 @@ import {
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { FieldValues } from "react-hook-form";
 
-// Utility function to invalidate queries
-const invalidateQueries = (keys: string[]) => {
-  keys.forEach((key) => queryClient.invalidateQueries({ queryKey: [key] }));
-};
-
-// Add Product Mutation
 export const useAddProduct = () => {
-  return useMutation<any, Error, FieldValues>({
-    mutationFn: addProduct,
+  return useMutation<any, Error, FieldValues, unknown>({
+    mutationFn: async (data: any) => await addProduct(data),
     onSuccess: () => {
-      invalidateQueries([
-        "vendorShopSingle",
-        "all-product",
-        "all-products",
-        "singleVendorWithAllProduct",
-      ]);
+      queryClient.invalidateQueries({ queryKey: ["vendorShopSingle"] });
+      queryClient.invalidateQueries({ queryKey: ["all-product"] });
+      queryClient.invalidateQueries({ queryKey: ["all-products"] });
+      queryClient.invalidateQueries({
+        queryKey: ["singleVendorWithAllProduct"],
+      });
     },
   });
 };
 
-// Clone Product Mutation
 export const useCloneProduct = () => {
-  return useMutation<any, Error, FieldValues>({
-    mutationFn: cloneProduct,
-    onSuccess: () =>
-      invalidateQueries([
-        "vendorShopSingle",
-        "all-product",
-        "all-products",
-        "singleVendorWithAllProduct",
-      ]),
+  return useMutation<any, Error, FieldValues, unknown>({
+    mutationFn: async (data: any) => await cloneProduct(data),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["vendorShopSingle"] });
+    },
   });
 };
 
-// Update Product Mutation
 export const useUpdateProduct = () => {
-  return useMutation<any, Error, { data: FieldValues; id: string }>({
-    mutationFn: ({ data, id }) => updateProduct({ data, id }),
-    onSuccess: () =>
-      invalidateQueries([
-        "vendorShopSingle",
-        "all-product",
-        "all-products",
-        "singleVendorWithAllProduct",
-      ]),
+  return useMutation<any, Error, { data: FieldValues; id: string }, unknown>({
+    mutationFn: async (data: { data: FieldValues; id: string }) =>
+      await updateProduct(data),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["vendorShopSingle"] });
+    },
   });
 };
 
-// Delete Product Mutation
 export const useDeleteProduct = () => {
-  return useMutation<any, Error, string>({
-    mutationFn: deleteProduct,
-    onSuccess: () => invalidateQueries(["vendorShopSingle"]),
+  return useMutation<any, Error, string, unknown>({
+    mutationFn: async (id) => await deleteProduct(id),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["vendorShopSingle"] });
+    },
   });
 };
 
-// All Products Query (Variant 1)
 export const useAllProduct = (
   searchTerm: string,
   categoryId: string,
@@ -80,12 +65,13 @@ export const useAllProduct = (
 ) => {
   return useQuery<IApiResponse<IProduct[]>>({
     queryKey: ["all-product", searchTerm, categoryId, sortCriteria, page],
-    queryFn: () => allProducts({ searchTerm, categoryId, sortCriteria, page }),
-    retry: true,
+    queryFn: async () =>
+      await allProducts({ searchTerm, categoryId, sortCriteria, page }),
+    refetchOnMount: true, // Refetch data when the component mounts
+    refetchOnWindowFocus: true, // Optional: Refetch when the window regains focus
   });
 };
 
-// All Products Query (Variant 2)
 export const useAllProduct2 = (
   searchTerm: string,
   categoryId: string,
@@ -93,24 +79,23 @@ export const useAllProduct2 = (
   page: number
 ) => {
   return useQuery<IApiResponse<IProduct[]>>({
-    queryKey: ["all-products]", searchTerm, categoryId, sortCriteria, page],
-    queryFn: () => allProducts({ searchTerm, categoryId, sortCriteria, page }),
+    queryKey: ["all-products", searchTerm, categoryId, sortCriteria, page],
+    queryFn: async () =>
+      await allProducts({ searchTerm, categoryId, sortCriteria, page }),
   });
 };
 
-// Single Product Query
 export const useSingleProduct = (id: string) => {
   return useQuery<IApiResponse<IProduct>>({
-    enabled: !!id, // Ensure query runs only if id is provided
-    queryKey: ["single-product", id],
-    queryFn: () => singleProduct(id),
+    enabled: !!id,
+    queryKey: ["single-product"],
+    queryFn: async () => await singleProduct(id),
   });
 };
 
-// Flash Products Query
 export const useFlashProduct = () => {
   return useQuery<IApiResponse<IDiscount[]>>({
     queryKey: ["flash-product"],
-    queryFn: flashProduct,
+    queryFn: async () => await flashProduct(),
   });
 };

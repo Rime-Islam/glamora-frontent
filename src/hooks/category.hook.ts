@@ -11,57 +11,78 @@ import {
 } from "@/services/categoryService";
 import { useMutation, useQuery } from "@tanstack/react-query";
 
-// Utility function to invalidate all category-related queries
-const invalidateCategoryQueries = () => {
-  ["allCategory", "allCategorys", "allCategoryDashboard"].forEach((key) =>
-    queryClient.invalidateQueries({ queryKey: [key] })
-  );
-};
-
-// Hook to fetch all categories for the main view
 export const useAllCategory = () => {
   return useQuery<IApiResponse<ICategory[]>>({
     queryKey: ["allCategory"],
-    queryFn: getAllCategory,
+
+    queryFn: async () => await getAllCategory(),
   });
 };
-
-// Hook to fetch all categories for an alternative view
 export const useAllCategory2 = () => {
   return useQuery<IApiResponse<ICategory[]>>({
     queryKey: ["allCategorys"],
-    queryFn: getAllCategory,
+    queryFn: () => getAllCategory(),
   });
 };
 
-// Hook to fetch all categories for the dashboard
 export const useAllCategoryDashboard = () => {
   return useQuery<IApiResponse<ICategory[]>>({
     queryKey: ["allCategoryDashboard"],
-    queryFn: getAllCategory,
+    queryFn: () => getAllCategory(),
   });
 };
 
-// Mutation hook for adding a category
 export const useAddCategory = () => {
-  return useMutation<any, Error, string, void>({
-    mutationFn: addCategory,
-    onSuccess: invalidateCategoryQueries,
+  return useMutation<any, Error, string, unknown>({
+    mutationFn: async (name: string) => await addCategory(name),
+    onSuccess: () => {
+      // Invalidate the "get-all-userdata" query to revalidate it
+      queryClient.invalidateQueries({
+        queryKey: ["allCategory"],
+      });
+      queryClient.invalidateQueries({
+        queryKey: ["allCategorys"],
+      });
+      queryClient.invalidateQueries({
+        queryKey: ["allCategoryDashboard"],
+      });
+    },
   });
 };
 
-// Mutation hook for updating a category
 export const useUpdateCategory = () => {
-  return useMutation<any, Error, { id: string; name: string }, void>({
-    mutationFn: ({ id, name }) => updateCategory(id, name),
-    onSuccess: invalidateCategoryQueries,
+  return useMutation<any, Error, { id: string; name: string }, unknown>({
+    mutationFn: async (data: { id: string; name: string }) =>
+      await updateCategory(data.id, data.name),
+    onSuccess: () => {
+      // Invalidate the "get-all-userdata" query to revalidate it
+      queryClient.invalidateQueries({
+        queryKey: ["allCategory"],
+      });
+      queryClient.invalidateQueries({
+        queryKey: ["allCategorys"],
+      });
+      queryClient.invalidateQueries({
+        queryKey: ["allCategoryDashboard"],
+      });
+    },
   });
 };
 
-// Mutation hook for deleting a category
 export const useDeleteCategory = () => {
-  return useMutation<any, Error, string, void>({
-    mutationFn: deleteCategory,
-    onSuccess: invalidateCategoryQueries,
+  return useMutation<any, Error, string, unknown>({
+    mutationFn: async (id: string) => await deleteCategory(id),
+    onSuccess: () => {
+      // Invalidate the "get-all-userdata" query to revalidate it
+      queryClient.invalidateQueries({
+        queryKey: ["allCategory"],
+      });
+      queryClient.invalidateQueries({
+        queryKey: ["allCategorys"],
+      });
+      queryClient.invalidateQueries({
+        queryKey: ["allCategoryDashboard"],
+      });
+    },
   });
 };

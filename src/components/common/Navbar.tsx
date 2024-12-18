@@ -4,6 +4,11 @@ import { HoveredLink, Menu, MenuItem, ProductItem } from "../ui/navbar-menu";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { AuthContext } from "@/providers/AuthProvider";
+import { FaUserCircle } from "react-icons/fa";
+import { FaCartShopping } from "react-icons/fa6";
+import Image from "next/image";
+import logo from "../../../public/image/logo.png";
+import { useAppSelector } from "@/redux/hook";
 
 export function NavbarDemo() {
   return (
@@ -16,7 +21,7 @@ export function NavbarDemo() {
 
 function Navbar({ className }: { className?: string }) {
   const [active, setActive] = useState<string | null>(null);
-  
+  const { cartItems } = useAppSelector((state) => state.cartSlice);
   const getDashboardLink = (role: string): string => {
 
     if (role === "ADMIN") {
@@ -33,7 +38,19 @@ function Navbar({ className }: { className?: string }) {
       className={cn("responsive w-full", className)}
     >
       <Menu setActive={setActive}>
-        <Link href="/"><MenuItem setActive={setActive} active={null} item="Home">
+      <div className="flex justify-between">
+      <div >
+    <Link href="/">
+    <Image
+        src={logo}
+        width={100}
+        height={10}
+        alt='logo'
+      />
+    </Link>
+      </div>
+   <div className="hidden md:flex text-white space-x-6 mt-1">
+   <Link href="/"><MenuItem setActive={setActive} active={null} item="Home">
         </MenuItem></Link>
         <Link href="/product"><MenuItem setActive={setActive} active={null} item="Product">
         </MenuItem></Link>
@@ -84,7 +101,19 @@ function Navbar({ className }: { className?: string }) {
         </MenuItem></Link>) :
         (null)
         }
+   </div>
+         <div className="flex gap-4">
+        {
+          userData?.user ?  <Link href={`${userData?.user?.role.toLocaleLowerCase()}/dashboard`}><FaUserCircle className=" w-6 h-6"/></Link> :
+<Link href="/auth/signin"><FaUserCircle className=" w-6 h-6"/></Link> 
+        }
+         {userData?.user?.role == "CUSTOMER" &&  <Link href="/cart" className="flex">
+         <FaCartShopping className=" w-6 h-6"/> 
+        {cartItems.length > 0 ? <span className="bg-amber-600 h-5 px-1.5 rounded-full text-sm -ml-2 -mt-2">{cartItems.length}</span>  : ''}
         
+      </Link>}
+         </div>
+      </div>
       </Menu>
     </div>
   );

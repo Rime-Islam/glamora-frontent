@@ -185,6 +185,7 @@ const ProductDetails = ({ id }: { id: string }) => {
                       id: product?.productId,
                       photo: product?.images[0],
                       price: product?.price,
+                      stock: product?.stock,
                       quantity,
                       title: product.name,
                       size: selectedSize,

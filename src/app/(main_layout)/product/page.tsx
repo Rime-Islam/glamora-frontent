@@ -54,7 +54,9 @@ const Page = () => {
       }
    
     return (
-        <div className="px-[5vw]">
+        <div className="px-[3vw]  mx-auto">
+            <h1 className="text-center font-bold py-5 text-3xl">All Products</h1>
+
              <SearchSortFilter
           searchTerm={searchTerm}
           onSearchChange={setSearchTerm}
@@ -94,7 +96,8 @@ const Page = () => {
 <div>
         {data?.data?.length ? (
           <>
-            <div>
+            <div className="">
+  
            <ProductCard data={data.data} />
             </div>
    {data?.meta && (

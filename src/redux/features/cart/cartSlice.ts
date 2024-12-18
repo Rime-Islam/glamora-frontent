@@ -7,6 +7,7 @@ export interface ICartItem {
   category: string;
   size?: string;
   price: number;
+  stock: number;
   quantity: number;
   photo: string;
   shopId: string;

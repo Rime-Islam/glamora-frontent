@@ -14,67 +14,75 @@ import {
 import { getVendorSingleShopOrders } from "@/services/shopService";
 import { useMutation, useQuery } from "@tanstack/react-query";
 
-// Helper function to invalidate multiple queries
-const invalidateQueries = (queryKeys: string[]) => {
-  queryKeys.forEach((key) =>
-    queryClient.invalidateQueries({ queryKey: [key] })
-  );
+export const useMakeOrder = () => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  return useMutation<any, Error, any, unknown>({
+    mutationFn: (data: any) => makePayment(data),
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ["user-all-order"],
+      });
+      queryClient.invalidateQueries({
+        queryKey: ["all-order"],
+      });
+      queryClient.invalidateQueries({
+        queryKey: ["pending-order"],
+      });
+    },
+  });
 };
 
-// Mutation for making an order
-export const useMakeOrder = () =>
-  useMutation<any, Error, any>({
-    mutationFn: makePayment,
-    onSuccess: () =>
-      invalidateQueries(["user-all-order", "all-order", "pending-order"]),
-  });
-
-// Query for fetching a single user's all orders with filters
-export const useSigleUserAllOrder = (currentPage: number, status: string) =>
-  useQuery<IApiResponse<IOrder[]>>({
+export const useSigleUserAllOrder = (currentPage: number, status: string) => {
+  return useQuery<IApiResponse<IOrder[]>>({
     queryKey: ["user-all-order", currentPage, status],
-    queryFn: () => getSigleUserAllOrder(currentPage, status),
+    queryFn: async () => await getSigleUserAllOrder(currentPage, status),
   });
+};
 
-// Query for fetching a single order
-export const useSingleOrder = (id: string) =>
-  useQuery<IApiResponse<IOrder>>({
+export const useSingleOrder = (id: string) => {
+  return useQuery<IApiResponse<IOrder>>({
     enabled: !!id,
     queryKey: ["user-single-order", id],
-    queryFn: () => getSigleOrder(id),
+    queryFn: async () => await getSigleOrder(id),
   });
+};
 
-// Query for fetching all orders
-export const useAllOrder = (page: number) =>
-  useQuery<IApiResponse<IOrder[]>>({
+export const useAllOrder = (page: number) => {
+  return useQuery<IApiResponse<IOrder[]>>({
     queryKey: ["all-order", page],
-    queryFn: () => getAllOrder(page),
+    queryFn: async () => await getAllOrder(page),
   });
+};
 
-// Mutation for updating an order
-export const useUpdateOrder = () =>
-  useMutation<any, Error, string>({
-    mutationFn: updateOrder,
-    onSuccess: () =>
-      invalidateQueries([
-        "user-all-order",
-        "all-order",
-        "pending-order",
-        "vendorSingleShopOrder",
-        "getUserDashboard",
-      ]),
+export const useUpdateOrder = () => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  return useMutation<any, Error, string, unknown>({
+    mutationFn: async (id: string) => await updateOrder(id),
+    onSuccess: () => {
+      // Invalidate the "get-all-userdata" query to revalidate it
+      queryClient.invalidateQueries({
+        queryKey: ["user-all-order"],
+      });
+      queryClient.invalidateQueries({
+        queryKey: ["all-order"],
+      });
+      queryClient.invalidateQueries({
+        queryKey: ["pending-order"],
+      });
+    },
   });
+};
 
-// Query for fetching vendor's single shop orders with filters
-export const useVendorSingleShopOrders = (status: string, page: number) =>
-  useQuery<IApiResponse<IOrder[]>>({
+export const useVendorSingleShopOrders = (status: string, page: number) => {
+  return useQuery<IApiResponse<IOrder[]>>({
     queryKey: ["vendorSingleShopOrder", status, page],
-    queryFn: () => getVendorSingleShopOrders(status, page),
+    queryFn: async () => await getVendorSingleShopOrders(status, page),
   });
+};
 
-// Query for fetching pending orders
-export const usePendingOrder = (page: number) =>
-  useQuery<IApiResponse<IOrder[]>>({
+export const usePendingOrder = (page: number) => {
+  return useQuery<IApiResponse<IOrder[]>>({
     queryKey: ["pending-order", page],
-    queryFn: () => getPendingOrder(page),
+    queryFn: async () => await getPendingOrder(page),
   });
+};

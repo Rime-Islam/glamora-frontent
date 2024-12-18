@@ -11,27 +11,26 @@ import {
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { FieldValues } from "react-hook-form";
 
-// Helper function to invalidate queries
-const invalidateQueries = (queryKeys: string[]) => {
-  queryKeys.forEach((key) =>
-    queryClient.invalidateQueries({ queryKey: [key] })
-  );
+export const useAddRating = () => {
+  return useMutation<any, Error, FieldValues, unknown>({
+    mutationFn: async (data: any) => await addReview(data),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["user-single-order"] });
+    },
+  });
+};
+export const useReplyRating = () => {
+  return useMutation<any, Error, { id: string; vendorReply: string }, unknown>({
+    mutationFn: async (data) => replyReview(data), // Aligned the data type
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["get-rating-by-shop"] });
+    },
+  });
 };
 
-export const useAddRating = () =>
-  useMutation<any, Error, FieldValues>({
-    mutationFn: addReview,
-    onSuccess: () => invalidateQueries(["user-single-order"]),
-  });
-
-export const useReplyRating = () =>
-  useMutation<any, Error, { id: string; vendorReply: string }>({
-    mutationFn: replyReview,
-    onSuccess: () => invalidateQueries(["get-rating-by-shop"]),
-  });
-
-export const useGetReviewByShop = (page: number) =>
-  useQuery<IApiResponse<IReview[]>>({
+export const useGetReviewByShop = (page: number) => {
+  return useQuery<IApiResponse<IReview[]>>({
     queryKey: ["get-rating-by-shop", page],
-    queryFn: () => getReviewbyShop(page),
+    queryFn: async () => await getReviewbyShop(page),
   });
+};

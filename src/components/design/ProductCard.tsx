@@ -12,6 +12,7 @@ import { AuthContext } from "@/providers/AuthProvider";
 import { addProductToComparison } from "@/redux/features/compare/compareSlice";
 import AvarageRating from "../Rating/AvarageRating";
 import CartConflict from "../common/cartConfilct/CartConflict";
+import { toast } from "sonner";
 
 
 
@@ -22,18 +23,20 @@ const ProductCard: React.FC<ProductCardProps> = ({ data }) => {
   const dispatch = useAppDispatch();
   const handleAddToCart = (data: ICartItem) => {
     dispatch(addItemToCart(data));
+    toast.success("This product add to the cart");
   };
   const userData = useContext(AuthContext);
   const handleCompare = (product: IProduct) => {
     dispatch(addProductToComparison(product));
   };
 
+
   return (
    <div>
-    <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
+    <div className="grid grid-cols-1 lg:grid-cols-4 gap-5">
     {
         data?.map((item) => (
-            <CardContainer key={item?.productId} className="w-xl ">
+            <CardContainer key={item?.productId} className=" ">
             <CardBody className=" relative group/card  hover:shadow-2xl hover:shadow-emerald-500/[0.1] bg-black border-white/[0.2] w-[30rem] h-auto rounded-xl p-6 border  ">
             <Link
                   className="hover:underline underline-offset-2"
@@ -102,6 +105,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ data }) => {
                     id: item?.productId,
                     photo: item?.images[0],
                     price: item?.price,
+                    stock: item?.stock,
                     quantity: 1,
                     title: item.name,
                     discount: !!item.flashSale?.length

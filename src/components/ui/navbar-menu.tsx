@@ -83,21 +83,9 @@ export const Menu = ({
    
     <nav
       onMouseLeave={() => setActive(null)} // resets the state
-      className="relative md:text-sm lg:text-lg bg-black text-white  shadow-input flex justify-between px-8 py-5"
+      className="relative md:text-sm lg:text-lg bg-black text-white  shadow-input  px-8 py-5"
     >
-      <div>
-    <Link href="/">
-    <Image
-        src={logo}
-        width={100}
-        height={10}
-        alt='logo'
-      />
-    </Link>
-      </div>
-      <div className="hidden md:flex text-white space-x-6 mt-1">
       {children}
-      </div>
       <div className="flex gap-3 mt-1">
 
  <div className="md:hidden">
@@ -111,8 +99,7 @@ export const Menu = ({
 </Accordion>
  </div>
    
-      <Link href="/"><FaUserCircle className=" w-6 h-6"/></Link>
-      <Link href="/"><FaCartShopping className=" w-6 h-6"/></Link>
+     
       </div>
     </nav>
     </>
