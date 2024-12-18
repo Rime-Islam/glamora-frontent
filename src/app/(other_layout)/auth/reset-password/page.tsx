@@ -6,7 +6,7 @@ import { Input } from "@/components/ui/input";
 import { toast } from "sonner";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useSetNewPass } from "@/hooks/auth.hook";
-import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
+import { SubmitHandler, useForm } from "react-hook-form";
 
 
 const ResetPassword = () => {
@@ -39,7 +39,7 @@ const ResetPassword = () => {
   
     if (!token || !email) {
       router.push(`/`);
-      return null; // Prevent rendering if token or email is not present
+      return null; 
     }
 
     return (

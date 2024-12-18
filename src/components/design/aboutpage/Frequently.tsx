@@ -7,7 +7,7 @@ const Frequently = () => {
           </h1>
           <div className="grid grid-cols-1 gap-8 mt-8 lg:mt-16 md:grid-cols-2 xl:grid-cols-3">
             <div>
-              <div className="inline-block p-3 text-white bg-blue-600 rounded-lg">
+              <div className="inline-block p-3 text-white bg-black rounded-lg">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   className="w-6 h-6"
@@ -36,7 +36,7 @@ const Frequently = () => {
               </div>
             </div>
             <div>
-              <div className="inline-block p-3 text-white bg-blue-600 rounded-lg">
+              <div className="inline-block p-3 text-white bg-black rounded-lg">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   className="w-6 h-6"
@@ -65,7 +65,7 @@ const Frequently = () => {
               </div>
             </div>
             <div>
-              <div className="inline-block p-3 text-white bg-blue-600 rounded-lg">
+              <div className="inline-block p-3 text-white bg-black rounded-lg">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   className="w-6 h-6"
@@ -94,7 +94,7 @@ const Frequently = () => {
               </div>
             </div>
             <div>
-              <div className="inline-block p-3 text-white bg-blue-600 rounded-lg">
+              <div className="inline-block p-3 text-white bg-black rounded-lg">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   className="w-6 h-6"
@@ -123,7 +123,7 @@ const Frequently = () => {
               </div>
             </div>
             <div>
-              <div className="inline-block p-3 text-white bg-blue-600 rounded-lg">
+              <div className="inline-block p-3 text-white bg-black rounded-lg">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   className="w-6 h-6"
@@ -152,7 +152,7 @@ const Frequently = () => {
               </div>
             </div>
             <div>
-              <div className="inline-block p-3 text-white bg-blue-600 rounded-lg">
+              <div className="inline-block p-3 text-white bg-black rounded-lg">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   className="w-6 h-6"

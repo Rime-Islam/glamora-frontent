@@ -1,3 +1,4 @@
+import Trust from '@/components/design/aboutpage/Trust';
 import { Banner } from '@/components/design/Banner';
 import Categories from '@/components/design/Categories';
 import FlashSale from '@/components/design/FlashSale';
@@ -11,9 +12,12 @@ export default function Home() {
         <div>
            <div className='h-[87vh]'>
            <Banner />
+
            </div>
+           <Trust />
             <FlashSale />
             <Categories />
+            
             <VendorProducts />
             <ScrollToTop />
         </div>

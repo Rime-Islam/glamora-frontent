@@ -1,5 +1,5 @@
 export interface IUser {
-    name: ReactNode | MotionValue<number> | MotionValue<string>;
+    name: string;
     userId: string;
     email: string;
     role: "CUSTOMER" | "VENDOR" | "ADMIN";

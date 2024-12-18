@@ -30,7 +30,7 @@ export const HoverEffect = ({
         className
       )}
     >
-      {items.map((item, idx) => (
+      {items.map((item: any, idx) => (
         <div
           key={item?.productId}
           className="relative block p-2 h-full w-full"
