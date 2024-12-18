@@ -34,7 +34,7 @@ const AddCategory = ({ categories }: { categories: ICategory[] }) => {
   
     return (
  <div>
-           <div className="max-w-lg border w-full mx-auto mt-[20vh] rounded-none md:rounded-2xl p-4 md:p-8 shadow-input bg-white dark:bg-black">
+           <div className="max-w-lg border w-full mx-auto mt-[5vh] rounded-none md:rounded-2xl p-4 md:p-8 shadow-input bg-white dark:bg-black">
       <div>
       <form onSubmit={addCategory} className="my-8" >
             <h1 className="mb-8 text-xl font-bold">Create A Category</h1>
@@ -57,7 +57,7 @@ const AddCategory = ({ categories }: { categories: ICategory[] }) => {
       {/* category cards  */}
      
 
-   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 ">
+   <div className="grid grid-cols-1 mt-[5vh] md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 ">
    {
        categories?.length ? categories?.map((category) => (
         <div key={category?.categoryId} className="p-8">

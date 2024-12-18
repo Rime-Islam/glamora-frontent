@@ -12,7 +12,6 @@ import { toast } from "sonner";
 const CartPage = () => {
     const dispatch = useAppDispatch();
     const { mutate, isPending, error } = useMakeOrder();
-    console.log(error);
   
     const {
       cuponId,
@@ -23,6 +22,7 @@ const CartPage = () => {
       additionalDiscount,
       totalPriceBeforeDiscount,
     } = useAppSelector((state) => state.cartSlice);
+    
     const { data } = useGetShopCupon(cartItems[0]?.shopId || "");
    
     const handleIncrement = (id: string, quantity: number, stock: number) => {
@@ -40,7 +40,6 @@ const CartPage = () => {
       // Map cart items to IOrderItem format
       const orderItems = cartItems.map((item) => ({
         productId: item.id,
-        size: item.size || undefined,
         quantity: item.quantity,
         price: item.price,
         discount: itemLevelDiscount || 0, // Use item-level discount if available

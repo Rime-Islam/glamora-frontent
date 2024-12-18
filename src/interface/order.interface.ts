@@ -17,6 +17,7 @@ export interface IOrder {
 }
 
 export interface IOrderItem {
+  Review: any;
   id: string;
   orderId: string;
   productId: string;
