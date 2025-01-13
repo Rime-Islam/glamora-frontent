@@ -4,7 +4,7 @@ import Frequently from "@/components/design/aboutpage/Frequently";
 
 const page = () => {
     return (
-        <div>
+        <div className="">
 <Frequently />
 <Contact />
         </div>

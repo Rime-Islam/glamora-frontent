@@ -1,19 +1,24 @@
+
 import Link from "next/link";
 import Image from "next/image";
-import logo from "../../../public/image/blacklogo.png";
+import logo from "../../../public/image/logo.png";
 
 const Footer = () => {
     return (
-        <footer className="bg-black">
-        <div className="container flex flex-col items-center justify-between p-6 mx-auto space-y-4 sm:space-y-0 sm:flex-row">
-          <Link href="/">
-          <Image
+        <footer className="bg-slate-800">
+        <div className="container flex flex-col items-center justify-between p-6 mx-auto sm:flex-row">
+        <Link href='/'>
+        <div className="flex gap-2">
+            <div className="">
+              <Image
         src={logo}
-        width={100}
-        height={10}
+        width={60}
+        height={40}
         alt='logo'
       />
-          </Link>
+              </div>
+              <p className="mt-2.5 lg:text-lg xl:text-xl text-white font-semibold">GLAMORA</p>
+        </div>   </Link>
           <p className="text-sm text-white">
           Copyright 2021. All Rights Reserved.
           </p>

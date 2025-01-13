@@ -8,10 +8,11 @@ import { useFlashProduct } from "@/hooks/product.hook";
 const FlashSale = () => {
   const { data: { data: product } = {} } = useFlashProduct();
   return (
-    <div>
-      <h1 className="text-center pt-8 text-3xl font-semibold">Flash Sale Products</h1>
-      <div className="grid mt-8 justify-items-center px-[2vw]
-       sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-8 gap-2   mx-auto  overflow-hidden mb-2">
+    <div className="">
+      <h1 className="md:ml-4 lg:ml-8 pt-8 text-3xl font-semibold text-center md:text-start">Flash Sale Products</h1>
+     <div className="flex justify-center">
+     <div className="grid mt-8 
+       grid-cols-1 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-2 overflow-hidden mb-2">
         {product?.map((data, i) => (
            <div
            key={i}
@@ -26,7 +27,7 @@ const FlashSale = () => {
            />
            <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/40" />
 <>
-<Link href={`/product/${data?.product.productId}`} className="z-10 mt-3 px-2 hover:underline font-bold text-white">
+<Link href={`/product/${data?.product.productId}`} className="z-10 mt-3 px-2 hover:underline hover:text-orange-500 font-bold text-white">
              {data?.product.name.slice(0, 15)}...
            </Link>
 </>
@@ -50,6 +51,8 @@ const FlashSale = () => {
          </div>
         ))}
       </div>
+     </div>
+      
     </div>
   );
 };

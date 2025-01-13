@@ -11,7 +11,7 @@ const layout = ({children}: { children: React.ReactNode }) => {
     <Navbar />
     </div>
     
-   <div className="container mx-auto">
+   <div className="container mx-auto mt-[18vh]">
    {children} 
    </div>
      </div>

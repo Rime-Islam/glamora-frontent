@@ -6,12 +6,13 @@ import Image from "next/image";
 import { DynamicPagination } from "@/components/common/pagination/DynamicPagination";
 import ProductCard from "@/components/design/ProductCard";
 import Follow from "./Follow";
+import { AiOutlineProduct } from "react-icons/ai";
 
 const ShopDetails = ({ id }: { id: string }) => {
     const [page, setPage] = useState(1);
     const { data: { data, meta } = {}, isLoading } =
       useSingleVendorShopWithAllProduct(id, page);
-  
+ 
     if (isLoading) {
       return (
         <div className="flex justify-center items-center h-40">
@@ -32,7 +33,7 @@ const ShopDetails = ({ id }: { id: string }) => {
         <div className="mx-[3vw] mb-[5vh]">
               {/* Shop Header */}
       <div className="bg-white shadow rounded-md p-6 mb-6 ">
-        <div className="flex items-center sm:flex-row gap-12 sm:items-center ">
+        <div className="flex items-center flex-row gap-2 md:gap-12 ">
           <Image
             src={data.images[0]}
             alt={data.name}
@@ -40,21 +41,34 @@ const ShopDetails = ({ id }: { id: string }) => {
             height={400}
             className=" w-2/3"
           />
-          <div className=" text-center sm:text-left">
-            <h1 className="text-3xl font-bold">{data.name}</h1>
-            <p className="text-gray-600 text-lg mt-2">{data.location}</p>
-            <div className="flex items-center gap-5">
-              <p className="text-gray-400 text-md mt-1">
+          <div className=" text-start ">
+            <h1 className="text-lg md:text-3xl font-bold">{data.name}</h1>
+            <p className="text-gray-600 text-sm md:text-lg mt-2">{data.location}</p>
+            <div>
+              <p className="text-gray-400 text-sm md:text-md mt-1">
                 Created at: {new Date(data.createdAt).toLocaleDateString()}
               </p>
-              <p className="text-md flex items-center font-medium">
+            </div>
+            <div className="flex justify-start gap-5">
+             <p className="text-sm flex items-center font-medium">
+                                          <span>
+                                            {!!data.products?.length
+                                              ? data.products?.length
+                                              : 0}
+                                          </span>
+                                          <span>
+                                            
+                                          <AiOutlineProduct  />
+                                          </span>
+                                        </p>
+            <p className="text-md flex items-center font-medium">
                 <span>{data?.followers?.length}</span>
                 <span>
                   <User2 className="w-4 "></User2>
                 </span>
               </p>
             </div>
-            <div className="mt-4 flex justify-evenly">
+            <div className="mt-4 ">
           <Follow data={data} id={id}></Follow>
         </div>
             <p className="mt-2">

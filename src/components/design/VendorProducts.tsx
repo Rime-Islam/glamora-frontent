@@ -68,7 +68,7 @@ const VendorProducts = () => {
   }, [isLoading, hasMore]);
 
   return (
-    <div className="px-[3vw]">
+    <div className="">
       <p className="text-3xl font-semibold ms-2"> All Products</p>
       <div className="sm:mt-0 px-2">
         <SearchSortFilter
@@ -84,7 +84,7 @@ const VendorProducts = () => {
 
       <div className="mt-4">
         {isLoading && allProducts.length === 0 && (
-          <div className="flex justify-center items-center h-40">
+          <div className="flex justify-center">
             <div className="animate-spin rounded-full h-12 w-12 border-y-4  border-solid border-gray-900"></div>
           </div>
         )}
@@ -93,7 +93,7 @@ const VendorProducts = () => {
           <>
             <ProductCard data={allProducts} />
             {isLoading && (
-              <div className="flex justify-center items-center h-40">
+              <div className="flex justify-center">
                 <div className="animate-spin rounded-full h-12 w-12 border-t-4  border-solid border-gray-900"></div>
               </div>
             )}

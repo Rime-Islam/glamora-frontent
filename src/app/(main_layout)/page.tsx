@@ -19,6 +19,8 @@ export default function Home() {
             <Categories />
             
             <VendorProducts />
+            
+         
             <ScrollToTop />
         </div>
     );

@@ -43,7 +43,7 @@ export const allProducts = async ({
     const res = await axiosInstance.get(`/product`, {
       params: { searchTerm, categoryId, sort, page, limit: 12 },
     });
-    // console.log(res.data)
+    console.log(res.data)
     return res.data;
   } catch (error) {
     handleError(error);

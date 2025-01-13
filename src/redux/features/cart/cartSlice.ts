@@ -23,6 +23,7 @@ interface ICartState {
   totalDiscount: number;
   subTotal: number;
   categoryId: string; // use in product page
+  productId: string; // use in product page
   showVendorConflictDialog: boolean; // Flag to show the dialog
   pendingItem?: ICartItem;
   // Temporarily store the item for dialog actions
@@ -37,6 +38,7 @@ const initialState: ICartState = {
   totalDiscount: 0,
   subTotal: 0,
   categoryId: "",
+  productId: "",
   showVendorConflictDialog: false,
   pendingItem: undefined,
   cuponId: "",
@@ -180,6 +182,10 @@ export const cartSlice = createSlice({
       // Reset the
       state.categoryId = action.payload;
     },
+    setProductId: (state, action: PayloadAction<string>) => {
+      // Reset the
+      state.productId = action.payload;
+    },
     setCuponId: (state, action: PayloadAction<string>) => {
       // Reset the
       state.cuponId = action.payload;
@@ -198,6 +204,7 @@ export const {
   replaceCart,
   retainCart,
   setCategoryId,
+  setProductId,
   setCuponId,
 } = cartSlice.actions;
 

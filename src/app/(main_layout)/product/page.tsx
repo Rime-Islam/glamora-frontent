@@ -54,8 +54,8 @@ const Page = () => {
       }
    
     return (
-        <div className="px-[3vw]  mx-auto">
-            <h1 className="text-center font-bold py-5 text-3xl">All Products</h1>
+        <div className="mt-[20vh]  bg-yellow-300">
+            <h1 className="font-bold py-5 text-3xl">All Products</h1>
 
              <SearchSortFilter
           searchTerm={searchTerm}

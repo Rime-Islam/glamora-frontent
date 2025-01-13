@@ -34,13 +34,13 @@ const ComparisonPage: React.FC = () => {
 
   if (selectedProducts.length === 0) {
     return (
-      <p className="text-center mt-10">No products selected for comparison. <Link className="hover:underline font-semibold hover:text-blue-600" href="/product">Select products</Link> to get the best price.</p>
+      <p className="text-center mt-[30vh]">No products selected for comparison. <Link className="hover:underline font-semibold hover:text-blue-600" href="/product">Select products</Link> to get the best price.</p>
     );
   }
 
   return (
-    <div className="container mx-auto mt-5">
-      <h1 className="text-3xl font-bold text-center mb-8 text-gray-800">
+    <div className=" p-2">
+      <h1 className="text-3xl font-bold mb-8 text-gray-800">
         Comparison Table
       </h1>
       <div className="overflow-x-auto shadow-lg rounded-lg border border-gray-200">

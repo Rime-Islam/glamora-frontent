@@ -28,7 +28,7 @@ import {
     };
   
     return (
-      <div className="my-8">
+      <div className="">
         <Pagination>
           <PaginationContent>
             {/* Previous Button */}

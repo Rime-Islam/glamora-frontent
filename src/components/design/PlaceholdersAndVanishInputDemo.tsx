@@ -1,30 +1,48 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import { PlaceholdersAndVanishInput } from "../ui/placeholders-and-vanish-input";
+import { useAllCategory } from "@/hooks/category.hook";
+import { useState } from "react";
+import { useAppDispatch } from "@/redux/hook";
+import { setCategoryId } from "@/redux/features/cart/cartSlice";
 
 export function PlaceholdersAndVanishInputDemo() {
   const placeholders = [
-    "What's the first rule of Fight Club?",
-    "Who is Tyler Durden?",
-    "Where is Andrew Laeddis Hiding?",
-    "Write a Javascript method to reverse a string",
-    "How to assemble your own PC?",
+    "Search for the product categorys...",
+    "Find the best lipstick for every occasion",
   ];
+      
+  const router = useRouter();
+  const { data: categoryData } = useAllCategory(); 
+  const [searchTerm, setSearchTerm] = useState("");
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(e.target.value);
-  };
-  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+ const dispatch = useAppDispatch();
+
+
+  const handleSearchSubmit = async(e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log("submitted");
+    const matchedCategory = categoryData?.data?.find(
+        (category) => category.name.toLowerCase() === searchTerm.toLowerCase()
+      );
+
+      if (matchedCategory) {
+        const { categoryId } = matchedCategory;
+  
+        // Dispatch the matched categoryId to Redux
+        await dispatch(setCategoryId(categoryId));
+        router.push(`/product`);
+    } else {
+        router.push(`/product`);
+      }
   };
   return (
-    <div className="flex w-[30vw] flex-col justify-center  items-center px-4">
-   
+    <div className="w-[30vw] flex flex-col justify-center  items-center px-4">
+    
       <PlaceholdersAndVanishInput
         placeholders={placeholders}
-        onChange={handleChange}
-        onSubmit={onSubmit}
+        onChange={(e) => setSearchTerm(e.target.value)}
+        onSubmit={handleSearchSubmit}
       />
     </div>
   );

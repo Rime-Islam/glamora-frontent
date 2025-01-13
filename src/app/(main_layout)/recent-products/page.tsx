@@ -14,9 +14,9 @@ const Page = () => {
   }, []);
 
   return (
-    <div className="px-[3vw]">
-   <h1 className="text-center pt-8 text-3xl font-semibold">Recently Viewed Products</h1>
-<p className="text-center text-gray-600 mb-8">
+    <div className="px-[3vw] mt-[18vh]">
+   <h1 className=" pt-8 text-3xl font-semibold">Recently Viewed Products</h1>
+<p className=" text-gray-600 mb-8">
   Take another look at the products you've recently explored. We're here to help you find the perfect fit for your needs and make informed decisions about your favorites.
 </p>
 <ProductCard data={recentProducts} />
