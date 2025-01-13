@@ -16,7 +16,7 @@ import {
 
 const Dashboard = () => {
   const { data, isLoading, error } = useGetUserDashboard();
-
+console.log(data)
   if (isLoading) {
     return (
       <div className="flex items-center justify-center h-screen">

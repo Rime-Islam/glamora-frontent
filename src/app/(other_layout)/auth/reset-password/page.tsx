@@ -49,22 +49,22 @@ const ResetPassword = ({ params }: { params: { email: string, token: string } })
     return (
         <div className="max-w-lg border w-full mx-auto mt-[35vh] rounded-none md:rounded-2xl p-4 md:p-8 shadow-input bg-white dark:bg-black">
           <form onSubmit={handleSubmit(onSubmit)} className="my-8" >
-          <div className="h-10 bg-black font-semibold text-white text-2xl flex items-center justify-center mb-10">
+          <div className="h-10 bg-black font-semibold text-white lg:text-2xl xl:text-3xl flex items-center justify-center mb-10">
           <p>Reset Password</p>
         </div>
          <LabelInputContainer className="mb-4">
-                    <Label htmlFor="password">Password</Label>
+                    <Label htmlFor="password" className="lg:text-base xl:text-lg">Password</Label>
                     <Input id="password" placeholder="••••••••" type="password" required
                   {...register("password", { required: "Password is required" })} />
                   </LabelInputContainer>
          <LabelInputContainer className="mb-4">
-                    <Label htmlFor="confirmpassword">Confirm Password</Label>
+                    <Label htmlFor="confirmpassword" className="lg:text-base xl:text-lg">Confirm Password</Label>
                     <Input id="confirmpassword" placeholder="••••••••" type="password" 
                             required {...register("confirmpassword", { required: "Confirm Password is required" })}/>
                   </LabelInputContainer>
           
           <button
-            className="bg-gradient-to-br mt-3 relative group/btn from-black dark:from-zinc-900 dark:to-zinc-900 to-neutral-600 block dark:bg-zinc-800 w-full text-white rounded-md h-10 font-medium shadow-[0px_1px_0px_0px_#ffffff40_inset,0px_-1px_0px_0px_#ffffff40_inset] dark:shadow-[0px_1px_0px_0px_var(--zinc-800)_inset,0px_-1px_0px_0px_var(--zinc-800)_inset]"
+            className="bg-gradient-to-br mt-3 relative group/btn from-black dark:from-zinc-900 dark:to-zinc-900 to-neutral-600 block dark:bg-zinc-800 w-full text-white rounded-md h-10 lg:text-base xl:text-lg"
             type="submit"
           >
             Change Password

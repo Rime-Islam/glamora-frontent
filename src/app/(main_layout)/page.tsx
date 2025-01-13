@@ -10,7 +10,7 @@ import React from 'react';
 export default function Home() {
     return (
         <div>
-           <div className='h-[87vh]'>
+           <div className=' mt-[16vh]'>
            <Banner />
 
            </div>

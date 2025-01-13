@@ -1,141 +1,168 @@
 "use client";
-import React, { useContext, useState } from "react";
-import { HoveredLink, Menu, MenuItem, ProductItem } from "../ui/navbar-menu";
-import { cn } from "@/lib/utils";
+import React, { useContext} from "react";
 import Link from "next/link";
+import { FiBox } from "react-icons/fi";
 import { AuthContext } from "@/providers/AuthProvider";
-import { FaUserCircle } from "react-icons/fa";
-import { FaCartShopping } from "react-icons/fa6";
-import Image from "next/image";
-import logo from "../../../public/image/logo.png";
+import { MdOutlineLogout, MdOutlinePayments, MdOutlineSpaceDashboard } from "react-icons/md";import { LuArrowRightLeft, LuShoppingBag } from "react-icons/lu";
 import { useAppDispatch, useAppSelector } from "@/redux/hook";
 import { resetCart } from "@/redux/features/cart/cartSlice";
 import { logout } from "@/services/authService";
-import { Button } from "../ui/button";
+import { CgProfile } from "react-icons/cg";
+import { usePathname } from "next/navigation";
+import Logo from "./Logo";
+import { RiMenu3Fill } from "react-icons/ri";
+import { PlaceholdersAndVanishInputDemo } from "../design/PlaceholdersAndVanishInputDemo";
+import {
+  LogIn,
+  ShoppingCart,
+ 
+} from "lucide-react";
+import { useGetUserDashboard } from "@/hooks/dashboard";
+import { IoCartOutline, IoStarOutline } from "react-icons/io5";
+import { useAllCategory } from "@/hooks/category.hook";
 
-export function NavbarDemo() {
-  return (
-    <div className="relative w-full  flex items-center justify-center">
-      <Navbar className="top-0 " />
+  const Navbar = () => {
+      const { data: categoryData } = useAllCategory(); // Assuming `isLoading` is available
+      const dispatch = useAppDispatch();
+    const pathname = usePathname();
+
+    const { cartItems } = useAppSelector((state) => state.cartSlice);
+    const getDashboardLink = (role: string): string => {
+  
+      if (role === "ADMIN") {
+        return "/admin/dashboard";
+      }
     
-    </div>
-  );
-}
-
-function Navbar({ className }: { className?: string }) {
-  const [active, setActive] = useState<string | null>(null);
-  const { cartItems } = useAppSelector((state) => state.cartSlice);
-  const getDashboardLink = (role: string): string => {
-
-    if (role === "ADMIN") {
-      return "/admin/dashboard";
-    }
+      return `/${role.toLowerCase()}/dashboard`;
+    };
+    const userData = useContext(AuthContext);
+    const Role = userData?.user?.role;
+     const { data, isLoading, error } = useGetUserDashboard();
+   const profilePicture = data?.data?.customer?.image;
+    
   
-    return `/${role.toLowerCase()}/dashboard`;
-  };
-  const userData = useContext(AuthContext);
-  const dispatch = useAppDispatch();
+    const logoutUser = async () => {
+      dispatch(resetCart());
+      await logout();
+      userData?.setIsLoading(true);
+    };
+    
+    const links = [
+      { href: "/", label: "Home" },
+      { href: "/product", label: "Products" },
+      { href: "/shop", label: "Shops" },
+      { href: "/compair-product", label: "Compair" },
+      { href: "/flashsale", label: "Flash" },
+      { href: "/about", label: "About" },
+    ];
 
-  const logoutUser = async () => {
-    dispatch(resetCart());
-    await logout();
-    userData?.setIsLoading(true);
-  };
-  
   return (
-    <div
-      className={cn("responsive w-full", className)}
-    >
-      <Menu setActive={setActive}>
-      <div className="flex justify-between">
-      <div >
-    <Link href="/">
-    <Image
-        src={logo}
-        width={100}
-        height={10}
-        alt='logo'
-      />
-    </Link>
-      </div>
-   <div className="hidden md:flex text-white space-x-6 mt-1">
-   <Link href="/"><MenuItem setActive={setActive} active={null} item="Home">
-        </MenuItem></Link>
-        <Link href="/product"><MenuItem setActive={setActive} active={null} item="Products">
-        </MenuItem></Link>
-        <Link href="/shop"> 
-        <MenuItem setActive={setActive} active={null} item="Shop">
-          {/* <div className="  text-sm grid grid-cols-2 gap-10 p-4">
-            <ProductItem
-              title="Algochurn"
-              href="/"
-              src="https://assets.aceternity.com/demos/algochurn.webp"
-              description="Prepare for tech interviews like never before."
-            />
-            <ProductItem
-              title="Tailwind Master Kit"
-              href="/"
-              src="https://assets.aceternity.com/demos/tailwindmasterkit.webp"
-              description="Production ready Tailwind css components for your next project"
-            />
-            <ProductItem
-              title="Moonbeam"
-              href="/"
-              src="https://assets.aceternity.com/demos/Screenshot+2024-02-21+at+11.51.31%E2%80%AFPM.png"
-              description="Never write from scratch again. Go from idea to blog in minutes."
-            />
-            <ProductItem
-              title="Rogue"
-              href="/"
-              src="https://assets.aceternity.com/demos/Screenshot+2024-02-21+at+11.47.07%E2%80%AFPM.png"
-              description="Respond to government RFPs, RFIs and RFQs 10x faster using AI"
-            />
-          </div> */}
-        </MenuItem>
-        </Link>
-        {/* <Link href="/about"> 
-        <MenuItem setActive={setActive} active={null} item="About"> */}
-          {/* <div className="flex flex-col space-y-4 text-sm">
-            <HoveredLink href="/hobby">Hobby</HoveredLink>
-            <HoveredLink href="/individual">Individual</HoveredLink>
-            <HoveredLink href="/team">Team</HoveredLink>
-            <HoveredLink href="/enterprise">Enterprise</HoveredLink>
-          </div> */}
-        {/* </MenuItem> */}
-        {/* </Link> */}
-        <Link href="/about"><MenuItem setActive={setActive} active={null} item="About">
-        </MenuItem></Link>
-        <Link href="/compair-product"><MenuItem setActive={setActive} active={null} item="Comparison">
-        </MenuItem></Link>
-        {
-          userData?.user ? (<Link href={getDashboardLink(userData.user.role)}> <MenuItem setActive={setActive} active={null} item="Dashboard">
-        </MenuItem></Link>) :
-        (null)
-        }
+    <div className="fixed top-0 z-50 w-full bg-white ">
+  {/* navbar part 1  */}
+  <div className="navbar my-1 bg-white dark:bg-white container mx-auto">
+  <div className="navbar-start">
+   <Logo />
+   <div className="">
+   <PlaceholdersAndVanishInputDemo />
    </div>
-         <div className="flex gap-4">
-          {
-            userData?.user &&  <Button
-            className="bg-white  hover:bg-white text-black hover:scale-95"
-            onClick={() => logoutUser()}
-          >
-            Logout
-          </Button>
-          }
-        {
-          userData?.user ?  <Link href={`${userData?.user?.role.toLocaleLowerCase()}/dashboard`}><FaUserCircle className=" w-6 h-6"/></Link> :
-<Link href="/auth/signin"><FaUserCircle className=" w-6 h-6"/></Link> 
-        }
-         {userData?.user?.role == "CUSTOMER" &&  <Link href="/cart" className="flex">
-         <FaCartShopping className=" w-6 h-6"/> 
+  </div>
+  
+  <div className="navbar-end">
+  <div className="mr-3 mt-1">
+  <Link href='/recent-products'><LuArrowRightLeft className="w-6 h-6" /></Link>
+  </div>
+  <div className="mr-3 mt-1">
+  {Role == "CUSTOMER" &&  <Link href="/cart" className="flex">
+         <ShoppingCart className="w-6 h-6"/> 
         {cartItems.length > 0 ? <span className="bg-amber-600 h-5 px-1.5 rounded-full text-sm -ml-2 -mt-2">{cartItems.length}</span>  : ''}
         
       </Link>}
-         </div>
+  </div>
+      {
+          userData?.user ?  
+            <div className="dropdown dropdown-hover dropdown-bottom dropdown-end">
+          <img
+          className="w-10 h-10 mt-1 rounded-full"
+          src={profilePicture || "https://i.ibb.co.com/544PSXp/blank-profile-picture-973460-960-720.webp"}
+          alt="logo"
+        />
+  <ul tabIndex={0} className="dropdown-content menu bg-white rounded-lg z-[1] w-48 py-2 shadow">
+  <Link href={`${Role?.toLocaleLowerCase()}/dashboard`}><li> <a><MdOutlineSpaceDashboard /> Dashboard</a></li></Link>
+  <Link href='/recent-products'><li><a><IoCartOutline /> Recent Products</a></li></Link>
+  <Link href='/cart'> <li><a><LuShoppingBag /> Purchased Items</a></li></Link>
+  <Link href={`${Role?.toLocaleLowerCase()}/dashboard`}><li><a><IoStarOutline /> My Reviews</a></li></Link>
+  <Link href={`${Role?.toLocaleLowerCase()}/dashboard`}><li><a><MdOutlinePayments /> Payments</a></li></Link>
+  <Link href={`${Role?.toLocaleLowerCase()}/dashboard`}><li><a><FiBox /> Favorite Sellers</a></li></Link>
+  <Link href={`${Role?.toLocaleLowerCase()}/dashboard`}><li><a><CgProfile /> Profile</a></li></Link>
+    <div className="bg-neutral-300 h-[1px] w-full" />
+    <li><p onClick={logoutUser}><MdOutlineLogout /> Logout</p></li>
+  </ul>
+</div>
+          :
+<Link href="/auth/signin"><LogIn /></Link> 
+        }
+  </div>
+</div>
+<div className="bg-neutral-300 h-[1px] w-full" />
+  {/* navbar part 2  */}
+  <div className="bg-neutral-300 w-full" />
+      <div className="navbar container mx-auto bg-white dark:bg-white">
+  <div className="navbar-start">
+{/* all category drowpdown  */}
+    <div className="dropdown dropdown-hover">
+  <div className="rounded-lg px-3 py-2 bg-orange-500 text-white">Browse Categories</div>
+  <ul tabIndex={0} className="dropdown-content menu bg-white rounded-box z-[1] w-52 p-2 shadow">
+    <li><a>Item 1</a></li>
+    <li><a>Item 2</a></li>
+  </ul>
+</div>
+
+   {/* <Logo /> */}
+  </div>
+  <div className="navbar-end ">
+    <div className="hidden lg:flex">
+    <ul className="menu menu-horizontal ">
+    {links.map((link) => {
+        const isActive = pathname === link.href;
+        return (
+          <li className="text-sm xl:text-lg"> <Link
+            key={link.href}
+            href={link.href}
+            className={`nav-link ${isActive ? "text-orange-500" : "text-gray-500"}`}
+          >
+            {link.label}
+          </Link></li>
+        );
+      })}
+    </ul>
+    </div>
+    <div className="dropdown">
+      <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
+      <RiMenu3Fill className="w-5 h-5"/>
       </div>
-      </Menu>
+      <ul
+        tabIndex={0}
+        className="menu menu-sm dropdown-content bg-white rounded-box z-[1] mt-3 w-52 p-2 shadow">
+         {links.map((link) => {
+        const isActive = pathname === link.href;
+        return (
+          <li className="text-lg"><Link
+            key={link.href}
+            href={link.href}
+            className={`nav-link ${isActive ? "text-orange-500" : "text-gray-500"}`}
+          >
+            {link.label}
+          </Link></li>
+        );
+      })}
+      </ul>
+    </div>
+  </div>
+ 
+</div> <div className="bg-neutral-300 h-[1px] w-full" />
     </div>
   );
 }
 
 
+export default Navbar;

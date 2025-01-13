@@ -7,6 +7,7 @@ export interface IUser {
     Admin: any[]; // Update this if you have a specific structure for Admin data
     vendor: IVendor | null;
     customer: ICustomer | null;
+    profilePicture: string;
   }
 export interface ICreateUser {
     name: string;

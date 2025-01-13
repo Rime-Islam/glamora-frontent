@@ -115,7 +115,7 @@ export const ImagesSlider = ({
   return (
     <div
       className={cn(
-        " h-full  w-full flex items-center justify-center",
+        " container mx-auto max-h-[60vh] flex items-center justify-center",
         className
       )}
       style={{

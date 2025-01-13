@@ -11,7 +11,7 @@ export function Banner() {
    
   ];
   return (
-    <ImagesSlider className="h-[55rem] absolute" images={images}>
+    <ImagesSlider className="h-[55rem]" images={images}>
       <motion.div
         initial={{
           opacity: 0,
@@ -24,7 +24,7 @@ export function Banner() {
         transition={{
           duration: 2,
         }}
-        className="z-50 ml-[5vw] flex flex-col justify-center items-center"
+        className="z-50 ml-[5vw] "
       >
         <motion.div className="text-center font-semibold bg-clip-text text-transparent bg-gradient-to-b from-neutral-50 to-neutral-400 ">
         <FlipWords words={words} />
