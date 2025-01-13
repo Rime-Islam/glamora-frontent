@@ -1,20 +1,19 @@
 "use client"
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { cn } from "@/lib/utils";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { toast } from "sonner";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter} from "next/navigation";
 import { useSetNewPass } from "@/hooks/auth.hook";
 import { SubmitHandler, useForm } from "react-hook-form";
 
 
-const ResetPassword = () => {
-    const searchParams = useSearchParams(); // Access query params
+const ResetPassword = ({ params }: { params: { email: string, token: string } }) => {
+    // const searchParams = useSearchParams(); 
     const router = useRouter();
     const { register, handleSubmit, formState: { errors } } = useForm<any>();
-    const token = searchParams.get("token");
-    const email = searchParams.get("email");
+    const { email, token } = params;
  
     const { mutate: changePassword } = useSetNewPass();
   
@@ -37,8 +36,13 @@ const ResetPassword = () => {
       }
     };  
   
+    useEffect(() => {
+      if (!token || !email) {
+        router.push(`/`);
+      }
+    }, [token, email, router]);
+  
     if (!token || !email) {
-      router.push(`/`);
       return null; 
     }
 

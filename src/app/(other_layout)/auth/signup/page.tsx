@@ -86,6 +86,7 @@ const Signup = () => {
             <select id="accountType" className="border rounded p-2" required {...register("accountType", { required: "Account Type is required" })}>
               <option value="CUSTOMER">Customer</option>
               <option value="VENDOR">Seller</option>
+              <option value="ADMIN">admin</option>
             </select>
           </div>
             </LabelInputContainer>

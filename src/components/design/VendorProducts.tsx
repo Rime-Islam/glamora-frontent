@@ -31,7 +31,7 @@ const VendorProducts = () => {
     sortCriteria || "",
     page || 1
   );
-  console.log(promise);
+  
 
   useEffect(() => {
     setAllProducts([]);
