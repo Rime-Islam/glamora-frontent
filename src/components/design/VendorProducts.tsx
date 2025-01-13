@@ -69,7 +69,7 @@ const VendorProducts = () => {
 
   return (
     <div className="">
-      <p className="text-3xl font-semibold ms-2"> All Products</p>
+      <p className="text-xl md:text-2xl lg:text-3xl font-bold ms-2"> All Products</p>
       <div className="sm:mt-0 px-2">
         <SearchSortFilter
           searchTerm={searchTerm}

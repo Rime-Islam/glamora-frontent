@@ -35,16 +35,16 @@ const FlashSale = () => {
   }
 
   return (
-    <div className="max-w-full mb-[5vh]">
-      <div className="w-full px-[5vh] flex justify-between items-center">
-        <h1 className="text-2xl font-semibold">Flash Sale</h1>
-        <Button className="text-xl hover:text-blue-600" variant="link">
+    <div className="px-[2vw] xl:px-0 mb-[5vh]">
+      <div className=" flex justify-between items-center">
+        <h1 className="text-xl md:text-2xl lg:text-3xl font-bold">Flash Sale</h1>
+        <Button className="lg:text-xl hover:text-blue-600" variant="link">
           <Link href="/flashsale">View all</Link> <ArrowRight />
         </Button>
       </div>
-
-      <div className="grid mt-4 justify-items-center px-[2vw]
-       sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-8 gap-2   mx-auto  overflow-hidden mb-2">
+<div className="flex justify-center">
+<div className="grid mt-4 
+       grid-cols-1 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-5 mb-5">
         {dataToDisplay.map((data, i) => (
           <div
           key={i}
@@ -83,6 +83,7 @@ const FlashSale = () => {
         </div>
         ))}
       </div>
+</div>
     </div>
   );
 };

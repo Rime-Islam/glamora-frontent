@@ -3,10 +3,10 @@ import { Button } from "@/components/ui/button";
 const Contact = () => {
     return (
         <div className="bg-white dark:bg-gray-900">
-        <div className="container px-6 py-12 mx-auto">
+        <div className=" px-6 py-12 ">
           <div>
             <p className="font-medium text-black dark:text-blue-400">Contact us</p>
-            <h1 className="mt-2 text-2xl font-semibold text-gray-800 md:text-3xl dark:text-white">
+            <h1 className="mt-2  text-xl md:text-2xl lg:text-3xl text-gray-800 font-bold dark:text-white">
               Chat to our friendly team
             </h1>
             <p className="mt-3 text-black dark:text-white">

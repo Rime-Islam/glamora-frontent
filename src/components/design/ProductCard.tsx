@@ -33,7 +33,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ data }) => {
 
 
   return (
-   <div className="bg-red-300">
+   <div className="px-[2vw] xl:px-0">
     <div className="grid grid-cols-1 lg:grid-cols-4 gap-5">
     {
         data?.map((item) => (

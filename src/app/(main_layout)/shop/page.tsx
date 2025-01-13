@@ -35,7 +35,7 @@ const Shop = () => {
             
             {!!data?.data?.length ? (
               <div className=" px-4 pb-6 pt-2">
-                <h1 className="text-2xl font-bold my-6 md:my-8 ">Shop List</h1>
+                <h1 className=" text-xl md:text-2xl lg:text-3xl my-6 md:my-8 ">Shop List</h1>
                 <div className="">
                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
                     {data?.data?.map((shop: IShop) => (

@@ -34,7 +34,10 @@ const Categories = () => {
   }
 
   return (
-    <div className="mb-[5vh] px-1 mt-5 sm:mt-0">
+    <div className="mb-[5vh] px-1 ">
+      <div className=" mb-12 ">
+		<h2 className="px-[2vw] xl:px-0 text-xl md:text-2xl lg:text-3xl font-bold">Browse By Category</h2>
+	</div>
       <Swiper
         slidesPerView={2}
         spaceBetween={10}

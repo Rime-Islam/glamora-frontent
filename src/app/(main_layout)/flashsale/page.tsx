@@ -9,7 +9,7 @@ const FlashSale = () => {
   const { data: { data: product } = {} } = useFlashProduct();
   return (
     <div className="">
-      <h1 className="md:ml-4 lg:ml-8 pt-8 text-3xl font-semibold text-center md:text-start">Flash Sale Products</h1>
+      <h1 className="md:ml-4 lg:ml-8 pt-8  text-xl md:text-2xl lg:text-3xltext-center md:text-start">Flash Sale Products</h1>
      <div className="flex justify-center">
      <div className="grid mt-8 
        grid-cols-1 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-2 overflow-hidden mb-2">

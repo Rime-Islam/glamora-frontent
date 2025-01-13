@@ -1,6 +1,7 @@
 import Trust from '@/components/design/aboutpage/Trust';
 import { Banner } from '@/components/design/Banner';
 import Categories from '@/components/design/Categories';
+import Choose from '@/components/design/Choose';
 import FlashSale from '@/components/design/FlashSale';
 import ScrollToTop from '@/components/design/ScrollToTop';
 import VendorProducts from '@/components/design/VendorProducts';
@@ -17,7 +18,7 @@ export default function Home() {
            <Trust />
             <FlashSale />
             <Categories />
-            
+            <Choose />
             <VendorProducts />
             
          

@@ -55,7 +55,7 @@ const Page = () => {
    
     return (
         <div className="mt-[20vh]  bg-yellow-300">
-            <h1 className="font-bold py-5 text-3xl">All Products</h1>
+            <h1 className="font-bold py-5 text-xl md:text-2xl lg:text-3xl">All Products</h1>
 
              <SearchSortFilter
           searchTerm={searchTerm}
