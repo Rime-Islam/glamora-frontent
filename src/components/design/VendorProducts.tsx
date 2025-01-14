@@ -6,7 +6,8 @@ import { useFilterSortSearch } from "@/lib/utils/hook/useFilterSortSearch";
 import { IProduct } from "@/interface/product.interface";
 import ProductCard from "./ProductCard";
 import SearchSortFilter from "../common/searchSortFilter/SearchSortFilter";
-import throttle from "lodash/throttle";
+import CardSkeleton from "@/components/skeleton/CardSkeleton";
+
 
 const VendorProducts = () => {
   const {
@@ -52,21 +53,17 @@ const VendorProducts = () => {
     }
   }, [data]);
 
-  const handleScroll = throttle(() => {
-    const nearBottom =
-      window.innerHeight + window.scrollY >=
-      document.documentElement.scrollHeight - 200;
+  if (isLoading) {
+    return (
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+      {Array.from({ length: 4 }).map((_, index) => (
+        <CardSkeleton key={index} />
+      ))}
+    </div>
+    );
+  }
 
-    if (nearBottom && !isLoading && hasMore) {
-      setPage((prevPage) => prevPage + 1);
-    }
-  }, 200);
-
-  useEffect(() => {
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, [isLoading, hasMore]);
-
+  
   return (
     <div className="">
       <p className="text-xl md:text-2xl lg:text-3xl font-bold ms-2"> All Products</p>
@@ -92,6 +89,7 @@ const VendorProducts = () => {
         {allProducts.length > 0 ? (
           <>
             <ProductCard data={allProducts} />
+           
             {isLoading && (
               <div className="flex justify-center">
                 <div className="animate-spin rounded-full h-12 w-12 border-t-4  border-solid border-gray-900"></div>

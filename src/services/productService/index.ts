@@ -2,7 +2,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import axiosInstance from "@/lib/axios/axiosInstance";
 import { FieldValues } from "react-hook-form";
-
 const handleError = (error: any) => {
   throw new Error(error?.response?.data?.message || error?.message || error);
 };
@@ -43,7 +42,7 @@ export const allProducts = async ({
     const res = await axiosInstance.get(`/product`, {
       params: { searchTerm, categoryId, sort, page, limit: 12 },
     });
-    console.log(res.data)
+    
     return res.data;
   } catch (error) {
     handleError(error);

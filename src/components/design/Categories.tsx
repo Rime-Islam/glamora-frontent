@@ -8,6 +8,7 @@ import { setCategoryId } from "@/redux/features/cart/cartSlice";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination } from "swiper/modules";
 import "swiper/css";
+import { Skeleton } from "../ui/skeleton";
 
 const Categories = () => {
   const { data, isLoading } = useAllCategory(); // Assuming `isLoading` is available
@@ -19,9 +20,11 @@ const Categories = () => {
 
   if (isLoading) {
     return (
-      <div className="flex justify-center items-center h-40">
-        <div className="animate-spin rounded-full h-12 w-12 border-y-4 border-solid border-gray-900"></div>
-      </div>
+      <div className="flex flex-wrap p-4 gap-4">
+      {Array.from({ length: 8 }).map((_, index) => (
+        <Skeleton key={index} className="h-6 w-16" />
+      ))}
+    </div>
     );
   }
 

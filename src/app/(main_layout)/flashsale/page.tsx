@@ -3,10 +3,21 @@ import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useFlashProduct } from "@/hooks/product.hook";
+import CardSkeleton from "@/components/skeleton/CardSkeleton";
 
 
 const FlashSale = () => {
-  const { data: { data: product } = {} } = useFlashProduct();
+  const { isLoading, data: { data: product} = {} } = useFlashProduct();
+  
+  if (isLoading) {
+    return (
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+      {Array.from({ length: 4 }).map((_, index) => (
+        <CardSkeleton key={index} />
+      ))}
+    </div>
+    );
+  }
   return (
     <div className="">
       <h1 className="md:ml-4 lg:ml-8 pt-8  text-xl md:text-2xl lg:text-3xltext-center md:text-start">Flash Sale Products</h1>

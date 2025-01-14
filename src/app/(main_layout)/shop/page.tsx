@@ -1,8 +1,7 @@
 "use client"
 import { DynamicPagination } from "@/components/common/pagination/DynamicPagination";
-import SearchInput from "@/components/common/searchSortFilter/SearchInput";
 import { Button } from "@/components/ui/button";
-import { useAllVendorShop, useSingleVendorShopWithAllProduct } from "@/hooks/shop.hook";
+import { useAllVendorShop } from "@/hooks/shop.hook";
 import { IShop } from "@/interface/shop.interface";
 import useDebounce from "@/lib/utils/useDebounce";
 import { User2 } from "lucide-react";
@@ -10,6 +9,7 @@ import Link from "next/link";
 import { useState } from "react";
 import Image from "next/image";
 import { AiOutlineProduct } from "react-icons/ai";
+import CardSkeleton from "@/components/skeleton/CardSkeleton";
 
 const Shop = () => {
     const [searchText, setSearchText] = useState("");
@@ -24,12 +24,11 @@ const Shop = () => {
     return (
         <div className="">
         {isLoading ? (
-          <>
-            
-            <div className="flex justify-center items-center h-40">
-              <div className="animate-spin rounded-full h-12 w-12 border-y-4 border-solid border-gray-900"></div>
-            </div>
-          </>
+           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+           {Array.from({ length: 4 }).map((_, index) => (
+             <CardSkeleton key={index} />
+           ))}
+         </div>
         ) : (
           <div>
             

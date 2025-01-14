@@ -6,6 +6,7 @@ import { ArrowRight } from "lucide-react";
 import { useFlashProduct } from "@/hooks/product.hook";
 import Link from "next/link";
 import { useMediaQuery } from "react-responsive";
+import CardSkeleton from "@/components/skeleton/CardSkeleton";
 
 
 const FlashSale = () => {
@@ -17,9 +18,11 @@ const FlashSale = () => {
   // Loader while data is being fetched
   if (isLoading) {
     return (
-      <div className="flex justify-center items-center h-40">
-        <div className="animate-spin rounded-full h-12 w-12 border-y-4  border-solid border-gray-900"></div>
-      </div>
+      <div className="my-5 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+      {Array.from({ length: 4 }).map((_, index) => (
+        <CardSkeleton key={index} />
+      ))}
+    </div>
     );
   }
 

@@ -2,7 +2,6 @@
 
 import Image from "next/image";
 import React, { useContext } from "react";
-import { CardBody, CardContainer, CardItem } from "../ui/3d-card";
 import Link from "next/link";
 import {IProduct, ProductCardProps }from "@/interface/product.interface"
 import { FcFlashOn } from "react-icons/fc";
@@ -33,18 +32,18 @@ const ProductCard: React.FC<ProductCardProps> = ({ data }) => {
 
 
   return (
-   <div className="px-[2vw] xl:px-0">
-    <div className="grid grid-cols-1 lg:grid-cols-4 gap-5">
+   <div className="px-[2vw] xl:px-0 ">
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
     {
         data?.map((item) => (
-            <div key={item?.productId} className="max-w-base h-56">
+            <div key={item?.productId} className="max-w-base">
             <div className="  hover:shadow-2xl bg-white rounded-lg p-2">
            
-              <div className="w-full h-56 mb-5">
+              <div className="max-w-88 h-56 mb-5">
                 <Image
                   src={item.images[0]}
                   height="50"
-                  width="100"
+                  width="50"
                   className="h-full w-full object-cover rounded-xl "
                   alt="thumbnail"
                 />
@@ -64,7 +63,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ data }) => {
                   )}
               </p></Link>
               <p
-                className="text-neutral-500 text-sm max-w-sm mt-2 dark:text-neutral-300"
+                className="text-neutral-500 text-sm mt-2 dark:text-neutral-300"
               >
                       {item?.description?.length > 60 ? (
                   <>{item.description.slice(0, 61)}...</>
@@ -73,7 +72,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ data }) => {
                 )}
               </p>
              </div>
-              <div>
+              <div className=" flex justify-between">
               <p
                 className=" px-2 flex gap-3 text-sm  "
               >
@@ -84,16 +83,43 @@ const ProductCard: React.FC<ProductCardProps> = ({ data }) => {
                     % <FcFlashOn className="w-5 h-5"/>
                   </span>
               </p>
+              <AvarageRating
+                  rating={item?.averageRating ? item?.averageRating : 0}
+                  width={85}
+                ></AvarageRating>
               </div>
               
               
               <div className="flex justify-between items-center mt-5">
-                <Link
-                  href={`/product/${item.productId}`}
-                  className="px-4 py-2 rounded-xl text-xs font-normal hover:underline "
-                >
-                  view details →
-                </Link>
+              <div className="text-neutral-500 flex gap-3 text-sm dark:text-neutral-300">
+                 <div
+                className={
+                  userData?.user
+                    ? "flex gap-60 justify-between"
+                    : "flex  justify-between"
+                }
+              >
+               <div>
+               {userData?.user && (
+            <Button
+            onClick={() => handleCompare(item)}
+            disabled={selectedProducts
+              .map((o) => o.productId)
+              .includes(item.productId)}
+            size="sm"
+            className="mt-2 mb-1  "
+          >
+            {selectedProducts
+              .map((o) => o.productId)
+              .includes(item.productId)
+              ? "Selected"
+              : "Compare"}
+          </Button>
+                )}
+               </div>
+               
+              </div>
+               </div>
                 <button
                   disabled={userData?.user?.role !== "CUSTOMER"}
                   onClick={() =>
@@ -116,45 +142,13 @@ const ProductCard: React.FC<ProductCardProps> = ({ data }) => {
                   Add to cart
                 </button>
               </div>
-              <div
-             
-               className="text-neutral-500 justify-center w-full px-4 flex gap-3 text-sm  mt-8 dark:text-neutral-300">
-                 <div
-                className={
-                  userData?.user
-                    ? "flex gap-60 justify-between"
-                    : "flex  justify-between"
-                }
-              >
-               <div>
-               {userData?.user && (
-            <Button
-            onClick={() => handleCompare(item)}
-            disabled={selectedProducts
-              .map((o) => o.productId)
-              .includes(item.productId)}
-            size="sm"
-            className="mt-2 mb-1 bg-white text-black"
-          >
-            {selectedProducts
-              .map((o) => o.productId)
-              .includes(item.productId)
-              ? "Selected"
-              : "Compare"}
-          </Button>
-                )}
-               </div>
-                <AvarageRating
-                  rating={item?.averageRating ? item?.averageRating : 0}
-                  width={85}
-                ></AvarageRating>
-              </div>
-               </div>
+           
             </div>
           </div>
         ))
     }
    </div>
+ 
     <CartConflict />
    </div>
   );

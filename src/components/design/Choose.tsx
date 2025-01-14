@@ -1,4 +1,4 @@
-import { FiVideo } from "react-icons/fi"
+import React from "react";
 
 const Choose = ( ) => {
     return (
