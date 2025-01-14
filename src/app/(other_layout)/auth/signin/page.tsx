@@ -26,10 +26,9 @@ const Signin = () => {
   const onSubmit: SubmitHandler<ICreateUser>  = async (data: ICreateUser) => {
     mutate(data, {
       onSuccess: async () => {
-        router.push(`/`);
-
         authData?.setIsLoading(true);
         toast.success("Welcome To Glamora.");
+        router.push(`/`);
       },
       onError: (error: Error) => {
         toast.error(error.message || "Something Went Wrong!! Try again.");
@@ -46,10 +45,9 @@ const Signin = () => {
 
     mutate(data, {
       onSuccess: async () => {
-        router.push(`/`);
-
         authData?.setIsLoading(true);
         toast.success("Welcome To Glamora.");
+        router.push(`/customer/dashboard`);
       },
       onError: (error: Error) => {
         toast.error(error.message || "Something Went Wrong!! Try again.");
@@ -66,10 +64,10 @@ const Signin = () => {
 
     mutate(data, {
       onSuccess: async () => {
-        router.push(`/`);
-
         authData?.setIsLoading(true);
         toast.success("Welcome To Glamora.");
+        router.push(`/admin/dashboard`);
+
       },
       onError: (error: Error) => {
         toast.error(error.message || "Something Went Wrong!! Try again.");
@@ -86,10 +84,9 @@ const Signin = () => {
 
     mutate(data, {
       onSuccess: async () => {
-        router.push(`/`);
-
         authData?.setIsLoading(true);
         toast.success("Welcome To Glamora.");
+        router.push(`/vendor/dashboard`);
       },
       onError: (error: Error) => {
         toast.error(error.message || "Something Went Wrong!! Try again.");

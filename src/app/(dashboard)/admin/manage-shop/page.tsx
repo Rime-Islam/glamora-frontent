@@ -3,6 +3,7 @@ import { DynamicPagination } from "@/components/common/pagination/DynamicPaginat
 import { useAllVendorShop } from "@/hooks/shop.hook";
 import React, { useState } from "react";
 import ShopData from "./ShopData";
+import UserDataSkeleton from "@/components/skeleton/UserdataSkeleton";
 
 const ManageShop = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -15,9 +16,9 @@ const ManageShop = () => {
     <div>
       <div className="min-h-[85vh]">
         {isLoading ? (
-          <div className="flex justify-center items-center h-40">
-            <div className="animate-spin rounded-full h-12 w-12 border-y-4 border-solid border-gray-900"></div>
-          </div>
+             Array.from({ length: 2 }).map((_, index) => (
+              <UserDataSkeleton key={index} />
+            ))
         ) : (
           <> {data && <ShopData Data={data?.data}></ShopData>}</>
         )}

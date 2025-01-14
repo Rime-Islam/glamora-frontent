@@ -86,7 +86,7 @@ import { PlaceholdersAndVanishInputDemo } from "../design/PlaceholdersAndVanishI
   <Link href={`${Role?.toLocaleLowerCase()}/dashboard`}><li><a><IoStarOutline /> My Reviews</a></li></Link>
   <Link href={`${Role?.toLocaleLowerCase()}/order-history`}><li><a><MdOutlinePayments /> Payments</a></li></Link>
   <Link href={`${Role?.toLocaleLowerCase()}/dashboard`}><li><a><FiBox /> Favorite Sellers</a></li></Link>
-  <Link href={`${Role?.toLocaleLowerCase()}/dashboard`}><li><a><CgProfile /> Profile</a></li></Link>
+  <Link href={`${Role?.toLocaleLowerCase()}/profile`}><li><a><CgProfile /> Profile</a></li></Link>
     <p className="bg-neutral-300 h-[1px] w-full" />
     <li><p onClick={logoutUser}><MdOutlineLogout /> Logout</p></li>
   </ul>

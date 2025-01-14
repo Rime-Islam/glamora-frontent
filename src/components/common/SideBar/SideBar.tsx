@@ -20,6 +20,7 @@ import {
   Settings,
   ListOrderedIcon,
   ListOrdered,
+  UserCircle,
   ShoppingCartIcon,
   ChartNoAxesGanttIcon,
   MessageCircleHeartIcon,
@@ -27,7 +28,6 @@ import {
 import Link from "next/link";
 import { useContext } from "react";
 import Logo from "../Logo";
-import ChangePassword from "../ChangePassword/ChangePassword";
 
 const items = [
   {
@@ -41,6 +41,12 @@ const items = [
     title: "Dashboard",
     url: "/admin/dashboard",
     icon: Database,
+    roles: ["ADMIN"],
+  },
+  {
+    title: "My Profile",
+    url: "/admin/profile",
+    icon: UserCircle,
     roles: ["ADMIN"],
   },
   {
@@ -93,6 +99,12 @@ const items = [
     roles: ["VENDOR"],
   },
   {
+    title: "My Profile",
+    url: "/vendor/profile",
+    icon: UserCircle,
+    roles: ["VENDOR"],
+  },
+  {
     title: "Shop Management",
     roles: ["VENDOR"],
     child: [
@@ -132,6 +144,12 @@ const items = [
     roles: ["CUSTOMER"],
   },
   {
+    title: "My Profile",
+    url: "/customer/profile",
+    icon: UserCircle,
+    roles: ["CUSTOMER"],
+  },
+  {
     title: "Order Management",
     roles: ["CUSTOMER"],
     child: [
@@ -153,7 +171,7 @@ export default function AppSidebar() {
 
   return (
     <Dialog>
-      <Sidebar className="absolute">
+      <Sidebar className="absolute bg-white">
         <SidebarContent>
           <DialogContent>
             <DialogTitle></DialogTitle>
@@ -161,7 +179,7 @@ export default function AppSidebar() {
 
           <SidebarGroup>
             <SidebarGroupLabel><div className="font-bold text-lg">
-            GLAMORA</div></SidebarGroupLabel>
+            <Logo /> </div></SidebarGroupLabel>
             <SidebarGroupContent>
               <SidebarMenu className="ms-2 mt-8">
                 {filteredItems.map((item) => (
@@ -200,7 +218,7 @@ export default function AppSidebar() {
             </SidebarGroupContent>
           </SidebarGroup>
         </SidebarContent>
-        <div className="mb-[10vh]"><ChangePassword /></div>
+        
       </Sidebar>
     </Dialog>
   );

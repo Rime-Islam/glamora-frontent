@@ -1,7 +1,5 @@
 "use client";
-
-
-import ChangePassword from "@/components/common/ChangePassword/ChangePassword";
+import  DashboardSkeleton from "@/components/skeleton/DashboardSkeleton";
 import { useGetUserDashboard } from "@/hooks/dashboard"; 
 import React from "react";
 import {
@@ -16,15 +14,9 @@ import {
 
 const Dashboard = () => {
   const { data, isLoading, error } = useGetUserDashboard();
-console.log(data)
+
   if (isLoading) {
-    return (
-      <div className="flex items-center justify-center h-screen">
-        <div className="text-lg font-semibold text-gray-500">
-          Loading dashboard...
-        </div>
-      </div>
-    );
+    return  <DashboardSkeleton />;
   }
 
   if (error) {

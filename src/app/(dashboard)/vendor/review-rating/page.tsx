@@ -3,6 +3,7 @@ import { DynamicPagination } from "@/components/common/pagination/DynamicPaginat
 import { useGetReviewByShop } from "@/hooks/rating.hook";
 import React, { useState } from "react";
 import ReviewTable from "./ReviewTable";
+import UserDataSkeleton from "@/components/skeleton/UserdataSkeleton";
 
 
 const Page = () => {
@@ -17,9 +18,9 @@ const Page = () => {
     <div>
       <div className="min-h-[85vh]">
         {isLoading ? (
-          <div className="flex justify-center items-center h-40">
-            <div className="animate-spin rounded-full h-12 w-12 border-t-4 border-solid border-gray-900"></div>
-          </div>
+           Array.from({ length: 5 }).map((_, index) => (
+            <UserDataSkeleton key={index} />
+          ))
         ) : (
           <> {data && <ReviewTable reviews={data?.data}></ReviewTable>}</>
         )}

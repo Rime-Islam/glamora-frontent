@@ -6,7 +6,7 @@ import { useGetAllUser } from "@/hooks/user.hook";
 import useDebounce from "@/lib/utils/useDebounce";
 import { useState } from "react";
 import UserData from "./UserData";
-
+import UserDataSkeleton from "@/components/skeleton/UserdataSkeleton";
 
 const ManageUser = () => {
     const [currentPage, setCurrentPage] = useState(1);
@@ -24,7 +24,7 @@ const ManageUser = () => {
     setCurrentPage(page);
   };
     return (
-        <div className="container mx-auto">
+        <div className="">
             <h1 className="mb-8 text-3xl text-center font-bold">User Management</h1>
              <div className="flex flex-wrap justify-between">
         <SearchInput
@@ -47,9 +47,9 @@ const ManageUser = () => {
 
       <div className=" min-h-[78vh] lg:min-h-[80vh] mt-3">
         {isLoading ? (
-          <div className="flex justify-center items-center h-40">
-            <div className="animate-spin rounded-full h-12 w-12 border-y-4 border-solid border-gray-900"></div>
-          </div>
+          Array.from({ length: 5 }).map((_, index) => (
+            <UserDataSkeleton key={index} />
+          ))
         ) : (
           <> {data?.data && <UserData users={data?.data}></UserData>}</>
         )}

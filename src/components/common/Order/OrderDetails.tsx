@@ -5,6 +5,7 @@ import React, { useContext } from "react";
 
 import { AuthContext } from "@/providers/AuthProvider";
 import ReviewAction from "./ReviewAction";
+import UserDataSkeleton from "@/components/skeleton/UserdataSkeleton";
 
 const OrderDetails = ({ id }: { id: string }) => {
   // Fetch the order details using the custom hook
@@ -15,12 +16,12 @@ const OrderDetails = ({ id }: { id: string }) => {
     isLoading,
     error,
   } = useSingleOrder(id);
-  console.log(orderDetails);
+
   if (isLoading)
     return (
-      <div className="flex justify-center items-center h-screen">
-        Loading...
-      </div>
+      Array.from({ length: 5 }).map((_, index) => (
+        <UserDataSkeleton key={index} />
+      ))
     );
   if (error)
     return (

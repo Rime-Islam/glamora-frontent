@@ -1,6 +1,5 @@
 "use client";
-
-;
+import  DashboardSkeleton from "@/components/skeleton/DashboardSkeleton";
 import ChangePassword from "@/components/common/ChangePassword/ChangePassword";
 import { useGetVendorDashboard } from "@/hooks/dashboard";
 import React from "react";
@@ -9,15 +8,9 @@ import { FaShopify, FaBox, FaCheckCircle, FaDollarSign } from "react-icons/fa";
 
 const Dashboard = () => {
   const { data, isLoading, error } = useGetVendorDashboard();
-
+console.log(data?.data?.vendor)
   if (isLoading) {
-    return (
-      <div className="flex items-center justify-center h-screen">
-        <div className="text-lg font-semibold text-gray-500">
-          Loading dashboard...
-        </div>
-      </div>
-    );
+    return  <DashboardSkeleton />;
   }
 
   if (error) {

@@ -12,17 +12,17 @@ export default function Home() {
     return (
         <div>
            <div className=' mt-[16vh]'>
-           <Banner />
+           {/* <Banner />  */}
 
            </div>
-           <Trust />
-            <FlashSale />
-            <Categories />
-            <Choose />
-            <VendorProducts />
+           {/* <Trust /> */}
+            {/* <FlashSale /> */}
+            {/* <Categories /> */}
             
+            {/* <VendorProducts /> */}
+            {/* <Choose /> */}
          
-            <ScrollToTop />
+            {/* <ScrollToTop /> */}
         </div>
     );
 }

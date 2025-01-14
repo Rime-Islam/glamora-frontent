@@ -65,7 +65,7 @@ const VendorProducts = () => {
 
   
   return (
-    <div className="">
+    <div className="px-[2vw] lg:px-0">
       <p className="text-xl md:text-2xl lg:text-3xl font-bold ms-2"> All Products</p>
       <div className="sm:mt-0 px-2">
         <SearchSortFilter
@@ -90,11 +90,7 @@ const VendorProducts = () => {
           <>
             <ProductCard data={allProducts} />
            
-            {isLoading && (
-              <div className="flex justify-center">
-                <div className="animate-spin rounded-full h-12 w-12 border-t-4  border-solid border-gray-900"></div>
-              </div>
-            )}
+       
             {!hasMore && !isLoading && (
               <div className="text-center text-gray-500 mt-8">
                 No more products to load.

@@ -10,6 +10,7 @@ import {
 } from "@/components/ui/select";
 import { DynamicPagination } from "@/components/common/pagination/DynamicPagination";
 import OrderTable from "@/components/common/Order/OrderTable";
+import UserDataSkeleton from "@/components/skeleton/UserdataSkeleton";
 
 const Page = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -44,11 +45,9 @@ const Page = () => {
       </div>
       <div className="min-h-[85vh]">
         {isLoading ? (
-          <>
-            <div className="flex justify-center items-center h-40">
-              <div className="animate-spin rounded-full h-12 w-12 border-t-4 border-solid border-gray-900"></div>
-            </div>
-          </>
+          Array.from({ length: 5 }).map((_, index) => (
+            <UserDataSkeleton key={index} />
+          ))
         ) : (
           <> {data ? 
           <OrderTable orderData={data.data}></OrderTable>

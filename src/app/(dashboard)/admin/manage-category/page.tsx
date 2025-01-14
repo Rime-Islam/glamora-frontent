@@ -1,7 +1,7 @@
-
 import config from "@/config";
 import React, { Suspense } from "react";
 import AddCategory from "./AddCategory";
+import CardSkeleton from "@/components/skeleton/CardSkeleton";
 
 
 const fetchCategories = async () => {
@@ -18,15 +18,20 @@ const CategoriesContent = async () => {
   return <AddCategory categories={categories} />;
 };
 
+
+
 const Page = () => {
+
   return (
     <div>
       <h1 className="text-2xl font-bold mb-4 text-center">Manage Categories</h1>
       <Suspense
         fallback={
-          <div className="flex justify-center items-center h-40">
-            <div className="animate-spin rounded-full h-12 w-12 border-y-4 border-solid border-gray-900"></div>
-          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+          {[1,2,3,4].map((_, index) => (
+            <CardSkeleton key={index} />
+          ))}
+        </div>
         }
       >
         <CategoriesContent />

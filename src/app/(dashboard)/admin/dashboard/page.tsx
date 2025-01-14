@@ -11,11 +11,14 @@ import {
   FaStar,
   FaDollarSign,
 } from "react-icons/fa"; 
+import  DashboardSkeleton from "@/components/skeleton/DashboardSkeleton";
+
+
 
 const Dashboard = () => {
   const { data: { data } = {}, isLoading, error } = useGetAdminDashboard();
 
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading) return <DashboardSkeleton />;
   if (error) return <div>Error loading dashboard data.</div>;
 
   const {

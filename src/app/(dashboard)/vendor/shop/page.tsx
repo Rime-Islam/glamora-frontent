@@ -5,6 +5,7 @@ import { useVendorShop, useVendorSingleShop } from "@/hooks/shop.hook";
 import React, { useEffect, useState } from "react";
 import ShopDetails from "./ShopDetailts";
 import Link from "next/link";
+import CardSkeleton from "@/components/skeleton/CardSkeleton";
 
 
 const Shop = () => {
@@ -49,8 +50,10 @@ const Shop = () => {
 
       <div className="min-h-[78vh]">
         {isShopDetailsLoading || isLoading ? (
-          <div className="flex justify-center items-center h-40">
-            <div className="animate-spin rounded-full h-12 w-12 border-y-4 border-solid border-gray-900"></div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+            {Array.from({ length: 4 }).map((_, index) => (
+              <CardSkeleton key={index} />
+            ))}
           </div>
         ) : (
           <>
