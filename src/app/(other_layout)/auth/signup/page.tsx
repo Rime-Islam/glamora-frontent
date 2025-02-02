@@ -83,7 +83,7 @@ const Signup = () => {
             <LabelInputContainer className="mb-4">
             <div className="flex flex-col space-y-1.5">
             <Label htmlFor="Select Account Type" className="lg:text-sm xl:text-lg">Select Account Type</Label>
-            <select id="accountType" className="border rounded p-2" required {...register("accountType", { required: "Account Type is required" })}>
+            <select id="accountType" className="border bg-white rounded p-2" required {...register("accountType", { required: "Account Type is required" })}>
               <option value="CUSTOMER">Customer</option>
               <option value="VENDOR">Seller</option>
               <option value="ADMIN">admin</option>

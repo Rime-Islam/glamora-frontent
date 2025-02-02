@@ -40,12 +40,12 @@ const AddCoupon = () => {
           </LabelInputContainer>
           <LabelInputContainer className="mb-4">
             <Label htmlFor="expiresAt">Expiry Date</Label>
-            <Input id="expiresAt" placeholder="Your cupon expiry date" type="datetime-local" min={1} {...register("expiresAt", { required: "Expiry date is required" })}
+            <Input id="expiresAt" placeholder="Your cupon expiry date" type="date" min={1} {...register("expiresAt", { required: "Expiry date is required" })}
           required/>
           </LabelInputContainer>
           <LabelInputContainer className="mb-4">
             <Label htmlFor="shopId">Select shop</Label>
-            <select id="shopId" className="border rounded p-2" required {...register("shopId", { required: "Select shop is required" })}>
+            <select id="shopId" className="border bg-white rounded p-2" required {...register("shopId", { required: "Select shop is required" })}>
                         {
                            shopData?.data?.map((info) => (<option key={info?.name} value={info?.shopId}>{info?.name}</option>))
                         }

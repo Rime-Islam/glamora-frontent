@@ -82,10 +82,10 @@ import { PlaceholdersAndVanishInputDemo } from "../design/PlaceholdersAndVanishI
   <ul tabIndex={0} className="dropdown-content menu bg-white rounded-lg z-[1] w-48 py-2 shadow">
   <Link href={`${Role?.toLocaleLowerCase()}/dashboard`}><li> <a><MdOutlineSpaceDashboard /> Dashboard</a></li></Link>
   <Link href='/recent-products'><li><a><IoCartOutline /> Recent Products</a></li></Link>
-  <Link href={`${Role?.toLocaleLowerCase()}/dashboard`}> <li><a><LuShoppingBag /> Purchased Items</a></li></Link>
+  {/* {Role === "CUSTOMER" && <Link href={`${Role?.toLocaleLowerCase()}/dashboard`}> <li><a><LuShoppingBag /> Purchased Items</a></li></Link>} */}
   <Link href={`${Role?.toLocaleLowerCase()}/dashboard`}><li><a><IoStarOutline /> My Reviews</a></li></Link>
-  <Link href={`${Role?.toLocaleLowerCase()}/order-history`}><li><a><MdOutlinePayments /> Payments</a></li></Link>
-  <Link href={`${Role?.toLocaleLowerCase()}/dashboard`}><li><a><FiBox /> Favorite Sellers</a></li></Link>
+  {/* <Link href={`${Role?.toLocaleLowerCase()}/order-history`}><li><a><MdOutlinePayments /> Payments</a></li></Link> */}
+  {/* <Link href={`${Role?.toLocaleLowerCase()}/dashboard`}><li><a><FiBox /> Favorite Sellers</a></li></Link> */}
   <Link href={`${Role?.toLocaleLowerCase()}/profile`}><li><a><CgProfile /> Profile</a></li></Link>
     <p className="bg-neutral-300 h-[1px] w-full" />
     <li><p onClick={logoutUser}><MdOutlineLogout /> Logout</p></li>

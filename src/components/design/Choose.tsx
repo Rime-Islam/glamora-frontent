@@ -2,7 +2,7 @@ import React from "react";
 
 const Choose = ( ) => {
     return (
-        <div className="mx-[2vw] xl:mx-0 bg-white rounded-lg my-[8vh] p-2">
+        <div className="mx-[2vw] xl:mx-0 bg-white rounded-lg my-[5vh] p-2">
             <section className="body-font">
   <div className="text-center mt-10 text-xl md:text-2xl lg:text-3xl font-bold">We Offer You</div>
   <div className=" px-5 py-12 ">

@@ -1,21 +1,29 @@
-const ProfilePage = () => {
-    const user = {
-      name: "John Doe",
-      email: "john.doe@example.com",
-      role: "Admin",
-      phone: "+1 234 567 890",
-      address: "123, Elm Street, Springfield",
-      image: "https://via.placeholder.com/150",
-    };
+interface ProfilePageProps {
+    name: string;
+    email: string;
+    role: string;
+    phone: string;
+    address: string;
+    profilePhoto: string;
+  }
   
+  const ProfilePage: React.FC<ProfilePageProps> = ({
+    name,
+    email,
+    role,
+    phone,
+    address,
+    profilePhoto,
+  }) =>{
+
     return (
-      <div className="min-h-screen bg-gray-100 py-10">
+        <div className="  py-10">
         <div className="max-w-4xl mx-auto bg-white shadow-lg rounded-lg overflow-hidden">
           <div className="flex flex-col md:flex-row">
             {/* Profile Photo Section */}
             <div className="flex justify-center md:justify-start bg-gradient-to-r from-blue-500 to-purple-600 p-6 md:w-1/3">
               <img
-                src={user.image}
+                src={profilePhoto}
                 alt="Profile"
                 className="w-40 h-40 rounded-full border-4 border-white shadow-lg"
               />
@@ -23,20 +31,20 @@ const ProfilePage = () => {
   
             {/* User Details Section */}
             <div className="p-6 md:w-2/3">
-              <h2 className="text-2xl font-bold text-gray-800">{user.name}</h2>
-              <p className="text-sm text-gray-500 mb-4">{user.role}</p>
+              <h2 className="text-2xl font-bold text-gray-800">{name}</h2>
+              <p className="text-sm text-gray-500 mb-4">{role}</p>
               <div className="space-y-4">
                 <div className="flex items-center">
                   <span className="w-20 font-medium text-gray-600">Email:</span>
-                  <span className="text-gray-800">{user.email}</span>
+                  <span className="text-gray-800">{email}</span>
                 </div>
                 <div className="flex items-center">
                   <span className="w-20 font-medium text-gray-600">Phone:</span>
-                  <span className="text-gray-800">{user.phone}</span>
+                  <span className="text-gray-800">{phone}</span>
                 </div>
                 <div className="flex items-center">
                   <span className="w-20 font-medium text-gray-600">Address:</span>
-                  <span className="text-gray-800">{user.address}</span>
+                  <span className="text-gray-800">{address}</span>
                 </div>
               </div>
   

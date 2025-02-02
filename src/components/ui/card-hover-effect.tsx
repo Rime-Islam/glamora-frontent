@@ -26,7 +26,7 @@ export const HoverEffect = ({
   return (
     <div
       className={cn(
-        "grid grid-cols-1 md:grid-cols-2  lg:grid-cols-3 xl:grid-cols-4  py-10",
+        "grid grid-cols-1 lg:grid-cols-3 xl:grid-cols-4  py-10",
         className
       )}
     >
@@ -67,7 +67,7 @@ export const HoverEffect = ({
             <CardTitle>{item.name.slice(0, 25)} ...</CardTitle>
             <CardDescription>{item.description.slice(0, 50)} ... ...</CardDescription>
             <div className="mt-3 font-semibold">Price: {item?.price} TK</div>
-            <div className="flex justify-between ">
+            <div className="flex gap-2 lg:gap-5 ">
                 
                 <EditProduct product={item }/>
                <DeleteProduct id={item?.productId}/>

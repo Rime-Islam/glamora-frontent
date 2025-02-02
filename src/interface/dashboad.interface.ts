@@ -1,5 +1,6 @@
 export interface IUserDashboardData {
   customer: any;
+  data: any;
     totalOrders: number; 
     totalSpent: number;
     totalDiscounts: number; 

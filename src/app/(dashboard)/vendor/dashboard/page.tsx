@@ -8,7 +8,7 @@ import { FaShopify, FaBox, FaCheckCircle, FaDollarSign } from "react-icons/fa";
 
 const Dashboard = () => {
   const { data, isLoading, error } = useGetVendorDashboard();
-console.log(data?.data?.vendor)
+
   if (isLoading) {
     return  <DashboardSkeleton />;
   }

@@ -95,7 +95,8 @@ const Signin = () => {
   };
 
     return (
-        <div className="max-w-lg border w-full mx-auto mt-[20vh] rounded-none md:rounded-2xl p-4 md:p-8 shadow-input bg-white dark:bg-black">
+       
+         <div className="max-w-lg border w-full mx-auto  rounded-none md:rounded-2xl p-4 md:p-8 shadow-input bg-white ">
         <h2 className="font-bold text-center lg:text-2xl xl:text-3xl text-neutral-800 dark:text-neutral-200">
           Login to Glamora
         </h2>
@@ -150,6 +151,7 @@ const Signin = () => {
         </form>
         <div className="lg:text-sm 2xl:text-lg text center">New to Glamora? <Link href="/auth/signup" className="text-blue-500 hover:underline">Create an Account</Link></div>
       </div>
+ 
     );
   }
    

@@ -37,6 +37,7 @@ const AddProduct = () => {
             window.location.reload();
           },
           onError: () => {
+           
             toast.error("Duplicate product! Try again.");
           },
         }
@@ -52,7 +53,7 @@ const AddProduct = () => {
         <form onSubmit={handleSubmit(onSubmit)} className="my-8" >
           <LabelInputContainer className="mb-4">
             <Label htmlFor="name">Name</Label>
-            <Input id="name" placeholder="Your Shop Name" type="text" {...register("name", { required: "Name is required" })}
+            <Input id="name" placeholder="Your Product Name" type="text" {...register("name", { required: "Name is required" })}
           required/>
           </LabelInputContainer>
 
@@ -62,7 +63,7 @@ const AddProduct = () => {
           required/>
           </LabelInputContainer>
           <LabelInputContainer className="mb-4">
-            <Label htmlFor="discounts">Discount Price</Label>
+            <Label htmlFor="discounts">Discount %</Label>
             <Input id="discounts" placeholder="Your product discounts" min={0} type="number" {...register("discounts")}
          />
           </LabelInputContainer>
@@ -76,7 +77,7 @@ const AddProduct = () => {
           <LabelInputContainer className="mb-4">
              <div className="flex flex-col space-y-1.5">
                       <Label htmlFor="categoryId">Select Category</Label>
-                      <select id="categoryId" className="border rounded p-2" required {...register("categoryId", { required: "Category is required" })}>
+                      <select id="categoryId" className="border bg-white rounded p-2" required {...register("categoryId", { required: "Category is required" })}>
                         {
                            data?.data?.map((info) => (<option key={info?.name} value={info?.categoryId}>{info?.name}</option>))
                         }
@@ -86,7 +87,7 @@ const AddProduct = () => {
           <LabelInputContainer className="mb-4">
              <div className="flex flex-col space-y-1.5">
                       <Label htmlFor="shopId">Select Shop</Label>
-                      <select id="shopId" className="border rounded p-2" required {...register("shopId", { required: "Shop is required" })}>
+                      <select id="shopId" className="border bg-white rounded p-2" required {...register("shopId", { required: "Shop is required" })}>
                         {
                            shopData?.data?.map((info) => (<option key={info?.name} value={info?.shopId}>{info?.name}</option>))
                         }
@@ -98,7 +99,7 @@ const AddProduct = () => {
               <textarea
                 id="description"
                 rows={5}
-                maxLength={256}
+                maxLength={506}
                 required
                 {...register("description", { required: "Description is required" })}
                 className="rounded-lg p-4 mt-2 bg-black/5 border-2 border-solid border-black/10 font-mono font-medium text-sm"

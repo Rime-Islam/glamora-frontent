@@ -59,7 +59,7 @@ const Categories = () => {
               onClick={() => dispatch(setCategoryId(categoryId))}
               className="w-full hover:scale-95 duration-500 flex justify-center px-2"
             >
-              <div className="py-3 min-w-48 flex flex-col items-center justify-center rounded-lg bg-white md:max-h-48 font-medium">
+              <div className="py-8 min-w-48 flex flex-col items-center justify-center rounded-lg bg-white md:max-h-48 font-medium">
               <FaTags className="text-yellow-500 w-12 rounded-full h-12 bg-yellow-100 p-3"/>
                 <h1 className="text-lg py-3">{name}</h1>
                 <div className="text-sm bg-gray-200 py-1 px-3 rounded-xl">{product?.length} Products</div>

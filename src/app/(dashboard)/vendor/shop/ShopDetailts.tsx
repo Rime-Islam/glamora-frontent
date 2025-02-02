@@ -17,9 +17,7 @@ const ShopDetails = ({ shop }: { shop: IShop }) => {
             </p>
           </div>
               <div className="flex justify-center">
-            <Image
-              width={200}
-              height={100}
+            <img
               src={shop?.images[0] || "#"}
               alt={shop?.name}
               className="w-2/3 px-8 h-full object-cover rounded-md"

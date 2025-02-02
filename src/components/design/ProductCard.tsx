@@ -40,10 +40,8 @@ const ProductCard: React.FC<ProductCardProps> = ({ data }) => {
             <div className="  hover:shadow-2xl bg-white rounded-lg p-2">
            
               <div className="max-w-88 h-56 mb-5">
-                <Image
+                <img
                   src={item.images[0]}
-                  height="50"
-                  width="50"
                   className="h-full w-full object-cover rounded-xl "
                   alt="thumbnail"
                 />

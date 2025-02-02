@@ -108,7 +108,7 @@ const EditProduct = ({ product }: { product: IProduct }) => {
                           <LabelInputContainer className="mb-4">
                              <div className="flex flex-col space-y-1.5">
                                       <Label htmlFor="categoryId">Select Category</Label>
-                                      <select id="categoryId" defaultValue={product?.categoryId} className="border rounded p-2" required {...register("categoryId", { required: "Category is required" })}>
+                                      <select id="categoryId" defaultValue={product?.categoryId} className="border bg-white rounded p-2" required {...register("categoryId", { required: "Category is required" })}>
                                         {
                                            data?.data?.map((info) => (<option key={info?.name} value={info?.categoryId}>{info?.name}</option>))
                                         }
@@ -118,7 +118,7 @@ const EditProduct = ({ product }: { product: IProduct }) => {
                           <LabelInputContainer className="mb-4">
                              <div className="flex flex-col space-y-1.5">
                                       <Label htmlFor="shopId">Select Shop</Label>
-                                      <select id="shopId" className="border rounded p-2" defaultValue={product?.shopId} required {...register("shopId", { required: "Shop is required" })}>
+                                      <select id="shopId" className="border bg-white rounded p-2" defaultValue={product?.shopId} required {...register("shopId", { required: "Shop is required" })}>
                                         {
                                            shopData?.data?.map((info) => (<option key={info?.name} value={info?.shopId}>{info?.name}</option>))
                                         }
