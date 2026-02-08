@@ -90,20 +90,24 @@ Cloudinary (image handling)
 
 # ⚙️ Project Local Setup (Frontend)
 1️⃣ Clone the Repository
-``` git clone https://github.com/your-username/glamora-frontend.git
+```
+git clone https://github.com/your-username/glamora-frontend.git
 cd glamora-frontend
 ```
 
 2️⃣ Install Dependencies
-```npm install
+```
+npm install
 # or
-yarn install```
+yarn install
+```
 
 3️⃣ Environment Variables Setup
 
 - Create a .env.local file in the root of the project and add:
 
-```NEXT_PUBLIC_API_URL=Your Credentials
+```
+NEXT_PUBLIC_API_URL=Your Credentials
 
 NEXT_PUBLIC_CLOUDINARY_PRESET=Your Credentials
 NEXT_PUBLIC_CLOUDINARY_CLOUDNAME=Your Credentials
@@ -118,18 +122,23 @@ NEXT_PUBLIC_VENDOR_EMAIL=rimuislam36@gmail.com
 ## ⚠️ Note: These credentials are for demo/testing purposes only.
 
 4️⃣ Run the Development Server
-```npm run dev
+```
+npm run dev
 # or
-yarn dev```
-
+yarn dev
+```
 
 The application will be available at:
 
-```http://localhost:3000```
+```
+http://localhost:3000
+```
 
 ## 📦 Build for Production
-```npm run build
-npm start```
+```
+npm run build
+npm start
+```
 
 ## 📊 Scalability & Performance
 
