@@ -10,7 +10,7 @@ export async function middleware(request: NextRequest) {
   // auth login signup condition
   if (
     !user &&
-    (request.nextUrl.pathname === "/auth/login" ||
+    (request.nextUrl.pathname === "/auth/signin" ||
       request.nextUrl.pathname === "/signup")
   ) {
     return NextResponse.next();
@@ -18,7 +18,7 @@ export async function middleware(request: NextRequest) {
 
   if (
     user &&
-    (request.nextUrl.pathname === "/auth/login" ||
+    (request.nextUrl.pathname === "/auth/signin" ||
       request.nextUrl.pathname === "/signup")
   ) {
     return NextResponse.redirect(new URL("/", request.url));
@@ -65,7 +65,7 @@ export async function middleware(request: NextRequest) {
   //   return NextResponse.next();
   // }
   //default
-  return NextResponse.redirect(new URL("/auth/login", request.url));
+  return NextResponse.redirect(new URL("/auth/signin", request.url));
 }
 
 // See "Matching Paths" below to learn more
@@ -73,7 +73,7 @@ export const config = {
   matcher: [
     "/customer/:path*",
     "/admin/:path*",
-    "/auth/login",
+    "/auth/signin",
     "/cart",
     // "/product/:path*",
   ],

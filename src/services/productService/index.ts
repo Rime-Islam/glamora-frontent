@@ -10,7 +10,6 @@ const handleError = (error: any) => {
 export const addProduct = async (data: FieldValues) => {
   try {
     const res = await axiosInstance.post(`/product/add-product`, data);
-   console.log(res)
     return res.data;
   } catch (error) {
     handleError(error);
