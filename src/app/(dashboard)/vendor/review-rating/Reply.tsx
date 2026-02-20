@@ -44,7 +44,7 @@ const Reply = ({ id }: { id: string }) => {
                  <CInput 
                     name="vendorReply" 
                     label="Internal Response Message" 
-                    placeholder="e.g. Thank you for your feedback! We're thrilled you enjoyed the product..."
+                    placeHolder="e.g. Thank you for your feedback! We're thrilled you enjoyed the product..."
                  />
                  <p className="mt-3 text-[10px] text-gray-400 font-bold uppercase tracking-widest leading-relaxed">
                     Personalized replies significantly increase customer retention and shop trust.

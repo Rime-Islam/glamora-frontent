@@ -104,7 +104,7 @@ const AddCategory = ({ categories }: { categories: ICategory[] }) => {
                                     <Layers className="w-40 h-40" />
                                 </div>
 
-                                <div className="relative z-10 flex flex-col h-full">
+                                <div className="relative flex flex-col h-full">
                                     <div className="flex items-center justify-between mb-6">
                                         <div className="w-12 h-12 rounded-2xl bg-gray-50 text-gray-400 flex items-center justify-center group-hover:bg-rose-50 group-hover:text-rose-500 transition-all">
                                             <Layers className="w-6 h-6" />

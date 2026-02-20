@@ -39,6 +39,12 @@ const ProductDetails = ({ id }: { id: string }) => {
     if (product) saveToRecentProducts(product);
   }, [product]);
 
+  const allImages = Array.isArray(product?.images)
+    ? product.images
+    : product?.images
+    ? [product.images]
+    : [];
+
   /* ── computed price ── */
   const flashDiscount = product?.flashSale?.[0]?.discount ?? 0;
   const regularDiscount = product?.discounts ?? 0;
@@ -78,10 +84,10 @@ const ProductDetails = ({ id }: { id: string }) => {
           <div className="w-full lg:w-[52%] flex flex-col gap-4">
             {/* Main image */}
             <div className="relative group rounded-3xl overflow-hidden bg-gray-50 border border-gray-100 aspect-square max-h-[520px]">
-              {product?.images?.[activeImage] && (
+              {allImages[activeImage] && (
                 <Image
-                  src={product.images[activeImage]}
-                  alt={product.name}
+                  src={allImages[activeImage]}
+                  alt={product?.name || "Product Image"}
                   fill
                   className="object-cover transition-all duration-500"
                 />
@@ -94,16 +100,16 @@ const ProductDetails = ({ id }: { id: string }) => {
                 </div>
               )}
               {/* Prev/Next arrows */}
-              {(product?.images?.length ?? 0) > 1 && (
+              {allImages.length > 1 && (
                 <>
                   <button
-                    onClick={() => setActiveImage((i) => (i > 0 ? i - 1 : (product?.images.length ?? 1) - 1))}
+                    onClick={() => setActiveImage((i) => (i > 0 ? i - 1 : allImages.length - 1))}
                     className="absolute left-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-white/80 backdrop-blur shadow-md flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity hover:bg-white"
                   >
                     <ChevronLeft className="w-5 h-5 text-gray-700" />
                   </button>
                   <button
-                    onClick={() => setActiveImage((i) => (i < (product?.images.length ?? 1) - 1 ? i + 1 : 0))}
+                    onClick={() => setActiveImage((i) => (i < allImages.length - 1 ? i + 1 : 0))}
                     className="absolute right-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-white/80 backdrop-blur shadow-md flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity hover:bg-white"
                   >
                     <ChevronRight className="w-5 h-5 text-gray-700" />
@@ -113,9 +119,9 @@ const ProductDetails = ({ id }: { id: string }) => {
             </div>
 
             {/* Thumbnails */}
-            {(product?.images?.length ?? 0) > 1 && (
+            {allImages.length > 1 && (
               <div className="flex gap-3 overflow-x-auto pb-1">
-                {product!.images.map((img:string, i:number) => (
+                {allImages.map((img: string, i: number) => (
                   <button
                     key={i}
                     onClick={() => setActiveImage(i)}
@@ -171,7 +177,7 @@ const ProductDetails = ({ id }: { id: string }) => {
               </span>
               {flashDiscount > 0 && (
                 <span className="text-lg text-gray-400 line-through mb-1">
-                  ৳{product!.price.toFixed(2)}
+                  ৳{product?.price.toFixed(2)}
                 </span>
               )}
               {flashDiscount > 0 && (
@@ -216,7 +222,7 @@ const ProductDetails = ({ id }: { id: string }) => {
                       {quantity}
                     </span>
                     <button
-                      onClick={() => setQuantity((v) => Math.min(product!.stock, v + 1))}
+                      onClick={() => setQuantity((v) => Math.min(product?.stock ?? 0, v + 1))}
                       disabled={quantity >= (product?.stock ?? 0)}
                       className="w-10 h-10 flex items-center justify-center text-gray-600 hover:bg-gray-100 transition-colors disabled:opacity-40 font-bold text-lg"
                     >
@@ -231,7 +237,7 @@ const ProductDetails = ({ id }: { id: string }) => {
                       handleAddToCart({
                         category: product.category.name,
                         id: product.productId,
-                        photo: product.images[0],
+                        photo: allImages[0],
                         price: product.price,
                         stock: product.stock,
                         quantity,
@@ -322,7 +328,7 @@ const ProductDetails = ({ id }: { id: string }) => {
 
           {activeTab === "reviews" && (
             <div className="max-w-3xl space-y-4">
-              {product?.Review?.length ? (
+              {product?.Review && product.Review.length > 0 ? (
                 product.Review.map((review: IReview, idx: number) => (
                   <div key={idx} className="bg-white border border-gray-100 rounded-2xl p-5 shadow-sm">
                     <div className="flex items-start justify-between gap-4">

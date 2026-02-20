@@ -9,6 +9,7 @@ import React, {
   useRef,
   useState,
 } from "react";
+import { createPortal } from "react-dom";
 
 interface ModalContextType {
   open: boolean;
@@ -81,7 +82,14 @@ export const ModalBody = ({
   const { setOpen } = useModal();
   useOutsideClick(modalRef, () => setOpen(false));
 
-  return (
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) return null;
+
+  return createPortal(
     <AnimatePresence>
       {open && (
         <motion.div
@@ -96,14 +104,14 @@ export const ModalBody = ({
             opacity: 0,
             backdropFilter: "blur(0px)",
           }}
-          className="fixed [perspective:800px] [transform-style:preserve-3d] inset-0 h-full w-full  flex items-center justify-center z-50"
+          className="fixed [perspective:800px] [transform-style:preserve-3d] inset-0 h-full w-full flex items-center justify-center z-[9999]"
         >
           <Overlay />
 
           <motion.div
             ref={modalRef}
             className={cn(
-              "max-h-[30%]  max-w-[20%] bg-white dark:bg-neutral-950 border border-transparent dark:border-neutral-800 md:rounded-2xl relative z-50 flex flex-col flex-1 overflow-hidden",
+              "max-h-[90%] md:max-w-md w-[90%] bg-white dark:bg-neutral-950 border border-transparent dark:border-neutral-800 md:rounded-2xl relative z-[9999] flex flex-col flex-1 overflow-hidden",
               className
             )}
             initial={{
@@ -134,7 +142,8 @@ export const ModalBody = ({
           </motion.div>
         </motion.div>
       )}
-    </AnimatePresence>
+    </AnimatePresence>,
+    document.body
   );
 };
 
@@ -185,7 +194,7 @@ const Overlay = ({ className }: { className?: string }) => {
         opacity: 0,
         backdropFilter: "blur(0px)",
       }}
-      className={`fixed inset-0 h-full w-full bg-black bg-opacity-50 z-50 ${className}`}
+      className={`fixed inset-0 h-full w-full bg-black bg-opacity-50 z-[9998] ${className}`}
     ></motion.div>
   );
 };
