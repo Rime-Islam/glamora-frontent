@@ -10,91 +10,88 @@ import {
 } from "@/components/ui/animated-modal";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
-import { FcNews } from "react-icons/fc";
 import { toast } from "sonner";
 import { useUpdateCategory } from "@/hooks/category.hook";
+import { Settings2, ArrowRight, X, Edit3 } from "lucide-react";
 
 const EditCategory = ({ category }: { category: any }) => {
     const { mutate: updateCategory, isPending } = useUpdateCategory();
 
     const handleEdit = async (e: any) => {
-    e.preventDefault();
-    const categoryName = e.target.name.value;
+        e.preventDefault();
+        const categoryName = e.target.name.value;
 
-    updateCategory(
-      { id: category.categoryId, name: categoryName },
-      {
-        onSuccess: () => {
-          toast.success("Category updated.");
-        },
-        onError: () => {
-          toast.error("Something went wrong! Try again.");
-        },
-      }
-    );
-  };
+        updateCategory(
+            { id: category.categoryId, name: categoryName },
+            {
+                onSuccess: () => {
+                    toast.success("Structural naming synchronized. ✨");
+                },
+                onError: () => {
+                    toast.error("Operation failed. Access denied.");
+                },
+            }
+        );
+    };
+
     return (
-        <div className="py-5  flex items-center justify-center">
-              <Modal>
-                <ModalTrigger className=" bg-white text-black flex justify-center group/modal-btn">
-                  <span className="group-hover/modal-btn:translate-x-40 text-center transition duration-500">
-                    Edit
+        <div className="flex items-center justify-center w-full">
+            <Modal>
+                <ModalTrigger className="w-full bg-gray-900 text-white flex items-center justify-center group/modal-btn rounded-xl h-9 overflow-hidden relative">
+                  <span className="group-hover/modal-btn:translate-x-40 text-center transition duration-500 text-[10px] font-black uppercase tracking-widest">
+                    Edit 
                   </span>
-                  <div className="-translate-x-40 group-hover/modal-btn:translate-x-0 flex items-center justify-center absolute inset-0 transition duration-500 text-white z-20">
-                  <FcNews className="h-6 w-6"/>
+                  <div className="-translate-x-40 group-hover/modal-btn:translate-x-0 flex items-center justify-center absolute inset-0 transition duration-500 text-rose-400 z-20">
+                    <Edit3 className="h-4 w-4"/>
                   </div>
                 </ModalTrigger>
-                <ModalBody>
-                  <ModalContent>
-                  <form onSubmit={handleEdit} className="my-8" >
-            <h1 className="mb-8 text-lg font-bold">Edit Category</h1>
-          <LabelInputContainer className="mb-4">
-            <Label htmlFor="name"> Name</Label>
-            <Input id="name" name="name" defaultValue={category.name} placeholder="Add A Category Name" type="text" 
-          required/>
-          </LabelInputContainer>
-          <button
-            className="bg-gradient-to-br mt-8 relative group/btn from-black dark:from-zinc-900 dark:to-zinc-900 to-neutral-600 block dark:bg-zinc-800 w-full text-white rounded-md h-10 font-medium shadow-[0px_1px_0px_0px_#ffffff40_inset,0px_-1px_0px_0px_#ffffff40_inset] dark:shadow-[0px_1px_0px_0px_var(--zinc-800)_inset,0px_-1px_0px_0px_var(--zinc-800)_inset]"
-            type="submit"
-          >
-            Update
-            <BottomGradient />
-          </button>
-        </form>
-                  </ModalContent>
-                  <ModalFooter className="gap-4">
-                    <button className="px-2 py-1 bg-gray-200 text-black dark:bg-black dark:border-black dark:text-white border border-gray-300 rounded-md text-sm w-28">
-                      Cancel
-                    </button>
-                
-                  </ModalFooter>
-                </ModalBody>
-              </Modal>
-            </div>
-    )
-};
+                <ModalBody className="rounded-[3rem] border-gray-100 shadow-3xl">
+                    <ModalContent>
+                        <div className="p-8">
+                            <div className="flex items-center gap-4 mb-8">
+                                <div className="w-12 h-12 rounded-2xl bg-rose-50 text-rose-500 flex items-center justify-center">
+                                    <Settings2 className="w-6 h-6" />
+                                </div>
+                                <div>
+                                    <p className="text-[10px] font-black uppercase tracking-widest text-rose-500">Update</p>
+                                    <h2 className="text-xl font-black text-gray-900 tracking-tight">Modify Category</h2>
+                                </div>
+                            </div>
 
-const BottomGradient = () => {
-    return (
-      <>
-        <span className="group-hover/btn:opacity-100 block transition duration-500 opacity-0 absolute h-px w-full -bottom-px inset-x-0 bg-gradient-to-r from-transparent via-cyan-500 to-transparent" />
-        <span className="group-hover/btn:opacity-100 blur-sm block transition duration-500 opacity-0 absolute h-px w-1/2 mx-auto -bottom-px inset-x-10 bg-gradient-to-r from-transparent via-indigo-500 to-transparent" />
-      </>
+                            <form onSubmit={handleEdit} className="space-y-8">
+                                <div className="space-y-3">
+                                    <Label htmlFor="name" className="text-[10px] font-black uppercase tracking-widest text-gray-400 ml-1">New Classification Key</Label>
+                                    <Input 
+                                        id="name" 
+                                        name="name" 
+                                        defaultValue={category.name} 
+                                        className="h-14 rounded-2xl border-gray-100 focus:border-rose-500 focus:ring-rose-500 transition-all font-bold"
+                                        required
+                                    />
+                                </div>
+
+                                <button
+                                    disabled={isPending}
+                                    className="w-full h-14 bg-gray-900 text-white rounded-2xl font-black text-sm uppercase tracking-widest hover:bg-rose-600 transition-all duration-300 shadow-xl shadow-gray-100 flex items-center justify-center gap-3 disabled:opacity-50 group/btn"
+                                    type="submit"
+                                >
+                                    {isPending ? "Updating..." : (
+                                        <>
+                                            Update Registry
+                                            <ArrowRight className="w-4 h-4 group-hover/btn:translate-x-1 transition-transform" />
+                                        </>
+                                    )}
+                                </button>
+                            </form>
+                        </div>
+                    </ModalContent>
+                    <ModalFooter className="p-8 pt-0 gap-4">
+                        <p className="text-[10px] font-bold text-gray-300 uppercase tracking-widest mr-auto">System ID: {category.categoryId.slice(0, 8)}</p>
+                    </ModalFooter>
+                </ModalBody>
+            </Modal>
+        </div>
     );
-  };
-   
-  const LabelInputContainer = ({
-    children,
-    className,
-  }: {
-    children: React.ReactNode;
-    className?: string;
-  }) => {
-    return (
-      <div className={cn("flex flex-col space-y-2 w-full", className)}>
-        {children}
-      </div>
-    )
 };
 
 export default EditCategory;

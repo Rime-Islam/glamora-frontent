@@ -4,36 +4,45 @@ import Link from "next/link";
 
 const RelatedProducts = ({ product }: { product: IProduct[] }) => {
   return (
-    <div>
+    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-5 gap-4">
       {product?.map((data) => {
-        // Safely resolve the image source
         const imageSrc =
-          Array.isArray(data?.images) && data?.images.length > 0
-            ? data.images[0] // Use the first image if it's an array
+          Array.isArray(data?.images) && data.images.length > 0
+            ? data.images[0]
             : typeof data?.images === "string"
             ? data.images
-            : ""; // Fallback to an empty string if undefined
+            : "";
 
         return (
-          <div
+          <Link
             key={data?.productId}
-            className="relative w-48 h-56 isolate flex flex-col justify-end overflow-hidden rounded-xl pb-3 mt-5"
+            href={`/product/${data?.productId}`}
+            className="group bg-white rounded-2xl border border-gray-100 overflow-hidden hover:shadow-xl hover:border-gray-200 transition-all duration-300 flex flex-col"
           >
-            <Image
-              width={200}
-              height={100}
-              src={imageSrc}
-              alt="Product Image"
-              className="max-w-full h-36 object-cover rounded-lg border"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/40" />
-<>
-<Link href={`/product/${data?.productId}`} className="z-10 mt-3 px-2 hover:underline font-bold text-white">
-              {data?.name.slice(0, 15)}...
-            </Link>
-</>
-            <p className="text-white z-10 px-2">{data?.price}TK</p>
-          </div>
+            {/* Image */}
+            <div className="relative h-40 bg-gray-50 overflow-hidden">
+              {imageSrc && (
+                <Image
+                  src={imageSrc}
+                  alt={data?.name ?? "Product"}
+                  fill
+                  className="object-cover group-hover:scale-105 transition-transform duration-500"
+                />
+              )}
+            </div>
+
+            {/* Info */}
+            <div className="p-3 flex flex-col flex-1">
+              <p className="text-sm font-semibold text-gray-900 line-clamp-1 group-hover:text-rose-500 transition-colors">
+                {data?.name?.length > 18
+                  ? `${data.name.slice(0, 18)}…`
+                  : data?.name}
+              </p>
+              <p className="text-base font-extrabold text-gray-900 mt-1.5">
+                ৳{data?.price}
+              </p>
+            </div>
+          </Link>
         );
       })}
     </div>

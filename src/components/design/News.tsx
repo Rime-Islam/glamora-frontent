@@ -1,49 +1,75 @@
-"use client"
+"use client";
 
 import { toast } from "sonner";
+import { useState } from "react";
 
 const News = () => {
-    const handleNewsEmail = (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-        setTimeout(() => {
-            toast.success("You've successfully subscribed to our newsletter");
-          }, 1000);
-    }
+  const [email, setEmail] = useState("");
+  const [subscribed, setSubscribed] = useState(false);
 
-    return (
-  
-<div className="mx-auto max-w-7xl  my-[8vh] lg:px-8">
-  <div className=" overflow-hidden bg-white py-16 shadow-2xl rounded-lg sm:px-24 ">
-    <h2 className="mx-auto max-w-2xl text-center md:text-2xl lg:text-3xl font-bold tracking-tight  text-xl">
-      Keep Updated
-    </h2>
-    <p className="mx-auto mt-2 max-w-xl text-center text-lg leading-8 ">
-      Keep pace with Glamora advancements! Join our mailing list for
-      selective, noteworthy updates.
-    </p>
-    <form onSubmit={ handleNewsEmail} className="mx-auto mt-10 flex max-w-md gap-x-4">
-      <label htmlFor="email-address" className="sr-only">
-        Email address
-      </label>
-      <input
-        id="email-address"
-        name="email"
-        type="email"
-        autoComplete="email"
-        required
-        className="min-w-0 flex-auto rounded-md border-0 bg-white/5 px-3.5 py-2 shadow-sm ring-1 ring-inset  focus:ring-2 focus:ring-inset focus:ring-gray-700 sm:text-sm sm:leading-6"
-        placeholder="Enter your email"
-      />
-      <button
-        type="submit"
-        className="flex-none rounded-md bg-black px-3.5 py-2.5 text-sm font-semibold text-white  shadow-sm hover:bg-gray-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
-      >
-        Notify me
-      </button>
-    </form>
+  const handleNewsEmail = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setTimeout(() => {
+      toast.success("You've successfully subscribed to our newsletter! 🎉");
+      setSubscribed(true);
+      setEmail("");
+    }, 800);
+  };
 
-  </div>
-</div>
-    )
-}
+  return (
+    <section className="bg-white py-16">
+      <div className="max-w-7xl mx-auto px-4 xl:px-0">
+        <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-rose-500 via-pink-500 to-fuchsia-600 px-8 py-14 md:px-16 text-white">
+          {/* Decorative circles */}
+          <div className="absolute -top-16 -right-16 w-64 h-64 rounded-full bg-white/5" />
+          <div className="absolute -bottom-20 -left-16 w-80 h-80 rounded-full bg-white/5" />
+          <div className="absolute top-8 right-32 w-20 h-20 rounded-full bg-white/10" />
+
+          <div className="relative z-10 max-w-xl mx-auto text-center">
+            <span className="inline-block text-3xl mb-4">💌</span>
+            <h2 className="text-3xl md:text-4xl font-extrabold mb-3 tracking-tight">
+              Stay in the Loop
+            </h2>
+            <p className="text-white/75 text-sm md:text-base leading-relaxed mb-8">
+              Get exclusive deals, new arrivals and beauty tips delivered straight to your inbox. No spam, ever.
+            </p>
+
+            {subscribed ? (
+              <div className="flex items-center justify-center gap-3 bg-white/20 backdrop-blur rounded-full py-4 px-6 text-white font-semibold">
+                <span className="text-xl">✅</span>
+                You&apos;re subscribed! Welcome to the Glamora family.
+              </div>
+            ) : (
+              <form onSubmit={handleNewsEmail} className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
+                <label htmlFor="email-address" className="sr-only">Email address</label>
+                <input
+                  id="email-address"
+                  name="email"
+                  type="email"
+                  autoComplete="email"
+                  required
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  className="flex-1 rounded-full bg-white/15 backdrop-blur border border-white/30 px-5 py-3 text-white placeholder:text-white/50 text-sm focus:outline-none focus:ring-2 focus:ring-white/50 transition-all"
+                  placeholder="your@email.com"
+                />
+                <button
+                  type="submit"
+                  className="flex-shrink-0 rounded-full bg-white text-rose-600 font-bold px-7 py-3 text-sm hover:bg-white/90 transition-colors shadow-lg hover:shadow-xl"
+                >
+                  Subscribe
+                </button>
+              </form>
+            )}
+
+            <p className="text-white/50 text-xs mt-4">
+              Join 12,000+ subscribers. Unsubscribe any time.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
 export default News;

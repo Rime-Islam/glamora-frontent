@@ -10,6 +10,7 @@ import React, {
   useEffect,
   useState,
 } from "react";
+import { PageLoader } from "@/components/common/LoadingSpinner";
 
 interface IAuthUser {
   userEmail: string;
@@ -38,7 +39,7 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
       setUser(currentUser);
     } catch (error) {
       console.error("Error fetching user:", error);
-      setUser(null); // Handle the case where user fetch fails
+      setUser(null);
     } finally {
       setIsLoading(false);
     }
@@ -58,7 +59,11 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   const value = { user, isLoading, setUser, setIsLoading };
 
-  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
+  return (
+    <AuthContext.Provider value={value}>
+      {isLoading ? <PageLoader /> : children}
+    </AuthContext.Provider>
+  );
 };
 
 export default AuthProvider;

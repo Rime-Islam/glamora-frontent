@@ -1,6 +1,5 @@
-"use client"
+"use client";
 import React, { useState } from "react";
-import { cn } from "@/lib/utils";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { toast } from "sonner";
@@ -8,94 +7,147 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { FileUpload } from "@/components/ui/file-upload";
 import { useAddShop } from "@/hooks/shop.hook";
 import { uploadImagesToCloudinary } from "@/lib/utils/uploadImageArray";
-
+import { Store, MapPin, Image as ImageIcon, PlusCircle, ArrowRight, Loader2 } from "lucide-react";
 
 const AddShop = () => {
     const [files, setFiles] = useState<File[]>([]);
+    const [isUploading, setIsUploading] = useState(false);
 
- const handleFileUpload = (fileList: FileList) => {
-  const fileArray = Array.from(fileList); 
-  setFiles(fileArray);
-};
+    const handleFileUpload = (fileList: FileList) => {
+        const fileArray = Array.from(fileList);
+        setFiles(fileArray);
+    };
 
-  const { mutate, isPending } = useAddShop(); 
-  const { register, handleSubmit, formState: { errors } } = useForm<any>();
+    const { mutate, isPending } = useAddShop();
+    const { register, handleSubmit, formState: { errors } } = useForm<any>();
 
-  const onSubmit: SubmitHandler<any>  = async (data: any) => {
-    const { images: imageFiles, ...otherData } = data;
-    const imageUrl = await uploadImagesToCloudinary(files);
+    const onSubmit: SubmitHandler<any> = async (data: any) => {
+        setIsUploading(true);
+        try {
+            const imageUrl = await uploadImagesToCloudinary(files);
 
-    if (imageUrl) {
-      mutate(
-        { ...otherData, images: imageUrl },
-        {
-          onSuccess: () => {
-            toast.success("Shop added.");
-          },
-          onError: () => {
-            toast.error("You have already a shop!");
-          },
+            if (imageUrl && imageUrl.length > 0) {
+                mutate(
+                    { ...data, images: imageUrl },
+                    {
+                        onSuccess: () => {
+                            toast.success("Congratulations! Your shop has been created. 🏪");
+                        },
+                        onError: () => {
+                            toast.error("You already have a shop registered!");
+                        },
+                        onSettled: () => setIsUploading(false)
+                    }
+                );
+            } else {
+                toast.error("Please upload at least one shop image.");
+                setIsUploading(false);
+            }
+        } catch (error) {
+            toast.error("Image upload failed. Please try again.");
+            setIsUploading(false);
         }
-      );
-    } else {
-      toast.error("Something went wrong! Try again.");
-    }
-  };
-    return (
-        <div className="flex">
-<div className=" bg-slate-200 border w-full mx-auto mt-[10vh] rounded-none md:rounded-2xl p-4 md:p-8 shadow-input hover:bg-white dark:bg-black">
-        <form onSubmit={handleSubmit(onSubmit)} className="my-8" >
-            <h1 className="mb-8 text-xl font-bold">Create A Shop</h1>
-          <LabelInputContainer className="mb-4">
-            <Label htmlFor="name">Shop Name</Label>
-            <Input id="name" placeholder="Your Shop Name" type="text" {...register("name", { required: "Name is required" })}
-          required/>
-          </LabelInputContainer>
-          <LabelInputContainer className="mb-4">
-            <Label htmlFor="location">Shop Location</Label>
-            <Input id="location" placeholder="Your Shop Location" type="location" {...register("location", { required: "Location is required" })}
-          required/>
-          </LabelInputContainer>
-          <LabelInputContainer className="mb-4">
-          <Label htmlFor="image">Shop Image</Label>
-          <div className="w-full max-w-4xl mx-auto min-h-96 border border-dashed bg-white dark:bg-black border-neutral-200 dark:border-neutral-800 rounded-lg">
-          <FileUpload onChange={(fileList) => handleFileUpload(fileList as unknown as FileList)} />
+    };
 
-    </div></LabelInputContainer>
-          <button
-            className="bg-gradient-to-br mt-8 relative group/btn from-black dark:from-zinc-900 dark:to-zinc-900 to-neutral-600 block dark:bg-zinc-800 w-full text-white rounded-md h-10 font-medium shadow-[0px_1px_0px_0px_#ffffff40_inset,0px_-1px_0px_0px_#ffffff40_inset] dark:shadow-[0px_1px_0px_0px_var(--zinc-800)_inset,0px_-1px_0px_0px_var(--zinc-800)_inset]"
-            type="submit"
-          >
-            Create Shop
-            <BottomGradient />
-          </button>
-          </form>
-      </div>
+    return (
+        <div className="w-full max-w-4xl mx-auto">
+            {/* ─── Header Section ─── */}
+            <div className="mb-10 text-center">
+                <div className="inline-flex items-center justify-center w-16 h-16 rounded-3xl bg-rose-50 text-rose-500 mb-6 shadow-sm">
+                    <Store className="w-8 h-8" />
+                </div>
+                <h1 className="text-3xl md:text-4xl font-extrabold text-gray-900 tracking-tight mb-3">
+                    Launch Your <span className="text-rose-500">Shop</span>
+                </h1>
+                <p className="text-gray-500 font-medium max-w-md mx-auto">
+                    Fill in the details below to create your professional storefront and start selling.
+                </p>
+            </div>
+
+            {/* ─── Main Form Card ─── */}
+            <div className="bg-white rounded-[2.5rem] border border-gray-100 shadow-xl shadow-gray-200/50 overflow-hidden">
+                <form onSubmit={handleSubmit(onSubmit)} className="p-8 md:p-12">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-10">
+                        {/* Shop Name */}
+                        <div className="space-y-2">
+                            <Label htmlFor="name" className="text-sm font-bold text-gray-700 ml-1 flex items-center gap-2">
+                                <Store className="w-4 h-4 text-rose-500" />
+                                Shop Name
+                            </Label>
+                            <Input
+                                id="name"
+                                placeholder="e.g. Premium Footwear Elite"
+                                className="h-14 rounded-2xl border-gray-100 bg-gray-50/50 focus:bg-white focus:ring-rose-500 transition-all text-base font-medium"
+                                {...register("name", { required: "Shop name is required" })}
+                                required
+                            />
+                            {errors.name && <p className="text-xs text-rose-500 font-bold mt-1 ml-1">{errors.name.message as string}</p>}
+                        </div>
+
+                        {/* Shop Location */}
+                        <div className="space-y-2">
+                            <Label htmlFor="location" className="text-sm font-bold text-gray-700 ml-1 flex items-center gap-2">
+                                <MapPin className="w-4 h-4 text-rose-500" />
+                                Store Location
+                            </Label>
+                            <Input
+                                id="location"
+                                placeholder="e.g. Manhattan, New York"
+                                className="h-14 rounded-2xl border-gray-100 bg-gray-50/50 focus:bg-white focus:ring-rose-500 transition-all text-base font-medium"
+                                {...register("location", { required: "Location is required" })}
+                                required
+                            />
+                            {errors.location && <p className="text-xs text-rose-500 font-bold mt-1 ml-1">{errors.location.message as string}</p>}
+                        </div>
+                    </div>
+
+                    {/* Image Upload Section */}
+                    <div className="space-y-4 mb-10">
+                        <Label className="text-sm font-bold text-gray-700 ml-1 flex items-center gap-2">
+                            <ImageIcon className="w-4 h-4 text-rose-500" />
+                            Storefront Branding
+                        </Label>
+                        <div className="group relative overflow-hidden rounded-[2rem] border-2 border-dashed border-gray-200 bg-gray-50/30 hover:bg-white hover:border-rose-300 transition-all p-2">
+                            <FileUpload onChange={(fileList) => handleFileUpload(fileList as unknown as FileList)} />
+                        </div>
+                        <p className="text-[11px] text-gray-400 font-bold uppercase tracking-widest text-center mt-2">
+                            Recommended size: 1200x800px • Max 5MB
+                        </p>
+                    </div>
+
+                    {/* Submit Button */}
+                    <button
+                        disabled={isPending || isUploading}
+                        type="submit"
+                        className="w-full h-16 rounded-[1.5rem] bg-gray-900 text-white font-bold text-lg hover:bg-rose-500 disabled:bg-gray-200 disabled:text-gray-400 disabled:cursor-not-allowed transition-all duration-300 shadow-xl hover:shadow-rose-200 flex items-center justify-center gap-3 active:scale-95"
+                    >
+                        {isPending || isUploading ? (
+                            <>
+                                <Loader2 className="w-6 h-6 animate-spin" />
+                                {isUploading ? "Uploading Brand Assets..." : "Establishing Your Store..."}
+                            </>
+                        ) : (
+                            <>
+                                <PlusCircle className="w-6 h-6" />
+                                Create My Professional Shop
+                                <ArrowRight className="w-5 h-5 ml-1 opacity-50" />
+                            </>
+                        )}
+                    </button>
+                </form>
+
+                {/* Footer Tip */}
+                <div className="bg-gray-50/80 px-12 py-6 border-t border-gray-100">
+                    <div className="flex items-center gap-3">
+                        <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></div>
+                        <p className="text-xs text-gray-500 font-medium">
+                            Once created, you can manage products, view analytics, and handle orders from your dashboard.
+                        </p>
+                    </div>
+                </div>
+            </div>
         </div>
     );
-  }
-   
-  const BottomGradient = () => {
-    return (
-      <>
-        <span className="group-hover/btn:opacity-100 block transition duration-500 opacity-0 absolute h-px w-full -bottom-px inset-x-0 bg-gradient-to-r from-transparent via-cyan-500 to-transparent" />
-        <span className="group-hover/btn:opacity-100 blur-sm block transition duration-500 opacity-0 absolute h-px w-1/2 mx-auto -bottom-px inset-x-10 bg-gradient-to-r from-transparent via-indigo-500 to-transparent" />
-      </>
-    );
-  };
-   
-  const LabelInputContainer = ({
-    children,
-    className,
-  }: {
-    children: React.ReactNode;
-    className?: string;
-  }) => {
-    return (
-      <div className={cn("flex flex-col space-y-2 w-full", className)}>
-        {children}
-      </div>
-    )
 };
 
 export default AddShop;

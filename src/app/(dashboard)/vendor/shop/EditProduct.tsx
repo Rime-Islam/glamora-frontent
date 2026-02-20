@@ -12,173 +12,232 @@ import { useUpdateProduct } from "@/hooks/product.hook";
 import { IProduct } from "@/interface/product.interface";
 import { Modalbox } from "@/components/common/modal/Modalbox";
 import { useAllCategoryDashboard } from "@/hooks/category.hook";
-
+import { 
+  Pencil, 
+  Package, 
+  Database, 
+  Tag, 
+  Store, 
+  AlignLeft, 
+  Image as ImageIcon, 
+  ArrowRight,
+  Loader2
+} from "lucide-react";
 
 const EditProduct = ({ product }: { product: IProduct }) => {
-  const { data } = useAllCategoryDashboard();
+  const { data: categoryData } = useAllCategoryDashboard();
   const { mutate, isPending } = useUpdateProduct();
   const { data: shopData } = useVendorShop();
 
   const [files, setFiles] = useState<File[]>([]);
+  const [isUploading, setIsUploading] = useState(false);
+
   const handleFileUpload = (fileList: FileList) => {
-  const fileArray = Array.from(fileList); 
-  setFiles(fileArray);
-};
+    const fileArray = Array.from(fileList); 
+    setFiles(fileArray);
+  };
+  
   const { register, handleSubmit, formState: { errors } } = useForm<any>();
 
-  const onSubmit: SubmitHandler<any>  = async (data: any) => {
-    
-    const { ...otherData } = data;
+  const onSubmit: SubmitHandler<any> = async (formData: any) => {
+    setIsUploading(true);
     let imageUrl = null;
-    if (!!data) {
-      if (files) {
+    
+    try {
+      if (files.length > 0) {
         imageUrl = await uploadImagesToCloudinary(files);
       }
+      
       mutate(
         {
-          data: { ...otherData, ...(imageUrl && { images: imageUrl }) },
+          data: { ...formData, ...(imageUrl && { images: imageUrl }) },
           id: product.productId,
         },
         {
           onSuccess: () => {
-            toast.success("Product updated.");
-            window.location.reload();
+            toast.success("Product updated successfully! 🚀");
+            setTimeout(() => window.location.reload(), 1000);
           },
           onError: () => {
-            toast.error("Something went wrong! Try again.");
+            toast.error("An error occurred. Please try again.");
           },
+          onSettled: () => setIsUploading(false)
         }
       );
-    } else {
-      toast.error("Something went wrong! Try again.");
+    } catch (error) {
+      toast.error("Failed to upload images.");
+      setIsUploading(false);
     }
   };
-    return (
-      <div className="p-6">
-         <Modalbox
-      size="icon"
-      variant="outline"
-      title="Edit Product Data"
-      btncss="hover:text-green-500"
-      btnIcon={
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          strokeWidth={1.5}
-          stroke="currentColor"
-          className="size-7"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10"
-          />
-        </svg>
-      }
-    >
-     <div className=" bg-slate-200 border w-full mx-auto rounded-none md:rounded-2xl p-4  shadow-input hover:bg-white dark:bg-black">
-                  <form onSubmit={handleSubmit(onSubmit)} className="" >
-                            
-        <div className="flex gap-3">
- <LabelInputContainer className="mb-4">
-                            <Label htmlFor="name">Name</Label>
-                            <Input id="name" placeholder="Your Shop Name" defaultValue={product?.name} type="text" {...register("name", { required: "Name is required" })}
-                          required/>
-  </LabelInputContainer>
- <LabelInputContainer className="mb-4">
-     <Label htmlFor="stock">Stock</Label>
-   <Input id="stock" placeholder="Your product stock" defaultValue={product?.stock} type="number" min={1} {...register("stock", { required: "Stock is required" })}
-    required/>
-  </LabelInputContainer>
-                      </div>
-                       <div className="flex gap-3">
-                       <LabelInputContainer className="mb-4">
-                            <Label htmlFor="price">Price</Label>
-                            <Input id="price" placeholder="Your product price" defaultValue={product?.price} type="number" min={1} {...register("price", { required: "Price is required" })}
-                          required/>
-                          </LabelInputContainer>
-                          <LabelInputContainer className="mb-4">
-                            <Label htmlFor="discounts">Discount Percent</Label>
-                            <Input id="discounts" defaultValue={product?.discounts} placeholder="Your product discounts" min={0} type="number" {...register("discounts")}
-                         />
-                          </LabelInputContainer>
-                       </div>
-                          <div className="flex gap-3">
-                          <LabelInputContainer className="mb-4">
-                             <div className="flex flex-col space-y-1.5">
-                                      <Label htmlFor="categoryId">Select Category</Label>
-                                      <select id="categoryId" defaultValue={product?.categoryId} className="border bg-white rounded p-2" required {...register("categoryId", { required: "Category is required" })}>
-                                        {
-                                           data?.data?.map((info) => (<option key={info?.name} value={info?.categoryId}>{info?.name}</option>))
-                                        }
-                                      </select>
-                                    </div>
-                                    </LabelInputContainer>
-                          <LabelInputContainer className="mb-4">
-                             <div className="flex flex-col space-y-1.5">
-                                      <Label htmlFor="shopId">Select Shop</Label>
-                                      <select id="shopId" className="border bg-white rounded p-2" defaultValue={product?.shopId} required {...register("shopId", { required: "Shop is required" })}>
-                                        {
-                                           shopData?.data?.map((info) => (<option key={info?.name} value={info?.shopId}>{info?.name}</option>))
-                                        }
-                                      </select>
-                                    </div>
-                                    </LabelInputContainer>
-                          </div>
-                                    <LabelInputContainer className="mb-4">
-                                    <Label htmlFor="description">Description</Label>
-                              <textarea
-                                id="description"
-                                defaultValue={product?.description}
-                                rows={5}
-                                maxLength={256}
-                                required
-                                {...register("description", { required: "Description is required" })}
-                                className="rounded-lg p-4 mt-2 bg-black/5 border-2 border-solid border-black/10 font-mono font-medium text-sm"
-                              />
-                           </LabelInputContainer>
-                
-                          <LabelInputContainer className="mb-4">
-                          <Label htmlFor="image">Image</Label>
-                          <div className="w-full max-w-4xl mx-auto min-h-96 border border-dashed bg-white dark:bg-black border-neutral-200 dark:border-neutral-800 rounded-lg">
-                          <FileUpload onChange={(fileList) => handleFileUpload(fileList as unknown as FileList)} />
-                        </div></LabelInputContainer>
-                          <button
-                            className="bg-gradient-to-br mt-8 relative group/btn from-black dark:from-zinc-900 dark:to-zinc-900 to-neutral-600 block dark:bg-zinc-800 w-full text-white rounded-md h-10 font-medium shadow-[0px_1px_0px_0px_#ffffff40_inset,0px_-1px_0px_0px_#ffffff40_inset] dark:shadow-[0px_1px_0px_0px_var(--zinc-800)_inset,0px_-1px_0px_0px_var(--zinc-800)_inset]"
-                            type="submit"
-                          >
-                            Edit Product
-                            <BottomGradient />
-                          </button>
-                        </form>
-                        </div></Modalbox>
+
+  return (
+    <div className="">
+      <Modalbox
+        title="Refine Product Listing"
+        descrip="Update specifications, pricing, and availability for your item."
+        variant="ghost"
+        maxWidth="md:max-w-5xl"
+        btncss="p-2 hover:bg-rose-50 text-gray-500 hover:text-rose-600 transition-all rounded-xl border border-gray-100 shadow-sm"
+        btnIcon={<Pencil className="w-5 h-5" />}
+      >
+        <div className="mt-4">
+          <form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
+              {/* ─── Column Left: Information ─── */}
+              <div className="space-y-6">
+                {/* ─── Basic Information ─── */}
+                <div className="p-6 bg-gray-50/50 rounded-3xl border border-gray-100 space-y-4">
+                  <div className="flex items-center gap-2 mb-2">
+                    <Package className="w-4 h-4 text-rose-500" />
+                    <span className="text-[10px] font-black uppercase tracking-widest text-gray-400">Core Details</span>
+                  </div>
+                  
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div className="space-y-2">
+                      <Label htmlFor="name" className="text-xs font-bold text-gray-700 ml-1">Product Title</Label>
+                      <Input 
+                        id="name" 
+                        defaultValue={product?.name} 
+                        className="h-12 rounded-xl border-gray-100 bg-white"
+                        {...register("name", { required: "Required" })} 
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="stock" className="text-xs font-bold text-gray-700 ml-1">Available Stock</Label>
+                      <Input 
+                        id="stock" 
+                        type="number" 
+                        defaultValue={product?.stock} 
+                        className="h-12 rounded-xl border-gray-100 bg-white"
+                        {...register("stock", { required: "Required" })} 
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                {/* ─── Pricing & Classification ─── */}
+                <div className="p-6 bg-gray-50/50 rounded-3xl border border-gray-100 space-y-4">
+                  <div className="flex items-center gap-2 mb-2">
+                    <Tag className="w-4 h-4 text-rose-500" />
+                    <span className="text-[10px] font-black uppercase tracking-widest text-gray-400">Value & Grouping</span>
+                  </div>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div className="space-y-2">
+                      <Label htmlFor="price" className="text-xs font-bold text-gray-700 ml-1">Price (৳)</Label>
+                      <Input 
+                        id="price" 
+                        type="number" 
+                        defaultValue={product?.price} 
+                        className="h-12 rounded-xl border-gray-100 bg-white"
+                        {...register("price", { required: "Required" })} 
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="discounts" className="text-xs font-bold text-gray-700 ml-1">Discount %</Label>
+                      <Input 
+                        id="discounts" 
+                        type="number" 
+                        defaultValue={product?.discounts} 
+                        className="h-12 rounded-xl border-gray-100 bg-white"
+                        {...register("discounts")} 
+                      />
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
+                    <div className="space-y-2">
+                      <Label htmlFor="categoryId" className="text-xs font-bold text-gray-700 ml-1 flex items-center gap-2">
+                        <Database className="w-3.5 h-3.5 text-rose-500" />
+                        Market Category
+                      </Label>
+                      <select 
+                        id="categoryId" 
+                        defaultValue={product?.categoryId} 
+                        className="w-full h-12 rounded-xl border border-gray-100 bg-white px-3 text-sm font-medium focus:ring-2 focus:ring-rose-500/20 outline-none appearance-none cursor-pointer"
+                        {...register("categoryId")}
+                      >
+                        {categoryData?.data?.map((cat) => (
+                          <option key={cat.categoryId} value={cat.categoryId}>{cat.name}</option>
+                        ))}
+                      </select>
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="shopId" className="text-xs font-bold text-gray-700 ml-1 flex items-center gap-2">
+                        <Store className="w-3.5 h-3.5 text-rose-500" />
+                        Assign to Shop
+                      </Label>
+                      <select 
+                        id="shopId" 
+                        defaultValue={product?.shopId} 
+                        className="w-full h-12 rounded-xl border border-gray-100 bg-white px-3 text-sm font-medium focus:ring-2 focus:ring-rose-500/20 outline-none appearance-none cursor-pointer"
+                        {...register("shopId")}
+                      >
+                        {shopData?.data?.map((shop) => (
+                          <option key={shop.shopId} value={shop.shopId}>{shop.name}</option>
+                        ))}
+                      </select>
+                    </div>
+                  </div>
+                </div>
               </div>
 
-    );
-  }
-   
-  const BottomGradient = () => {
-    return (
-      <>
-        <span className="group-hover/btn:opacity-100 block transition duration-500 opacity-0 absolute h-px w-full -bottom-px inset-x-0 bg-gradient-to-r from-transparent via-cyan-500 to-transparent" />
-        <span className="group-hover/btn:opacity-100 blur-sm block transition duration-500 opacity-0 absolute h-px w-1/2 mx-auto -bottom-px inset-x-10 bg-gradient-to-r from-transparent via-indigo-500 to-transparent" />
-      </>
-    );
-  };
-   
-  const LabelInputContainer = ({
-    children,
-    className,
-  }: {
-    children: React.ReactNode;
-    className?: string;
-  }) => {
-    return (
-      <div className={cn("flex flex-col space-y-2 w-full", className)}>
-        {children}
-      </div>
-    )
+              {/* ─── Column Right: Presentation ─── */}
+              <div className="space-y-6">
+                <div className="space-y-2">
+                  <Label htmlFor="description" className="text-xs font-bold text-gray-700 ml-1 flex items-center gap-2">
+                    <AlignLeft className="w-4 h-4 text-rose-500" />
+                    Product Story
+                  </Label>
+                  <textarea
+                    id="description"
+                    defaultValue={product?.description}
+                    rows={6}
+                    className="w-full rounded-2xl border border-gray-100 bg-gray-50/50 p-4 text-sm font-medium focus:bg-white focus:ring-2 focus:ring-rose-500/20 outline-none transition-all resize-none"
+                    {...register("description")}
+                  />
+                </div>
+
+                <div className="space-y-2 pt-2">
+                  <Label className="text-xs font-bold text-gray-700 ml-1 flex items-center gap-2">
+                    <ImageIcon className="w-4 h-4 text-rose-500" />
+                    Item Visuals (Updates Catalog)
+                  </Label>
+                  <div className="rounded-[2.5rem] border-2 border-dashed border-gray-100 bg-gray-50/30 p-2 hover:border-rose-300 hover:bg-white transition-all">
+                    <FileUpload onChange={(fileList) => handleFileUpload(fileList as unknown as FileList)} />
+                  </div>
+                  <p className="text-[10px] text-gray-400 font-bold uppercase tracking-widest text-center mt-3">
+                    Supported: JPG, PNG • Max 5MB
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* ─── Submit Action ─── */}
+            <div className="pt-4 border-t border-gray-50">
+              <button
+                disabled={isPending || isUploading}
+                type="submit"
+                className="w-full h-16 rounded-2xl bg-gray-900 text-white font-black text-base hover:bg-rose-500 disabled:bg-gray-100 disabled:text-gray-400 transition-all shadow-xl hover:shadow-rose-100 flex items-center justify-center gap-3 active:scale-[0.98]"
+              >
+                {isPending || isUploading ? (
+                  <>
+                    <Loader2 className="w-6 h-6 animate-spin" />
+                    {isUploading ? "Processing Brand Assets..." : "Updating Listing..."}
+                  </>
+                ) : (
+                  <>
+                    Confirm & Publish Updates
+                    <ArrowRight className="w-5 h-5 opacity-50" />
+                  </>
+                )}
+              </button>
+            </div>
+          </form>
+        </div>
+      </Modalbox>
+    </div>
+  );
 };
 
 export default EditProduct;

@@ -1,57 +1,60 @@
+"use client";
 import { Modalbox } from "@/components/common/modal/Modalbox";
 import { DialogClose } from "@/components/ui/dialog";
 import { useDeleteProduct } from "@/hooks/product.hook";
 import { toast } from "sonner";
+import { Trash2, AlertTriangle, X, Trash } from "lucide-react";
 
 const DeleteProduct = ({ id }: { id: string }) => {
-    const { mutate } = useDeleteProduct();
+    const { mutate, isPending } = useDeleteProduct();
 
-  const deleteProductData = (id: string) => {
-    mutate(id, {
-      onSuccess: () => {
-        toast.success("Product deleted.");
-      },
-      onError: () => {
-        toast.error("Something went wrong! Try again.");
-      },
-    });
-  };
+    const handleDelete = () => {
+        mutate(id, {
+            onSuccess: () => {
+                toast.success("Product removed from inventory. 🗑️");
+                setTimeout(() => window.location.reload(), 1000);
+            },
+            onError: () => {
+                toast.error("Unable to delete product. Access denied.");
+            },
+        });
+    };
+
     return (
-    <div className="m-6">
+        <div>
             <Modalbox
-        size="icon"
-        variant="outline"
-        btncss="hover:text-red-500"
-        title="Are you sure?"
-        descrip="You won't be avail to revert this. Make sure you want to delete this product"
-        btnIcon={
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth="1.5"
-            stroke="currentColor"
-            className="size-6"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0"
-            />
-          </svg>
-        }
-      >
-        <div className="flex justify-center gap-10">
-          <DialogClose onClick={() => deleteProductData(id)}>
-            <p className=" bg-red-500 text-white rounded-md w-20 py-2">Yes</p>
-          </DialogClose>
-          <DialogClose>
-            <p className="bg-gray-950 text-white rounded-md w-20 py-2">No</p>
-          </DialogClose>
+                title="Permanent Deletion"
+                descrip="This action cannot be undone. Are you absolutely sure you want to remove this product from your shop?"
+                variant="ghost"
+                btncss="p-2 hover:bg-rose-50 text-gray-400 hover:text-rose-600 transition-all rounded-xl border border-gray-100 shadow-sm"
+                btnIcon={<Trash2 className="w-5 h-5" />}
+            >
+                <div className="mt-6 flex flex-col items-center">
+                    <div className="w-16 h-16 rounded-3xl bg-rose-50 text-rose-500 flex items-center justify-center mb-6 animate-pulse">
+                        <AlertTriangle className="w-8 h-8" />
+                    </div>
+
+                    <div className="flex gap-4 w-full">
+                        <DialogClose className="flex-1">
+                            <button className="w-full py-3.5 rounded-2xl bg-gray-50 text-gray-500 font-bold hover:bg-gray-100 transition-all flex items-center justify-center gap-2">
+                                <X className="w-4 h-4" />
+                                Preserve
+                            </button>
+                        </DialogClose>
+                        <DialogClose className="flex-1" onClick={handleDelete}>
+                            <button 
+                                disabled={isPending}
+                                className="w-full py-3.5 rounded-2xl bg-rose-500 text-white font-bold hover:bg-rose-600 transition-all shadow-lg shadow-rose-100 flex items-center justify-center gap-2"
+                            >
+                                <Trash className="w-4 h-4" />
+                                {isPending ? "Removing..." : "Delete Permanently"}
+                            </button>
+                        </DialogClose>
+                    </div>
+                </div>
+            </Modalbox>
         </div>
-      </Modalbox>
-    </div>
-    )
+    );
 };
 
 export default DeleteProduct;

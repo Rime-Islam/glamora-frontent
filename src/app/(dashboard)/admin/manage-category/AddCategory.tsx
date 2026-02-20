@@ -6,162 +6,131 @@ import { Input } from "@/components/ui/input";
 import { toast } from "sonner";
 import { useAddCategory } from "@/hooks/category.hook";
 import { ICategory } from "@/interface/category.interface";
-import { Meteors } from "@/components/ui/meteors";
 import { DeleteCategory } from "./DeleteCategory";
 import EditCategory from "./EditCategory";
-
-
+import { 
+    PlusCircle, 
+    Layers, 
+    Calendar, 
+    RefreshCcw, 
+    Shapes,
+    ArrowRight,
+    Zap
+} from "lucide-react";
 
 const AddCategory = ({ categories }: { categories: ICategory[] }) => {
     const { mutate, isPending } = useAddCategory();
-    if (!categories || categories.length === 0) {
-      return <div className="text-lg font-semibold">No Category Available</div>;
-    }
 
-  const addCategory = async (e: any) => {
-    e.preventDefault();
-    
-    mutate(e.target.name.value, {
-      onSuccess: () => {
-        toast.success("Category added.");
-      },
-      onError: () => {
-        toast.error("Duplicate Category! Try Again.");
-      },
-    });
-  };
+    const addCategory = async (e: any) => {
+        e.preventDefault();
+        mutate(e.target.name.value, {
+            onSuccess: () => {
+                toast.success("New classification deployment successful. ✨");
+                e.target.reset();
+            },
+            onError: () => {
+                toast.error("Naming conflict detected. Verification required.");
+            },
+        });
+    };
 
-  
     return (
- <div>
-           <div className="max-w-lg border w-full mx-auto mt-[5vh] rounded-none md:rounded-2xl p-4 md:p-8 shadow-input bg-white dark:bg-black">
-      <div>
-      <form onSubmit={addCategory} className="my-8" >
-            <h1 className="mb-8 text-xl font-bold">Create A Category</h1>
-          <LabelInputContainer className="mb-4">
-            <Label htmlFor="name">Category Name</Label>
-            <Input id="name" name="name" placeholder="Add A Category Name" type="text" 
-          required/>
-          </LabelInputContainer>
-          <button
-            className="bg-gradient-to-br mt-8 relative group/btn from-black dark:from-zinc-900 dark:to-zinc-900 to-neutral-600 block dark:bg-zinc-800 w-full text-white rounded-md h-10 font-medium shadow-[0px_1px_0px_0px_#ffffff40_inset,0px_-1px_0px_0px_#ffffff40_inset] dark:shadow-[0px_1px_0px_0px_var(--zinc-800)_inset,0px_-1px_0px_0px_var(--zinc-800)_inset]"
-            type="submit"
-          >
-            Create Category
-            <BottomGradient />
-          </button>
-        </form>
-      </div>
-      </div>
+        <div className="space-y-20">
+            {/* ─── Creation Section ─── */}
+            <div className="max-w-xl mx-auto">
+                <div className="bg-white p-8 sm:p-12 rounded-[3.5rem] border border-gray-100 shadow-2xl shadow-gray-200/50 relative overflow-hidden group">
+                    <div className="absolute top-0 right-0 p-8 opacity-[0.03] group-hover:rotate-12 transition-transform duration-1000">
+                        <PlusCircle className="w-40 h-40" />
+                    </div>
+                    
+                    <div className="relative z-10">
+                        <div className="flex items-center gap-4 mb-8">
+                            <div className="w-12 h-12 rounded-2xl bg-rose-500 text-white flex items-center justify-center shadow-lg shadow-rose-200">
+                                <PlusCircle className="w-6 h-6" />
+                            </div>
+                            <h2 className="text-2xl font-black text-gray-900 tracking-tight">Deploy Category</h2>
+                        </div>
 
-      {/* category cards  */}
-     
+                        <form onSubmit={addCategory} className="space-y-8">
+                            <div className="space-y-3">
+                                <Label htmlFor="name" className="text-[10px] font-black uppercase tracking-[0.2em] text-gray-400 ml-1">Official Assignment Name</Label>
+                                <Input 
+                                    id="name" 
+                                    name="name" 
+                                    placeholder="e.g. Advanced Logistics, Premium Apparel..." 
+                                    className="h-14 rounded-2xl border-gray-100 focus:border-rose-500 focus:ring-rose-500 transition-all text-sm font-bold placeholder:font-medium"
+                                    required
+                                />
+                            </div>
 
-   <div className="grid grid-cols-1 sm:grid-cols-2 mt-[5vh] md:grid-cols-3 lg:grid-cols-5 xl:grid-cols-6">
-   {
-       categories?.length ? categories?.map((category) => (
-        <div key={category?.categoryId} className="p-2">
-       <div className=" w-full relative max-w-xs h-88">
-        <div className="absolute inset-0 h-full w-full bg-gradient-to-r from-blue-500 to-teal-500 transform scale-[0.80] bg-red-500 rounded-full blur-3xl" />
-          <div className="relative shadow-xl bg-gray-900 border border-gray-800  px-4 py-8 h-full overflow-hidden rounded-2xl flex flex-col justify-end items-start">
-          <div className="h-5 w-5 rounded-full border flex items-center justify-center mb-4 border-gray-500">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth="1.5"
-              stroke="currentColor"
-              className="h-2 w-2 text-gray-300"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M4.5 4.5l15 15m0 0V8.25m0 11.25H8.25"
-              />
-            </svg>
-          </div>
- 
-          <h1 className="font-bold text-xl text-white mb-4 ">
-            {category?.name}
-          </h1>
- 
-          <p className="font-normal text-base text-slate-300 mb-4 ">
-          This is  <span className="font-bold text-gray-200">
-          {category.name}</span>, created on <span className="font-bold text-gray-300">
-          {" "}
-  {new Date(category.createdAt).toLocaleDateString([], {
-    year: "numeric",
-    month: "short",
-    day: "numeric",
-  })}{" "}
-          </span>
-  at <span className="font-bold text-gray-300">
-  {" "}
-  {new Date(category.createdAt).toLocaleTimeString([], {
-    hour: "2-digit",
-    minute: "2-digit",
-  })}{" "}
-  </span>
-  and last updated on <span className="font-bold text-gray-300">
-  {" "}
-  {new Date(category.updatedAt).toLocaleDateString([], {
-    year: "numeric",
-    month: "short",
-    day: "numeric",
-  })}{" "}
-  </span>
-  at <span className="font-bold text-gray-300">
-  {" "}
-  {new Date(category.updatedAt).toLocaleTimeString([], {
-    hour: "2-digit",
-    minute: "2-digit",
-  })}
-  </span>
-  .
-          </p>
-          {/* edit and delete button  */}
-          <div className=" w-full">
-            <div className="flex justify-evenly">
-            <DeleteCategory category={category}/>
-            <EditCategory category={category} />
+                            <button
+                                disabled={isPending}
+                                className="w-full h-14 bg-gray-900 text-white rounded-2xl font-black text-sm uppercase tracking-widest hover:bg-rose-600 transition-all duration-300 shadow-xl shadow-gray-100 flex items-center justify-center gap-3 disabled:opacity-50 group/btn"
+                                type="submit"
+                            >
+                                {isPending ? "Syncing..." : (
+                                    <>
+                                        Authorize Creation
+                                        <ArrowRight className="w-4 h-4 group-hover/btn:translate-x-1 transition-transform" />
+                                    </>
+                                )}
+                            </button>
+                        </form>
+                    </div>
+                </div>
             </div>
-          </div>
-          {/* Meaty part - Meteor effect */}
-          <Meteors number={20} />
+
+            {/* ─── Registry Section ─── */}
+            <div className="space-y-8">
+                <div className="flex items-center gap-4 px-2">
+                    <div className="w-10 h-10 rounded-xl bg-gray-50 flex items-center justify-center text-gray-400">
+                        <Shapes className="w-5 h-5" />
+                    </div>
+                    <h3 className="text-xl font-black text-gray-900 tracking-tight">Global Taxonomy Archive</h3>
+                </div>
+
+                {!categories || categories.length === 0 ? (
+                    <div className="py-24 bg-gray-50/50 rounded-[3rem] border border-dashed border-gray-200 flex flex-col items-center justify-center text-center">
+                        <Zap className="w-12 h-12 text-gray-200 mb-4" />
+                        <h4 className="text-lg font-black text-gray-900 mb-1">Archive Empty</h4>
+                        <p className="text-sm font-medium text-gray-400">No organizational classifications detected.</p>
+                    </div>
+                ) : (
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                        {categories.map((category, index) => (
+                            <div key={category?.categoryId} className="group bg-white border border-gray-100 p-8 rounded-[2.5rem] shadow-xl shadow-gray-200/40 hover:border-rose-200 hover:shadow-rose-100/50 transition-all duration-500 relative overflow-hidden flex flex-col h-full">
+                                {/* Ghost Typography */}
+                                <div className="absolute -top-4 -right-4 opacity-[0.02] rotate-12 group-hover:rotate-6 transition-transform duration-700">
+                                    <Layers className="w-40 h-40" />
+                                </div>
+
+                                <div className="relative z-10 flex flex-col h-full">
+                                    <div className="flex items-center justify-between mb-6">
+                                        <div className="w-12 h-12 rounded-2xl bg-gray-50 text-gray-400 flex items-center justify-center group-hover:bg-rose-50 group-hover:text-rose-500 transition-all">
+                                            <Layers className="w-6 h-6" />
+                                        </div>
+                                    </div>
+
+                                    <h4 className="text-xl font-black text-gray-900 tracking-tight mb-8 group-hover:text-rose-600 transition-colors">
+                                        {category?.name}
+                                    </h4>
+
+                                    <div className="mt-auto pt-6 border-t border-gray-50 flex items-center gap-3">
+                                        <div className="flex-1">
+                                            <EditCategory category={category} />
+                                        </div>
+                                        <div className="flex-1">
+                                            <DeleteCategory category={category}/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                )}
+            </div>
         </div>
-        </div>
-        </div>
-        )) : (
-          <div className="text-lg font-semibold">No Category Available</div>
-        )
-      }
-   </div>
-    </div>
- 
     );
-  }
-   
-  const BottomGradient = () => {
-    return (
-      <>
-        <span className="group-hover/btn:opacity-100 block transition duration-500 opacity-0 absolute h-px w-full -bottom-px inset-x-0 bg-gradient-to-r from-transparent via-cyan-500 to-transparent" />
-        <span className="group-hover/btn:opacity-100 blur-sm block transition duration-500 opacity-0 absolute h-px w-1/2 mx-auto -bottom-px inset-x-10 bg-gradient-to-r from-transparent via-indigo-500 to-transparent" />
-      </>
-    );
-  };
-   
-  const LabelInputContainer = ({
-    children,
-    className,
-  }: {
-    children: React.ReactNode;
-    className?: string;
-  }) => {
-    return (
-      <div className={cn("flex flex-col space-y-2 w-full", className)}>
-        {children}
-      </div>
-    )
 };
-  
+
 export default AddCategory;

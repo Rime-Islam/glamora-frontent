@@ -1,73 +1,61 @@
+"use client";
 import { Modalbox } from "@/components/common/modal/Modalbox";
 import { DialogClose } from "@/components/ui/dialog";
 import { useCloneProduct } from "@/hooks/product.hook";
 import { IProduct } from "@/interface/product.interface";
 import React from "react";
 import { toast } from "sonner";
+import { Copy, Check, X, AlertCircle } from "lucide-react";
 
 const CloneProduct = ({ data }: { data: Partial<IProduct> }) => {
-  const { mutate } = useCloneProduct();
+  const { mutate, isPending } = useCloneProduct();
 
-  const cloneProductData = (data: Partial<IProduct>) => {
+  const handleClone = () => {
     mutate(data, {
       onSuccess: () => {
-        toast.success("Product cloned.");
+        toast.success("Product successfully duplicated! ✨");
+        setTimeout(() => window.location.reload(), 1000);
       },
       onError: () => {
-        toast.error("Something went wrong! Try again.");
+        toast.error("Duplication failed. Please try again.");
       },
     });
   };
 
   return (
- <div className="m-6">
-       <Modalbox
-      size="icon"
-      variant="outline"
-      btncss="hover:text-red-500"
-      title="Are you sure?"
-      descrip="This product will be duplicated. Be sure before cloning this your product"
-      btnIcon={
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          strokeWidth={1.5}
-          stroke="currentColor"
-          className="size-6"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            d="M15.75 17.25v3.375c0 .621-.504 1.125-1.125 1.125h-9.75a1.125 1.125 0 0 1-1.125-1.125V7.875c0-.621.504-1.125 1.125-1.125H6.75a9.06 9.06 0 0 1 1.5.124m7.5 10.376h3.375c.621 0 1.125-.504 1.125-1.125V11.25c0-4.46-3.243-8.161-7.5-8.876a9.06 9.06 0 0 0-1.5-.124H9.375c-.621 0-1.125.504-1.125 1.125v3.5m7.5 10.375H9.375a1.125 1.125 0 0 1-1.125-1.125v-9.25m12 6.625v-1.875a3.375 3.375 0 0 0-3.375-3.375h-1.5a1.125 1.125 0 0 1-1.125-1.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H9.75"
-          />
-        </svg>
-      }
-    >
-      <div className="flex justify-center gap-10">
-        <DialogClose
-          onClick={() =>
-            cloneProductData({
-              name: data.name,
-              price: data.price,
-              stock: data.stock,
-              categoryId: data.categoryId,
-              shopId: data.shopId,
-              sizes: data.sizes,
-              images: data.images,
-              discounts: data.discounts,
-              description: data.description,
-            })
-          }
-        >
-          <p className=" bg-red-500 text-white rounded-md w-20 py-2">Yes</p>
-        </DialogClose>
-        <DialogClose>
-          <p className="bg-gray-950 text-white rounded-md w-20 py-2">No</p>
-        </DialogClose>
-      </div>
-    </Modalbox>
- </div>
+    <div>
+      <Modalbox
+        title="Duplicate Listing"
+        descrip="Are you sure you want to create a copy of this product? All specifications will be inherited."
+        variant="ghost"
+        btncss="p-2 hover:bg-rose-50 text-gray-400 hover:text-rose-600 transition-all rounded-xl border border-gray-100 shadow-sm"
+        btnIcon={<Copy className="w-5 h-5" />}
+      >
+        <div className="mt-6 flex flex-col items-center">
+            <div className="w-16 h-16 rounded-3xl bg-amber-50 text-amber-500 flex items-center justify-center mb-6">
+                <AlertCircle className="w-8 h-8" />
+            </div>
+            
+            <div className="flex gap-4 w-full">
+                <DialogClose className="flex-1">
+                    <button className="w-full py-3.5 rounded-2xl bg-gray-50 text-gray-500 font-bold hover:bg-gray-100 transition-all flex items-center justify-center gap-2">
+                        <X className="w-4 h-4" />
+                        Cancel
+                    </button>
+                </DialogClose>
+                <DialogClose className="flex-1" onClick={handleClone}>
+                    <button 
+                        disabled={isPending}
+                        className="w-full py-3.5 rounded-2xl bg-gray-900 text-white font-bold hover:bg-rose-500 transition-all shadow-lg hover:shadow-rose-100 flex items-center justify-center gap-2"
+                    >
+                        <Check className="w-4 h-4" />
+                        Confirm
+                    </button>
+                </DialogClose>
+            </div>
+        </div>
+      </Modalbox>
+    </div>
   );
 };
 
