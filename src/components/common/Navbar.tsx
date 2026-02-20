@@ -189,18 +189,18 @@ const Navbar = () => {
                 <div className="px-4 py-2 mb-1 border-b border-gray-50">
                    <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Available Categories</p>
                 </div>
-                {categoryData?.data?.map(({ categoryId, name }) => (
-                  <li key={categoryId}>
-                    <Link
-                      href="/product"
-                      onClick={() => dispatch(setCategoryId(categoryId))}
-                      className="py-2.5 rounded-xl hover:bg-rose-50 hover:text-rose-600 font-semibold text-sm flex items-center justify-between group/link"
-                    >
-                      {name}
-                      <ChevronDown className="-rotate-90 w-3.5 h-3.5 opacity-0 group-hover/link:opacity-100 transition-all -translate-x-2 group-hover/link:translate-x-0" />
-                    </Link>
-                  </li>
-                ))}
+                {categoryData?.data?.slice(0, 7).map(({ categoryId, name }) => (
+                <li key={categoryId}>
+                  <Link
+                    href="/product"
+                    onClick={() => dispatch(setCategoryId(categoryId))}
+                    className="py-2.5 rounded-xl hover:bg-rose-50 hover:text-rose-600 font-semibold text-sm flex items-center justify-between group/link"
+                  >
+                    {name}
+                    <ChevronDown className="-rotate-90 w-3.5 h-3.5 opacity-0 group-hover/link:opacity-100 transition-all -translate-x-2 group-hover/link:translate-x-0" />
+                  </Link>
+                </li>
+              ))}
               </ul>
             </div>
 
